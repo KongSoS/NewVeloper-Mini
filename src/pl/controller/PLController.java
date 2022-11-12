@@ -48,4 +48,14 @@ public class PLController {
 		
 	}
 
+	public void reserveEdit(String day, String time) {
+		// TODO Auto-generated method stub
+		//day를 date으로 가져와서 저장해야하는데
+	}
+
+	public void reserveCancel(int num) {
+		// TODO Auto-generated method stub
+		//
+	}
+
 }
