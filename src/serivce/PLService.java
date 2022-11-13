@@ -3,8 +3,12 @@
   */
 package serivce;
 
+
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.SqlSession;
+
+import static serivce.PLTemplate.getSession;
 import pl.model.dto.PLUserDTO;
 
 /**
@@ -16,7 +20,8 @@ import pl.model.dto.PLUserDTO;
   * @프로그램 설명 :
   */
 public class PLService {
-
+	
+	private PLMapper mapper;
 	/**
 	  * @Method Name : myPlaceList
 	  * @작성일 : 2022. 11. 11.
@@ -26,8 +31,10 @@ public class PLService {
 	  * @return
 	  */
 	public ArrayList<PLUserDTO> myPlaceList() {
-		// TODO Auto-generated method stub
-		return null;
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLMapper.class);
+		ArrayList<PLUserDTO> Plist = mapper.selectAllPlace();
+		return Plist;
 	}
 
 }
