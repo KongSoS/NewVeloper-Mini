@@ -33,7 +33,7 @@ public class PLTemplate {
 	public static SqlSession getSession() {
 		
 		if(sqlSessionFactory == null) {
-			String resource = "PL-config,xml";
+			String resource = "PL-config.xml";
 			InputStream inputStream;
 			
 			try {
