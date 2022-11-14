@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class PLMemberMenu {
 	private Scanner sc = new Scanner(System.in);
-	PLMemberMenu memberMenu = new PLMemberMenu();
+	PLMenu PMenu = new PLMenu();
 
 	/**
 	 * @Method Name : roginMenu
@@ -35,7 +35,7 @@ public class PLMemberMenu {
 
 			switch (no) {
 			case 1:
-
+				PMenu.mainMenu();
 				break;
 
 			case 2:
