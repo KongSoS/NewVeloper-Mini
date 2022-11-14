@@ -1,7 +1,7 @@
 /**
   * 
   */
-package serivce;
+package common;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,6 @@ public interface PLMapper {
 	  * @Method 설명 : 내저장소에 있는 장소를 다 보여준다.
 	  * @return
 	  */
-	@Select("SELECT NAME FROM NEWVELOPER")
 	ArrayList<PLUserDTO> selectAllPlace();
 
 }
