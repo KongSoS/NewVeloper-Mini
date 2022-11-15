@@ -121,7 +121,7 @@
 	<select id = "reserveInfo" parameterType="_int" resultMap = "reserveResultMap">
 		SELECT
 				A. MY_NAME
-				, TO_CHAR(TO_DATE('B. RESERVE_DAY','YYMMDD'),'RRRR-MM-DD') AS 예약일
+				, TO_CHAR(TO_DATE(B. RESERVE_DAY,'YYMMDD'),'RRRR-MM-DD') AS 예약일
 				, B. RESERVE_TIME
 			FROM MY_LIST A
 			JOIN RESERVATION B
@@ -151,11 +151,12 @@
 	</insert>
 
 	<update id="editReserve" parameterType="pl.model.dto.PLReservationDTO">
-        UPDATE RESERVATION
+       UPDATE RESERVATION
         SET
-      RESERVE_NO=SEQ_RESERVE_NO.NEXTVAL
+      
       , RESERVE_DAY =#{ reserve_day }
         , RESERVE_TIME=#{ reserve_time }
+        WHERE RESERVE_NO=#{ reserve_no }
         
         
        
