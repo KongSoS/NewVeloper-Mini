@@ -13,6 +13,7 @@ public class PLMenu {
 
 	private Scanner sc = new Scanner(System.in);
 	private PLController plController = new PLController();
+	
 	private PLMyListDTO myListDTO;
 	private PLController controller = new PLController();
 	private ResultView rv = new ResultView();
@@ -57,6 +58,11 @@ public class PLMenu {
 				break;
 			case 6:
 
+				
+				
+				
+				
+				
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");
