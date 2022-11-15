@@ -4,9 +4,12 @@
 package pl.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.serivce.PLService;
+import pl.view.ResultView;
 
 /**
   * @FileName : PLController.java
@@ -19,7 +22,6 @@ import pl.serivce.PLService;
 public class PLController {
 	
 	private final PLService plService;
-	
 
 	public PLController() {
 		plService = new PLService();
@@ -36,20 +38,22 @@ public class PLController {
 		int number = 1; // 내 저장소 번호
 		ArrayList<PLMyListDTO> list = plService.myPlaceList();
 		
-		for(PLMyListDTO pd : list) {
-			System.out.println("내저장소의 값 :" +number + ":"+ pd );
+		for (PLMyListDTO pd : list) {
+			System.out.println("내저장소의 값 :" + pd.getPl_name());
+
 		}
 	}
 
 	/**
-	  * @Method Name : addPlaceList
+	  * @param list 
+	 * @Method Name : addPlaceList
 	  * @작성일 : 2022. 11. 11.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 :
 	  */
-	public void addPlaceList() {
-		
+	public void addPlaceList(List<PLMyListAndCategoryDTO> list) {
+		list = plService.addPlaceList();
 	}
 
 }
