@@ -40,5 +40,38 @@ public class MoreInfoView {
 		System.out.println("0. 이전 메뉴로");
 		System.out.println("00. 메인 메뉴로");
 		System.out.println("=================================================");
+		switch(plListAndCategoryDTO.getPl_reserve()) {
+		case "Y":
+			System.out.println("3. 예약하기");
+			break;
+		}
+		System.out.println("0. 이전 메뉴로");
+		System.out.println("00. 메인 메뉴로");
+		System.out.println("=================================================");
+		String num2 = sc.next();
+
+
+		switch(num2) {
+		case "1":
+
+			break;
+		case "2":
+
+			break;
+		case "3":
+			PLReserveMenu rm = new PLReserveMenu();
+			PLReservationDTO rd = new PLReservationDTO();
+			rm.addReserve(rd.getMy_no());
+		case "0":
+			PLController controller = new PLController();
+			controller.reserveMine();
+			break;
+		case "00":
+
+			break;
+		default:
+			System.out.println("잘못 입력하셨습니다");
+			return;
+		}
 	}
 }
