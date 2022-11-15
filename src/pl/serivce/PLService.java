@@ -12,6 +12,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import pl.model.dao.PLDAO;
+import pl.model.dto.PLCategoryDTO;
+import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLRservationDTO;
@@ -93,6 +95,104 @@ public class PLService {
 		return result > 0? true: false;
 	}
 
+/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public ArrayList<PLListAndCategoryDTO> selectAllName() {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		
+		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllName();
+		
+		session.close();
+		
+		return placeList;
+	}
+	
+	
+	/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public ArrayList<PLListAndCategoryDTO> selectAllAddress() {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		
+		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllAddress();
+		
+		session.close();
+		
+		return placeList;
+	}
+
+	/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public ArrayList<PLListAndCategoryDTO> selectAllScore() {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		
+		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllScore();
+		
+		session.close();
+		
+		return placeList;
+	}
+
+	/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public ArrayList<PLListAndCategoryDTO> selectAllCategory() {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		
+		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllCategory();
+		
+		session.close();
+		
+		return placeList;
+	}
+
+
+
+//	/**
+//	 * @FileName : PLService.java
+//	 * @Project : NewVeloper_mini
+//	 * @Date : 2022. 11. 15.
+//	 * @작성자 : jihee
+//	 * @변경이력 :
+//	 * @프로그램 설명 : 
+//	 */
+//	public ArrayList<PLCategoryDTO> selectOnlyCategory() {
+//		SqlSession session = getSession();
+//		mapper = session.getMapper(PLDAO.class);
+//		
+//		ArrayList<PLCategoryDTO> category = mapper.selectOnlyCategory();
+//		
+//		session.close();
+//		
+//		return category;
+//	}
+
 	public boolean cancelReserve(int num) {
 		SqlSession session = getSession();
 	
@@ -109,4 +209,7 @@ public class PLService {
 		
 		return result > 0? true: false;
 	}
+  
+  
+  
 }
