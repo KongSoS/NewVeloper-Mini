@@ -5,6 +5,8 @@ package pl.controller;
 
 import java.util.ArrayList;
 
+import pl.model.dto.PLCategoryDTO;
+import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.serivce.PLService;
 
@@ -60,6 +62,143 @@ public class PLController {
 	public void reserveCancel(int num) {
 		// TODO Auto-generated method stub
 		//
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void selectAllName() {
+		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllName();
+		
+		if(placeList != null) {
+			for(PLListAndCategoryDTO list : placeList) {
+				System.out.print(list.getPl_no() + " ");
+				System.out.println(list.getPl_name());
+				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
+			}
+		} else {
+			System.out.println("에러발생");
+		}
+		
+	}
+
+	/**
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void selectAllAddress() {
+		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllAddress();
+		
+		if(placeList != null) {
+			for(PLListAndCategoryDTO list : placeList) {
+				System.out.print(list.getRownum() + " | ");
+				System.out.print(list.getPl_name() + " | ");
+				System.out.println(list.getPl_address());
+				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
+			}
+		} else {
+			System.out.println("에러발생");
+		}
+		
+	}
+
+	/**
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void selectAllScore() {
+		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllScore();
+		
+		if(placeList != null) {
+			for(PLListAndCategoryDTO list : placeList) {
+				System.out.print(list.getRownum() + " | ");
+				System.out.print(list.getPl_name() + " | ");
+				System.out.println(list.getScore() + "점");
+				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
+			}
+		} else {
+			System.out.println("에러발생");
+		}
+	}
+
+	/**
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void selectAllCategory() {
+		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllCategory();
+	//	ArrayList<PLCategoryDTO> category = plService.selectOnlyCategory();
+		
+		if(placeList != null) {
+			for(PLListAndCategoryDTO list : placeList) {
+					System.out.print(list.getRownum() + " | ");
+					System.out.println(list.getPl_name() + " | ");
+			}
+		} else {
+			System.out.println("에러발생");
+		}
+		
 	}
 
 }

@@ -2,19 +2,189 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pl.model.dao.PLDAO">
 
-<resultMap type="pl.model.dto.PLMyListDTO" id="listMap">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<resultMap type="pl.model.dto.PLListAndCategoryDTO" id="myListAllResultMap">
 	<id property="pl_no" column="MY_NO"/>
+	<result property="rownum" column="ROWNUM"/>
 	<result property="pl_name" column="MY_NAME"/>
 	<result property="pl_address" column="MY_ADDRESS"/>
 	<result property="pl_tel" column="MY_TEL"/>
 	<result property="score" column="MY_SCORE"/>
-	<result property="pl_catecode" column="MY_CATECODE"/>
 	<result property="pl_reserve" column="MY_RESERVE"/>
+	<association property="category" resultMap="categoryResultMap"/>
+</resultMap>
+<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
+	<id property="category_code" column="CATEGORY_CODE"/>
+	<result property="category_name" column="CATEGORY_NAME"/>
+</resultMap>
+
+	<select id="selectAllPlace" resultMap="myListAllResultMap">
+		SELECT * FROM MY_LIST
+	</select>
+
+
+	
+<resultMap type="pl.model.dto.PLListAndCategoryDTO" id="plListAllResultMap">
+	<id property="pl_no" column="PL_NO"/>
+	<result property="rownum" column="ROWNUM"/>
+	<result property="pl_name" column="PL_NAME"/>
+	<result property="pl_address" column="PL_ADDRESS"/>
+	<result property="pl_tel" column="PL_TEL"/>
+	<result property="score" column="SCORE"/>
+	<result property="pl_reserve" column="PL_RESERVE"/>
+	<association property="category" resultMap="categoryResultMap"/>
+</resultMap>
+<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
+	<id property="category_code" column="CATEGORY_CODE"/>
+	<result property="category_name" column="CATEGORY_NAME"/>
 </resultMap>
 
 
-	<select id="selectAllPlace" resultMap="listMap">
-		SELECT * FROM MY_LIST
+	<select id="selectAllName" resultMap="plListAllResultMap">
+		SELECT
+			A.*,
+			B.*
+		FROM PLACE_LIST A
+		JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
 	</select>
+
+
+	<select id="selectAllAddress" resultMap="plListAllResultMap">
+		SELECT 
+			ROWNUM,
+			A.*
+		FROM (
+			 SELECT *
+			 FROM PLACE_LIST
+			 ORDER BY PL_ADDRESS 
+		) A
+	</select>
+	
+	
+	<select id="selectAllScore" resultMap="plListAllResultMap">
+		SELECT  
+			ROWNUM,
+			SS.*
+		FROM (
+				SELECT *
+				FROM PLACE_LIST A
+				ORDER BY A.SCORE DESC
+			) SS
+	</select>
+	
+	<select id="selectAllCategory" resultMap="plListAllResultMap">
+		SELECT  
+			ROWNUM,
+			CS.*
+		FROM (
+				SELECT 
+					A.*,
+					B.*
+				FROM PLACE_LIST A
+				JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+				ORDER BY A.PL_CATECODE
+			)CS
+	</select>
+	
+	<select id="selectOnlyCategory" resultMap="categoryResultMap">
+		SELECT 
+			B.CATEGORY_CODE ,
+			B.CATEGORY_NAME
+		FROM PLACE_LIST A
+		JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+		ORDER BY A.PL_CATECODE
+	</select>
+	
+
 
 </mapper>
