@@ -16,5 +16,75 @@
 	<select id="selectAllPlace" resultMap="listMap">
 		SELECT * FROM MY_LIST
 	</select>
+	
+<resultMap type = "pl.model.dto.PLRservationDTO" id = "reserveResultMap">
+		<id property = "reserve_no" column = "RESERVE_NO"/>
+		<result property = "user_no" column ="USER_NO"/>
+		<result property = "my_no" column ="MY_NO"/>
+		<result property = "reserve_day" column ="RESERVE_DAY"/>
+		<result property = "reserve_time" column ="RESERVE_TIME"/>
+	</resultMap>
 
+	<select id = "reserveMine" resultMap = "reserveResultMap">
+		SELECT
+				A. RESERVE_NO
+				, B. MY_NAME
+			FROM RESERVATION A
+			JOIN PLACE_LIST B
+			ON A.MY_NO = B.MY_NO
+--JOIN USER C
+--ON B.USER_NO = C.USER_NO
+--WHERE B.USER_NO = ?
+--;
+	</select>
+
+	<select id = "reserveInfo" parameterType="_int" resultMap = "reserveResultMap">
+		SELECT
+				A. PL_NAME
+				, B. RESERVE_DAY <!-- 여기서 TO_DATE을 쓸지-->
+				, B. RESERVE_TIME
+			FROM PLACE_LIST A
+			JOIN RESERVATION B
+			ON A.MY_NO = B.MY_NO
+--JOIN USER C
+--ON B.USER_NO = C.USER_NO
+--WHERE B.USER_NO = ?
+--;
+			WHERE B.RESERVE_NO = #{ reserve_no }
+	</select>
+	
+	<insert id="addReserve" parameterType="pl.model.dto.PLRservationDTO">
+        INSERT
+          INTO RESERVATION
+        (
+         RESERVE_DAY
+        , RESERVE_TIME
+        )
+        VALUES
+        (
+          SEQ_MENU_CODE.NEXTVAL
+        , #{ reserve_day }
+        , #{ reserve_time }
+        )
+	</insert>
+
+	<update id="editReserve" parameterType="pl.model.dto.PLRservationDTO">
+        UPDATE RESERVATION
+        SET
+      
+       RESERVE_DAY =#{ reserve_day }
+        , RESERVE_TIME=#{ reserve_time }
+        
+        WHERE RESERVE_NO = #{ reserve_no }
+       
+        
+	</update>
+	
+	<delete id="cancelReserve" parameterType="_int">
+        DELETE
+          FROM RESERVATION
+       	 WHERE RESERVE_NO = #{ reserve_no }
+        
+	</delete>
+	
 </mapper>
