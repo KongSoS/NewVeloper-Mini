@@ -8,6 +8,7 @@ import java.util.List;
 
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
+import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLRservationDTO;
 
@@ -26,10 +27,10 @@ public interface PLDAO {
 	  * @작성일 : 2022. 11. 14.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 :
+	  * @Method 설명 : 내 장소의 전체 리스트 출력
 	  * @return
 	  */
-	ArrayList<PLMyListDTO> selectAllPlace();
+	ArrayList<PLListAndCategoryDTO> selectAllPlace();
 
 	/**
 	 * @FileName : PLDAO.java
@@ -90,6 +91,16 @@ public interface PLDAO {
 	int editReserve(PLRservationDTO re);
 
 	int cancelReserve(int num);
+
+	/**
+	  * @Method Name : insertPlace
+	  * @작성일 : 2022. 11. 15.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 :
+	  * @return
+	  */
+	ArrayList<PLMyListAndCategoryDTO> insertPlace();
 
 	
 }

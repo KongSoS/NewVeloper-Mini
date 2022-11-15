@@ -83,17 +83,21 @@
 	<result property="pl_tel" column="MY_TEL"/>
 	<result property="score" column="MY_SCORE"/>
 	<result property="pl_reserve" column="MY_RESERVE"/>
-	<association property="category" resultMap="categoryResultMap"/>
+	<association property="category" resultMap="myCategoryResultMap"/>
 </resultMap>
-<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
+<resultMap type="pl.model.dto.PLCategoryDTO" id="myCategoryResultMap">
 	<id property="category_code" column="CATEGORY_CODE"/>
 	<result property="category_name" column="CATEGORY_NAME"/>
 </resultMap>
 
 	<select id="selectAllPlace" resultMap="myListAllResultMap">
-		SELECT * FROM MY_LIST
+		SELECT * 
+		FROM MY_LIST a
+		JOIN CATEGORY b ON a.MY_CATECODE = b.CATEGORY_CODE
 	</select>
 	
+	
+
 <resultMap type = "pl.model.dto.PLRservationDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>
