@@ -13,7 +13,7 @@ public class PLMenu {
 
 	private Scanner sc = new Scanner(System.in);
 	private PLController plController = new PLController();
-  private PLReserveMenu remenu = new PLReserveMenu();
+  
 	private PLMyListDTO myListDTO;
 	private PLController controller = new PLController();
 	private ResultView rv = new ResultView();
@@ -60,7 +60,7 @@ public class PLMenu {
 
 				break;
 			case 6:
-				remenu.reserveMine();  //클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
+				plController.reserveMine();  //클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
 				
 				break;
 			case 0:
@@ -102,7 +102,7 @@ private void selectSort() {
 	}
 	
 
-}
+
 
 
 

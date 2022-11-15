@@ -143,6 +143,7 @@
         , #{ reserve_day }
         , #{ reserve_time }
         )
+        --WHERE RESERVE_NO = #{ reserve_no }
 	</insert>
 
 	<update id="editReserve" parameterType="pl.model.dto.PLRservationDTO">

@@ -16,7 +16,7 @@ import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
-import pl.model.dto.PLRservationDTO;
+import pl.model.dto.PLReservationDTO;
 
 /**
   * @FileName : PLService.java
@@ -52,14 +52,14 @@ public class PLService {
 		return null;
 	}
 
-	public List<PLRservationDTO> reserveMine() {
+	public List<PLReservationDTO> reserveMine() {
 		
 		
 		SqlSession session = getSession();
 		
 		mapper = session.getMapper(PLDAO.class);
 		
-		List<PLRservationDTO> reserveList = mapper.reserveMine();
+		List<PLReservationDTO> reserveList = mapper.reserveMine();
 		
 		session.close();
 		
@@ -67,18 +67,18 @@ public class PLService {
 }
 
 
-	public PLRservationDTO reserveInfo(int num) {
+	public PLReservationDTO reserveInfo(int num) {
 		SqlSession session = getSession();
 	
 		mapper = session.getMapper(PLDAO.class);
-		PLRservationDTO menu = mapper.reserveInfo(num);
+		PLReservationDTO menu = mapper.reserveInfo(num);
 	
 		session.close();
 	
 		return menu;
 	}
 
-	public boolean editReserve(PLRservationDTO re) {
+	public boolean editReserve(PLReservationDTO re) {
 		SqlSession session = getSession();
 	
 		mapper = session.getMapper(PLDAO.class);

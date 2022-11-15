@@ -11,7 +11,7 @@ import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
-import pl.model.dto.PLRservationDTO;
+import pl.model.dto.PLReservationDTO;
 import pl.serivce.PLService;
 import pl.view.ResultView;
 
@@ -60,19 +60,20 @@ public class PLController {
 	}
 
 	public void reserveMine() {
-		// TODO Auto-generated method stub
-		List<PLRservationDTO> reserveList = plService.reserveMine();
+		ResultView print = new ResultView();
+		List<PLReservationDTO> reserveList = plService.reserveMine();
+		PLMyListDTO pd = new PLMyListDTO();
 		if(reserveList != null) {
-			//print.printReserveList(reserveList);
+			print.printReserveList(reserveList, pd);
 		} else {
 			System.out.println("예약 목록 조회 실패");
 		}
 	}
 	public void reserveInfo(int num) {
-		// TODO Auto-generated method stub
-		PLRservationDTO menu = plService.reserveInfo(num);
+		ResultView print = new ResultView();
+		PLReservationDTO menu = plService.reserveInfo(num);
 		if(menu != null) {
-			//print.printMenu(menu);
+			print.printMenu(menu);
 		} else {
 			System.out.println("예약 내역 조회 실패");
 		
@@ -81,7 +82,7 @@ public class PLController {
 }
 	public void editReserve(int num, String day, String time) {
 		// TODO Auto-generated method stub
-		PLRservationDTO re = new PLRservationDTO();
+		PLReservationDTO re = new PLReservationDTO();
 		re.setReserve_no(num);
 		re.setReserve_day(day);
 		re.setReserve_time(time);
