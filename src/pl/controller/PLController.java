@@ -5,7 +5,7 @@ package pl.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import pl.view.subView;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
@@ -68,7 +68,7 @@ public class PLController {
 	}
 
 	public void reserveMine() {
-		ResultView print = new ResultView();
+		subView print = new subView();
 		List<PLReservationDTO> reserveList = plService.reserveMine();
 		PLMyListDTO pd = new PLMyListDTO();
 		if(reserveList != null) {
@@ -78,7 +78,7 @@ public class PLController {
 		}
 	}
 	public void reserveInfo(int num) {
-		ResultView print = new ResultView();
+		subView print = new subView();
 		PLReservationDTO menu = plService.reserveInfo(num);
 		
 		if(menu != null) {

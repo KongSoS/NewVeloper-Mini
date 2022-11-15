@@ -96,9 +96,6 @@
 		JOIN CATEGORY b ON a.MY_CATECODE = b.CATEGORY_CODE
 	</select>
 	 
-<resultMap type = "pl.model.dto.PLReservationDTO" id = "reserveResultMap">
-	
-	
 
 <resultMap type = "pl.model.dto.PLRservationDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>

@@ -2,11 +2,12 @@
   * 
   */
 package pl.view;
+import java.util.Date;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import java.text.SimpleDateFormat;
 import pl.controller.PLController;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListAndCategoryDTO;
@@ -238,8 +239,8 @@ public class subView {
 			controller.reserveMine();
 			break;
 		case "00":
-			PLMenu menu = new PLMenu();
-			menu.mainMenu();//PlaceList호출
+			PLMenu pl = new PLMenu();
+			pl.mainMenu();//PlaceList호출
 			break;
 		default:
 			System.out.println("잘못 입력하셨습니다");
