@@ -28,20 +28,19 @@ public class PLController {
 	}
 
 	/**
-	  * @Method Name : myPlaceList
+	  * @return 
+	 * @Method Name : myPlaceList
 	  * @작성일 : 2022. 11. 11.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 : 내가 저장한 장소를 전체 출력
 	  */
-	public void myPlaceList() {
+	public List<PLMyListDTO> myPlaceList() {
 		int number = 1; // 내 저장소 번호
 		ArrayList<PLMyListDTO> list = plService.myPlaceList();
 		
-		for (PLMyListDTO pd : list) {
-			System.out.println("내저장소의 값 :" + pd.getPl_name());
-
-		}
+	
+		return list;
 	}
 
 	/**

@@ -14,6 +14,8 @@ public class PLMenu {
 	private Scanner sc = new Scanner(System.in);
 	private PLController plController = new PLController();
 	private PLMyListDTO myListDTO;
+	private PLController controller = new PLController();
+	private ResultView rv = new ResultView();
 
 	/**
 	 * @Method Name : mainMenu
@@ -42,7 +44,7 @@ public class PLMenu {
 
 				break;
 			case 2:
-				plController.myPlaceList();
+				myPlaceList();
 				break;
 			case 3:
 				plController.addPlaceList(inputSubMenu());
@@ -66,6 +68,34 @@ public class PLMenu {
 
 		} while (true);
 
+	}
+
+	/**
+	  * @Method Name : myPlaceList
+	  * @작성일 : 2022. 11. 15.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 :전체리스트를 받는 리스트
+	  */
+	private void myPlaceList() {
+		int num=0;
+		int input;
+		List<PLMyListDTO> list = controller.myPlaceList();
+		System.out.println(list.size());
+		System.out.println("=========== 내 장소 ===========");
+		for(PLMyListDTO pd : list) {
+			num++;
+			System.out.println(num + "." + pd.getPl_name());			
+		}
+		
+		System.out.println("==============================");
+		System.out.print("번호를 입력하세요 : ");
+		input = sc.nextInt();
+		
+		rv.MoreInfo(list.get(input-1));
+		
+		
+		
 	}
 
 	/**
