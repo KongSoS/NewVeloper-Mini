@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import pl.model.dao.PLDAO;
+import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLRservationDTO;
 
@@ -31,27 +32,24 @@ public class PLService {
 	  * @작성일 : 2022. 11. 11.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 :
+	  * @Method 설명 : 내 장소 전체를 보여주는 메소드
 	  * @return
 	  */
 	public ArrayList<PLMyListDTO> myPlaceList() {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
 		ArrayList<PLMyListDTO> Plist = mapper.selectAllPlace();
+		
+		session.close();
 		return Plist;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public List<PLMyListAndCategoryDTO> addPlaceList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public List<PLRservationDTO> reserveMine() {
 		
 		
@@ -65,6 +63,7 @@ public class PLService {
 		
 		return reserveList;
 }
+
 
 	public PLRservationDTO reserveInfo(int num) {
 		SqlSession session = getSession();

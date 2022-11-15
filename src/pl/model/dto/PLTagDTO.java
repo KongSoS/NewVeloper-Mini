@@ -18,6 +18,12 @@ public class PLTagDTO {
 	 * @param tag_code 테그 코드
 	 * @param tag_name 테그 이름
 	 */
+	/**
+	 * 
+	 */
+	public PLTagDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	public PLTagDTO( String tag_code, String tag_name) {
 		super();
 		this.tag_code = tag_code;
