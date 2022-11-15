@@ -37,10 +37,10 @@ public class PLService {
 	  * @Method 설명 : 내 장소 전체를 보여주는 메소드
 	  * @return
 	  */
-	public ArrayList<PLMyListDTO> myPlaceList() {
+	public ArrayList<PLListAndCategoryDTO> myPlaceList() {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
-		ArrayList<PLMyListDTO> Plist = mapper.selectAllPlace();
+		ArrayList<PLListAndCategoryDTO> Plist = mapper.selectAllPlace();
 		
 		session.close();
 		return Plist;
@@ -48,8 +48,12 @@ public class PLService {
 	
 
 	public List<PLMyListAndCategoryDTO> addPlaceList() {
-		// TODO Auto-generated method stub
-		return null;
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		ArrayList<PLMyListAndCategoryDTO> Plist = mapper.insertPlace();
+		
+		session.close();
+		return Plist;
 	}
 
 	public List<PLRservationDTO> reserveMine() {

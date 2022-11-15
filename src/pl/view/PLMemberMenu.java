@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @Date : 2022. 11. 11.
  * @작성자 : heojaehong
  * @변경이력 :
- * @프로그램 설명 :
+ * @프로그램 설명 : 첫번째 화면
  */
 public class PLMemberMenu {
 	private Scanner sc = new Scanner(System.in);
