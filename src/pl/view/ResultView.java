@@ -32,6 +32,7 @@ public class ResultView {
 	  * @param plMyListDTO
 	  */
 	public void MoreInfo(PLMyListDTO pd) {
+		Scanner sc = new Scanner(System.in);
 		int num;
 		System.out.println("==================== 장소 정보 ====================");
 		System.out.println("이름 : " + pd.getPl_name());
@@ -44,16 +45,46 @@ public class ResultView {
 		System.out.println();
 		System.out.println("1. 장소 수정");
 		System.out.println("2. 장소 삭제");
+		switch(pd.getPl_reserve()) {
+		case "Y":
+			System.out.println("3. 예약하기");
+			break;
+		}
 		System.out.println("0. 이전 메뉴로");
 		System.out.println("00. 메인 메뉴로");
 		System.out.println("=================================================");
+		String num2 = sc.next();
 		
+		
+		switch(num2) {
+		case "1":
+			
+			break;
+		case "2":
+			
+			break;
+		case "3":
+			PLReserveMenu rm = new PLReserveMenu();
+			PLReservationDTO rd = new PLReservationDTO();
+			rm.addReserve(rd.getMy_no());
+		case "0":
+			PLController controller = new PLController();
+			controller.reserveMine();
+			break;
+		case "00":
+			
+			break;
+		default:
+			System.out.println("잘못 입력하셨습니다");
+			return;
+		}
 	}
 	public void printReserveList(List<PLReservationDTO> reserveList, PLMyListDTO pd) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("=============내 예약===============");
 		for(int i = 1 ; i<=reserveList.size(); i++) {
 			//예약된 길이만큼 i를 반복해야함
+			//if() my_no와 pl_no가 같으면
 			System.out.println(i+". "+pd.getPl_name());
 			//dto에서 장소 이름을 받아와야함
 		}

@@ -209,7 +209,25 @@ public class PLService {
 		
 		return result > 0? true: false;
 	}
-  
+
+
+	public boolean addReserve(PLReservationDTO re) {
+		// TODO Auto-generated method stub
+		SqlSession session = getSession();
+		
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.addReserve(re);
+	
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+	
+		session.close();
+	
+		return result > 0? true: false;
+	}
   
   
 }

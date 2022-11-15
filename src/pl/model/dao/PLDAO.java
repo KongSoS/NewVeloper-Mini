@@ -91,5 +91,7 @@ public interface PLDAO {
 
 	int cancelReserve(int num);
 
+	int addReserve(PLReservationDTO re);
+
 	
 }

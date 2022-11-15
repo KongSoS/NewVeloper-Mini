@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pl.model.dao.PLDAO">
 
-
+<!-- 
 <resultMap type="pl.model.dto.PLListAndCategoryDTO" id="plListAllResultMap">
 	<id property="pl_no" column="PL_NO"/>
 	<result property="rownum" column="ROWNUM"/>
@@ -11,7 +11,7 @@
 	<result property="pl_tel" column="PL_TEL"/>
 	<result property="score" column="SCORE"/>
 	<result property="pl_reserve" column="PL_RESERVE"/>
-	<association property="category" resultMap="categoryResultMap"/>
+	<association property="category" resultMap="categoryResultMap"/> 
 </resultMap>
 <resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
 	<id property="category_code" column="CATEGORY_CODE"/>
@@ -93,8 +93,8 @@
 	<select id="selectAllPlace" resultMap="myListAllResultMap">
 		SELECT * FROM MY_LIST
 	</select>
-	
-<resultMap type = "pl.model.dto.PLRservationDTO" id = "reserveResultMap">
+	 -->
+<resultMap type = "pl.model.dto.PLReservationDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>
 		<result property = "my_no" column ="MY_NO"/>
@@ -130,30 +130,31 @@
 			WHERE B.RESERVE_NO = #{ reserve_no }
 	</select>
 	
-	<insert id="addReserve" parameterType="pl.model.dto.PLRservationDTO">
+	<insert id="addReserve" parameterType="pl.model.dto.PLReservationDTO">
         INSERT
-          INTO RESERVATION
+          INTO RESERVATION A
         (
-         RESERVE_DAY
-        , RESERVE_TIME
+        A.RESERVE_NO
+        , A.RESERVE_DAY
+        , A.RESERVE_TIME
         )
         VALUES
         (
-          SEQ_MENU_CODE.NEXTVAL
+          SEQ_RESERVE_NO.NEXTVAL
         , #{ reserve_day }
         , #{ reserve_time }
         )
-        --WHERE RESERVE_NO = #{ reserve_no }
+        
 	</insert>
 
-	<update id="editReserve" parameterType="pl.model.dto.PLRservationDTO">
+	<update id="editReserve" parameterType="pl.model.dto.PLReservationDTO">
         UPDATE RESERVATION
         SET
-      
-       RESERVE_DAY =#{ reserve_day }
+      RESERVE_NO=SEQ_RESERVE_NO.NEXTVAL
+      , RESERVE_DAY =#{ reserve_day }
         , RESERVE_TIME=#{ reserve_time }
         
-        WHERE RESERVE_NO = #{ reserve_no }
+        
        
         
 	</update>

@@ -13,7 +13,7 @@ public class PLMenu {
 
 	private Scanner sc = new Scanner(System.in);
 	private PLController plController = new PLController();
-  
+  private PLReserveMenu rm = new PLReserveMenu();
 	private PLMyListDTO myListDTO;
 	private PLController controller = new PLController();
 	private ResultView rv = new ResultView();

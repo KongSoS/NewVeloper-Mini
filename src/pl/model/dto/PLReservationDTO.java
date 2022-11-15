@@ -2,7 +2,7 @@ package pl.model.dto;
 
 public class PLReservationDTO {
 	private int reserve_no;
-	private int user_no;
+	private int user_no=1;
 	private int my_no;
 	private String reserve_day;
 	private String reserve_time;

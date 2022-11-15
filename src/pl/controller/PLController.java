@@ -72,7 +72,9 @@ public class PLController {
 	public void reserveInfo(int num) {
 		ResultView print = new ResultView();
 		PLReservationDTO menu = plService.reserveInfo(num);
+		
 		if(menu != null) {
+			menu.setReserve_no(num);
 			print.printMenu(menu);
 		} else {
 			System.out.println("예약 내역 조회 실패");
@@ -94,8 +96,9 @@ public class PLController {
 		}
 	}
 	public void cancelReserve(int num) {
-		// TODO Auto-generated method stub
+		// cancel에는 num을 setter로 전달하지 않은 상태이다.... 예시가 달라서 전달해야할 것 같기도..
 		if(plService.cancelReserve(num)) {
+			
 			System.out.println("예약 취소 성공");
 		} else {
 			System.out.println("예약 취소 실패");
@@ -237,6 +240,20 @@ public class PLController {
 			System.out.println("에러발생");
 		}
 		
+	}
+
+	public void addReserve(int num, String day, String time) {
+		// TODO Auto-generated method stub
+		PLReservationDTO re = new PLReservationDTO();
+		re.setReserve_no(num);
+		re.setReserve_day(day);
+		re.setReserve_time(time);
+		
+		if(plService.addReserve(re)) {
+			System.out.println("예약 성공");
+		} else {
+			System.out.println("예약 실패");
+		}
 	}
 
 }
