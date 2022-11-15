@@ -83,7 +83,7 @@
 	<result property="pl_tel" column="MY_TEL"/>
 	<result property="score" column="MY_SCORE"/>
 	<result property="pl_reserve" column="MY_RESERVE"/>
-	<association property="category" resultMap="categoryResultMap"/>
+	<association property="category" resultMap="myCategoryResultMap"/>
 </resultMap>
 <resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
 	<id property="category_code" column="CATEGORY_CODE"/>
@@ -118,7 +118,7 @@
 	<select id = "reserveInfo" parameterType="_int" resultMap = "reserveResultMap">
 		SELECT
 				A. MY_NAME
-				, B. RESERVE_DAY <!-- 여기서 TO_DATE을 쓸지-->
+				, TO_CHAR(TO_DATE('B. RESERVE_DAY','YYMMDD'),'RRRR-MM-DD') AS 예약일
 				, B. RESERVE_TIME
 			FROM MY_LIST A
 			JOIN RESERVATION B

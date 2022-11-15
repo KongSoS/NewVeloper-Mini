@@ -45,7 +45,7 @@ public class PLMenu {
 
 			switch (no) {
 			case 1:
-        seletSort();
+        //seletSort();
 				break;
 			case 2:
 				myPlaceList();
