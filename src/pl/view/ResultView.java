@@ -95,7 +95,8 @@ public class ResultView {
 		System.out.println();
 		
 		if(num==0) {
-			//PlaceList호출
+			PLMenu menu = new PLMenu();
+			menu.mainMenu();//PlaceList호출
 		}
 		else if(num <=reserveList.size()){
 			PLReserveMenu rm = new PLReserveMenu();
@@ -164,7 +165,8 @@ public class ResultView {
 			controller.reserveMine();
 			break;
 		case "00":
-			//PlaceList호출
+			PLMenu plm = new PLMenu();
+			plm.mainMenu();//PlaceList호출
 			break;
 		default:
 			System.out.println("잘못 입력하셨습니다");

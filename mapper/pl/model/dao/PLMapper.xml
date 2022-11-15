@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pl.model.dao.PLDAO">
 
-<!-- 
+ 
 <resultMap type="pl.model.dto.PLListAndCategoryDTO" id="plListAllResultMap">
 	<id property="pl_no" column="PL_NO"/>
 	<result property="rownum" column="ROWNUM"/>
@@ -93,7 +93,7 @@
 	<select id="selectAllPlace" resultMap="myListAllResultMap">
 		SELECT * FROM MY_LIST
 	</select>
-	 -->
+	 
 <resultMap type = "pl.model.dto.PLReservationDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>
