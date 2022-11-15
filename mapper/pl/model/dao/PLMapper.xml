@@ -97,7 +97,7 @@
 	</select>
 	 
 
-<resultMap type = "pl.model.dto.PLRservationDTO" id = "reserveResultMap">
+<resultMap type = "pl.model.dto.PLReservationDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>
 		<result property = "my_no" column ="MY_NO"/>
