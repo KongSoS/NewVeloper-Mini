@@ -105,6 +105,8 @@ public class PLController {
 	}
 	public void cancelReserve(int num) {
 		// cancel에는 num을 setter로 전달하지 않은 상태이다.... 예시가 달라서 전달해야할 것 같기도..
+		PLReservationDTO re = new PLReservationDTO();
+		re.setReserve_no(num);
 		if(plService.cancelReserve(num)) {
 			
 			System.out.println("예약 취소 성공");
