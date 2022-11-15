@@ -6,14 +6,11 @@ package pl.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLReservationDTO;
 import pl.serivce.PLService;
-import pl.view.ResultView;
 
 /**
   * @FileName : PLController.java
@@ -39,10 +36,14 @@ public class PLController {
 	  * @변경이력 : 
 	  * @Method 설명 : 내가 저장한 장소를 전체 출력
 	  */
-	public List<PLMyListDTO> myPlaceList() {
-		int number = 1; // 내 저장소 번호
-		ArrayList<PLMyListDTO> list = plService.myPlaceList();
+	public List<PLListAndCategoryDTO> myPlaceList() {
+		ArrayList<PLListAndCategoryDTO> list = plService.myPlaceList();
 		
+		if(list != null) {
+			System.out.println("내 장소 호출 성공!");
+		}else {
+			System.out.println("저장한 장소가 없습니다.");
+		}
 	
 		return list;
 	}
@@ -57,6 +58,13 @@ public class PLController {
 	  */
 	public void addPlaceList(List<PLMyListAndCategoryDTO> list) {
 		list = plService.addPlaceList();
+		
+		if(list != null) {
+			System.out.println("내 장소 호출 성공!");
+		}else {
+			System.out.println("저장한 장소가 없습니다.");
+		}
+	
 	}
 
 	public void reserveMine() {

@@ -1,25 +1,19 @@
 package pl.view;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import pl.controller.PLController;
-import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
-import pl.model.dto.PLTagDTO;
 
 public class PLMenu {
 
 	private Scanner sc = new Scanner(System.in);
 	private PLController plController = new PLController();
   private PLReserveMenu rm = new PLReserveMenu();
+	private PLReserveMenu remenu = new PLReserveMenu();
 	private PLMyListDTO myListDTO;
 	private PLController controller = new PLController();
-	private ResultView rv = new ResultView();
-
-
-	
+	private subView sv = new subView();
 
 	/**
 	 * @Method Name : mainMenu
@@ -46,12 +40,13 @@ public class PLMenu {
 			switch (no) {
 			case 1:
         //seletSort();
+				sv.selectSort();
 				break;
 			case 2:
-				myPlaceList();
+				sv.myPlaceList();
 				break;
 			case 3:
-				plController.addPlaceList(inputSubMenu());
+				sv.addPlaceList();
 				break;
 			case 4:
 
@@ -61,6 +56,7 @@ public class PLMenu {
 				break;
 			case 6:
 				plController.reserveMine();  //클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
+				
 				
 				break;
 			case 0:
@@ -75,32 +71,6 @@ public class PLMenu {
 
 	}
 
-private void selectSort() {
-		do {
-			System.out.println("=========== PLACE LIST ===========");
-			System.out.println("1. 매장명으로 정렬");
-			System.out.println("2. 주소로 정렬");
-			System.out.println("3. 별점으로 정렬");
-			System.out.println("4. 카테고리로 정렬");
-			System.out.println("0. 이전 메뉴로");
-			System.out.print("원하는 정렬 번호를 입력하세요 : ");
-			int no = sc.nextInt();
-			
-			switch(no) {
-			case 1 : plController.selectAllName(); break;
-			case 2 : plController.selectAllAddress(); break;
-			case 3 : plController.selectAllScore(); break;
-			case 4 : plController.selectAllCategory(); break;
-			case 0 : return;
-			default : System.out.println("잘못 입력하셨습니다 다시 입력하세요 "); 	break;
-			}
-		} while (true);
-		
-		// 리스트 출력한 뒤, 원하는 장소에 대한 정보도 출력해야함
-		// 정렬기준 선택 후 번호입력하면 장소 정보 출력
-		// 번호입력을 어디서 받아야 할까?
-	}
-	
 
 
 
