@@ -13,7 +13,7 @@ public class PLMenu {
 
 	private Scanner sc = new Scanner(System.in);
 	private PLController plController = new PLController();
-  private PLReserveMenu remenu = new PLReserveMenu();
+	private PLReserveMenu remenu = new PLReserveMenu();
 	private PLMyListDTO myListDTO;
 	private PLController controller = new PLController();
 	private ResultView rv = new ResultView();
@@ -45,7 +45,7 @@ public class PLMenu {
 
 			switch (no) {
 			case 1:
-        seletSort();
+				selectSort();
 				break;
 			case 2:
 				myPlaceList();
@@ -102,7 +102,7 @@ private void selectSort() {
 	}
 	
 
-}
+
 
 
 
@@ -116,6 +116,7 @@ private void selectSort() {
 	private void myPlaceList() {
 		int num=0;
 		int input;
+	
 		List<PLMyListDTO> list = controller.myPlaceList();
 		System.out.println(list.size());
 		System.out.println("=========== 내 장소 ===========");
