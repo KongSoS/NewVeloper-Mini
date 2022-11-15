@@ -5,8 +5,8 @@ package pl.controller;
 
 import java.util.ArrayList;
 
-import pl.model.dto.PLUserDTO;
-import serivce.PLService;
+import pl.model.dto.PLMyListDTO;
+import pl.serivce.PLService;
 
 /**
   * @FileName : PLController.java
@@ -34,7 +34,11 @@ public class PLController {
 	  */
 	public void myPlaceList() {
 		int number = 1; // 내 저장소 번호
-		ArrayList<PLUserDTO> list = plService.myPlaceList();
+		ArrayList<PLMyListDTO> list = plService.myPlaceList();
+		
+		for(PLMyListDTO pd : list) {
+			System.out.println("내저장소의 값 :" +number + ":"+ pd );
+		}
 	}
 
 	/**

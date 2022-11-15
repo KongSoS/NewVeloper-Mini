@@ -3,6 +3,10 @@
   */
 package pl.model.dao;
 
+import java.util.ArrayList;
+
+import pl.model.dto.PLMyListDTO;
+
 /**
   * @FileName : PlaceListDAO.java
   * @Project : NewVeloper_mini
@@ -11,6 +15,17 @@ package pl.model.dao;
   * @변경이력 :
   * @프로그램 설명 :DB와 직접적으로 접근하며 SQL구문을 실행하는 클래스
   */
-public class PLDAO {
+public interface PLDAO {
 
+	/**
+	  * @Method Name : selectAllPlace
+	  * @작성일 : 2022. 11. 14.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 :
+	  * @return
+	  */
+	ArrayList<PLMyListDTO> selectAllPlace();
+
+	
 }

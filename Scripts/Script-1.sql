@@ -1,0 +1,1 @@
+INSERT INTO MY_LIST VALUES(SEQ_PL_NO.NEXTVAL, '카츠오모이', '경기도 시흥시 배곧동', '031-222-7778', 5, 'C3', 'N');
