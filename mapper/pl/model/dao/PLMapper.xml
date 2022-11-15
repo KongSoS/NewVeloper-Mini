@@ -3,117 +3,6 @@
 <mapper namespace="pl.model.dao.PLDAO">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<resultMap type="pl.model.dto.PLListAndCategoryDTO" id="myListAllResultMap">
-	<id property="pl_no" column="MY_NO"/>
-	<result property="rownum" column="ROWNUM"/>
-	<result property="pl_name" column="MY_NAME"/>
-	<result property="pl_address" column="MY_ADDRESS"/>
-	<result property="pl_tel" column="MY_TEL"/>
-	<result property="score" column="MY_SCORE"/>
-	<result property="pl_reserve" column="MY_RESERVE"/>
-	<association property="category" resultMap="categoryResultMap"/>
-</resultMap>
-<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
-	<id property="category_code" column="CATEGORY_CODE"/>
-	<result property="category_name" column="CATEGORY_NAME"/>
-</resultMap>
-
-	<select id="selectAllPlace" resultMap="myListAllResultMap">
-		SELECT * FROM MY_LIST
-	</select>
-
-
-	
 <resultMap type="pl.model.dto.PLListAndCategoryDTO" id="plListAllResultMap">
 	<id property="pl_no" column="PL_NO"/>
 	<result property="rownum" column="ROWNUM"/>
@@ -128,7 +17,6 @@
 	<id property="category_code" column="CATEGORY_CODE"/>
 	<result property="category_name" column="CATEGORY_NAME"/>
 </resultMap>
-
 
 	<select id="selectAllName" resultMap="plListAllResultMap">
 		SELECT
@@ -186,5 +74,95 @@
 	</select>
 	
 
+
+<resultMap type="pl.model.dto.PLListAndCategoryDTO" id="myListAllResultMap">
+	<id property="pl_no" column="MY_NO"/>
+	<result property="rownum" column="ROWNUM"/>
+	<result property="pl_name" column="MY_NAME"/>
+	<result property="pl_address" column="MY_ADDRESS"/>
+	<result property="pl_tel" column="MY_TEL"/>
+	<result property="score" column="MY_SCORE"/>
+	<result property="pl_reserve" column="MY_RESERVE"/>
+	<association property="category" resultMap="categoryResultMap"/>
+</resultMap>
+<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
+	<id property="category_code" column="CATEGORY_CODE"/>
+	<result property="category_name" column="CATEGORY_NAME"/>
+</resultMap>
+
+	<select id="selectAllPlace" resultMap="myListAllResultMap">
+		SELECT * FROM MY_LIST
+	</select>
+	
+<resultMap type = "pl.model.dto.PLRservationDTO" id = "reserveResultMap">
+		<id property = "reserve_no" column = "RESERVE_NO"/>
+		<result property = "user_no" column ="USER_NO"/>
+		<result property = "my_no" column ="MY_NO"/>
+		<result property = "reserve_day" column ="RESERVE_DAY"/>
+		<result property = "reserve_time" column ="RESERVE_TIME"/>
+	</resultMap>
+
+	<select id = "reserveMine" resultMap = "reserveResultMap">
+		SELECT
+				A. RESERVE_NO AS 예약번호
+				, B. MY_NAME AS 매장명
+			FROM RESERVATION A
+			JOIN MY_LIST B
+			ON A.MY_NO = B.MY_NO
+--JOIN USER C
+--ON B.USER_NO = C.USER_NO
+--WHERE B.USER_NO = ?
+--;
+	</select>
+
+	<select id = "reserveInfo" parameterType="_int" resultMap = "reserveResultMap">
+		SELECT
+				A. MY_NAME
+				, B. RESERVE_DAY <!-- 여기서 TO_DATE을 쓸지-->
+				, B. RESERVE_TIME
+			FROM MY_LIST A
+			JOIN RESERVATION B
+			ON A.MY_NO = B.MY_NO
+--JOIN USER C
+--ON B.USER_NO = C.USER_NO
+--WHERE B.USER_NO = ?
+--;
+			WHERE B.RESERVE_NO = #{ reserve_no }
+	</select>
+	
+	<insert id="addReserve" parameterType="pl.model.dto.PLRservationDTO">
+        INSERT
+          INTO RESERVATION
+        (
+         RESERVE_DAY
+        , RESERVE_TIME
+        )
+        VALUES
+        (
+          SEQ_MENU_CODE.NEXTVAL
+        , #{ reserve_day }
+        , #{ reserve_time }
+        )
+	</insert>
+
+	<update id="editReserve" parameterType="pl.model.dto.PLRservationDTO">
+        UPDATE RESERVATION
+        SET
+      
+       RESERVE_DAY =#{ reserve_day }
+        , RESERVE_TIME=#{ reserve_time }
+        
+        WHERE RESERVE_NO = #{ reserve_no }
+       
+        
+	</update>
+	
+	<delete id="cancelReserve" parameterType="_int">
+        DELETE
+          FROM RESERVATION
+       	 WHERE RESERVE_NO = #{ reserve_no }
+        
+	</delete>
+	
 
 </mapper>

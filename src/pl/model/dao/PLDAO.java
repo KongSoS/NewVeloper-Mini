@@ -4,10 +4,12 @@
 package pl.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
+import pl.model.dto.PLRservationDTO;
 
 /**
   * @FileName : PlaceListDAO.java
@@ -80,5 +82,14 @@ public interface PLDAO {
 //	ArrayList<PLCategoryDTO> selectOnlyCategory();
 
 	
+
+	List<PLRservationDTO> reserveMine();
+
+	PLRservationDTO reserveInfo(int num);
+
+	int editReserve(PLRservationDTO re);
+
+	int cancelReserve(int num);
+
 	
 }
