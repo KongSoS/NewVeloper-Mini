@@ -27,10 +27,10 @@
 
 	<select id = "reserveMine" resultMap = "reserveResultMap">
 		SELECT
-				A. RESERVE_NO
-				, B. MY_NAME
+				A. RESERVE_NO AS 예약번호
+				, B. MY_NAME AS 매장명
 			FROM RESERVATION A
-			JOIN PLACE_LIST B
+			JOIN MY_LIST B
 			ON A.MY_NO = B.MY_NO
 --JOIN USER C
 --ON B.USER_NO = C.USER_NO
@@ -40,10 +40,10 @@
 
 	<select id = "reserveInfo" parameterType="_int" resultMap = "reserveResultMap">
 		SELECT
-				A. PL_NAME
+				A. MY_NAME
 				, B. RESERVE_DAY <!-- 여기서 TO_DATE을 쓸지-->
 				, B. RESERVE_TIME
-			FROM PLACE_LIST A
+			FROM MY_LIST A
 			JOIN RESERVATION B
 			ON A.MY_NO = B.MY_NO
 --JOIN USER C
