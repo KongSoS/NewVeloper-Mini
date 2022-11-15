@@ -11,12 +11,13 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import common.SearchUserStandard;
 import pl.model.dao.PLDAO;
-import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLRservationDTO;
+import pl.model.dto.PLUserDTO;
 
 /**
   * @FileName : PLService.java
@@ -210,6 +211,91 @@ public class PLService {
 		return result > 0? true: false;
 	}
   
+	
+	
+	
+	
   
+	
+	
+	
+	
+	/**
+	 * @Method Name : userIdOverlapCheck
+	 * @작성일 : 2022. 11. 15.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 입력받은 아이디를 매퍼에 전달
+	 */
+	public PLUserDTO userIdOverlapCheck(String userId) {
+		SqlSession sqlSession = getSession();
+		
+		mapper = sqlSession.getMapper(PLDAO.class);
+		PLUserDTO check = mapper.userIdOverlapCheck(userId);
+		
+		sqlSession.close();
+		
+		//System.out.println(check);
+		
+		return check;
+	}
+	
+	/**
+	 * @Method Name : userPwdOverlapCheck
+	 * @작성일 : 2022. 11. 15.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 입력받은 비밀번호를 매퍼에 전달
+	 */
+	public PLUserDTO userPwdOverlapCheck(String userPwd) {
+		SqlSession sqlSession = getSession();
+		
+		mapper = sqlSession.getMapper(PLDAO.class);
+		PLUserDTO check = mapper.userPwdOverlapCheck(userPwd);
+		
+		sqlSession.close();
+		
+		//System.out.println(check);
+		
+		return check;
+	}
+
+	/**
+	 * @Method Name : registUser
+	 * @작성일 : 2022. 11. 15.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 입력받은 회원 정보를 매퍼에 전달하고 반환값의 결과에 따라 트랜젝션 처리
+	 */
+	public boolean registUser(PLUserDTO user) {
+		SqlSession sqlSession = getSession();
+		
+		mapper = sqlSession.getMapper(PLDAO.class);
+		int result = mapper.registUser(user);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		
+		sqlSession.close();
+		
+		return result > 0? true: false;
+	}
+
+
+	public List<PLUserDTO> selectUserList(SearchUserStandard searchUserStandard) {
+		SqlSession sqlSession = getSession();
+		//System.out.println(sqlSession);
+		
+		mapper = sqlSession.getMapper(PLDAO.class);
+		
+		List<PLUserDTO> menuList = mapper.selectUserList(searchUserStandard);
+		
+		sqlSession.close();
+		
+		return menuList;
+	}
   
 }

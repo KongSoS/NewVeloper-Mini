@@ -5,14 +5,19 @@ package pl.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-
+import common.PrintUserResult;
+import common.SearchUserStandard;
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLRservationDTO;
+import pl.model.dto.PLUserDTO;
 import pl.serivce.PLService;
+import pl.view.PLMemberMenu;
+import pl.view.PLMenu;
 import pl.view.ResultView;
 
 /**
@@ -26,9 +31,13 @@ import pl.view.ResultView;
 public class PLController {
 	
 	private final PLService plService;
+	private final PLMemberMenu plMemberMenu;
+	private final PrintUserResult printUserResult;
 
 	public PLController() {
 		plService = new PLService();
+		plMemberMenu = new PLMemberMenu();
+		printUserResult = new PrintUserResult();
 	}
 
 	/**
@@ -108,6 +117,112 @@ public class PLController {
 	
 	
 	
+	
+	
+	/**
+	 * @Method Name : userLogin
+	 * @작성일 : 2022. 11. 15.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 입력받은 아이디와 비밀번호의 존재 여부 확인하여 처리한 뒤 상황에 맞는 메세지 출력 후 화면이동
+	 */
+	public void userLogin(Map<String, String> parameter) {
+		
+		String userId = parameter.get("userId");
+		String userPwd = parameter.get("userPwd");
+		
+		PLUserDTO checkId = plService.userIdOverlapCheck(userId);
+		
+		if(checkId != null) {
+			
+			PLUserDTO checkPwd = plService.userPwdOverlapCheck(userPwd);
+			
+//			PLUserDTO user = new PLUserDTO();
+//			
+//			user.setUser_id(userId);
+//			user.setUser_pwd(userPwd);
+			
+			//System.out.println(checkPwd);
+			
+			if(checkPwd == null) {
+				System.out.println("비밀번호가 일치하지 않습니다.");
+				plMemberMenu.roginMenu();
+			} else {
+				System.out.println("로그인 성공!");
+				plMemberMenu.wellcome();
+				PLMenu.mainMenu();
+				//new PLMenu().mainMenu(); 		//PL메뉴 스태틱 지우고 테스트해보기, new 만들어도 괜찮은지 스태틱해도 괜찮은지
+			}
+		} else {
+			System.out.println("일치하는 로그인 정보가 없습니다.");
+			plMemberMenu.roginMenu();
+		}
+		
+	}
+	
+	/**
+	 * @Method Name : registUser
+	 * @작성일 : 2022. 11. 15.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 회원가입에 필요한 데이터를 plService.registUser에 전달하여 반환 값에 따라 메세지 출력 및 처리
+	 */
+	public void registUser(Map<String, String> parameter) {
+		
+		String userId = parameter.get("userId");
+		String userPwd = parameter.get("userPwd");
+		String userName = parameter.get("userName");
+		String userPhone = parameter.get("userPhone");
+		
+		PLUserDTO user = new PLUserDTO();
+		
+		user.setUser_id(userId);
+		user.setUser_pwd(userPwd);
+		user.setUser_name(userName);
+		user.setPhone(userPhone);
+		
+		if(plService.registUser(user)) {
+			printUserResult.printSuccessMessage("insert");
+		} else {
+			printUserResult.printErrorMessage("insert");
+		}
+		
+	}
+	
+	/**
+	 * @Method Name : checkId
+	 * @작성일 : 2022. 11. 15.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 회원가입 시 입력받은 아이디가 이미 존재하는지 확인 후 상황에 맞는 메세지 출력 및 처리
+	 */
+	public String checkId(Map<String, String> parameter) {
+		
+		String userId = parameter.get("userId");
+		
+		PLUserDTO check = plService.userIdOverlapCheck(userId);
+		
+		if(check != null) {
+			System.out.println("동일한 아이디가 존재합니다. 회원가입 실패");
+			plMemberMenu.roginMenu();
+		} else {
+			System.out.println("아이디 중복 체크 성공");
+		}
+		
+		return userId;
+	}
+	
+	public void selectUserList(SearchUserStandard searchUserStandard) {
+		
+		List<PLUserDTO> userList = plService.selectUserList(searchUserStandard);
+		
+		if(userList != null && userList.size() > 0) {
+			printUserResult.printUserList(userList);
+		} else {
+			printUserResult.printErrorMessage("selectList");
+		}
+		
+	}
 	
 	
 	

@@ -83,9 +83,9 @@
 	<result property="pl_tel" column="MY_TEL"/>
 	<result property="score" column="MY_SCORE"/>
 	<result property="pl_reserve" column="MY_RESERVE"/>
-	<association property="category" resultMap="categoryResultMap"/>
+	<association property="category" resultMap="myCategoryResultMap"/>
 </resultMap>
-<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
+<resultMap type="pl.model.dto.PLCategoryDTO" id="myCategoryResultMap">
 	<id property="category_code" column="CATEGORY_CODE"/>
 	<result property="category_name" column="CATEGORY_NAME"/>
 </resultMap>
@@ -164,5 +164,69 @@
         
 	</delete>
 	
+	
+	
+	
+	
+	
+	
+	<resultMap type="pl.model.dto.PLUserDTO" id="userMap">
+	<id property="user_no" column="USER_NO"/>
+	<result property="user_id" column="USER_ID"/>
+	<result property="user_pwd" column="USER_PWD"/>
+	<result property="user_name" column="USER_NAME"/>
+	<result property="phone" column="PHONE"/>
+	<result property="enroll_date" column="ENROLL_DATE"/>
+	<result property="del_date" column="DEL_DATE"/>
+	<result property="status" column="STATUS"/>
+	<result property="manager" column="MANAGER"/>
+	</resultMap>
+	
+	<select id="userIdOverlapCheck" parameterType="string" resultMap="userMap">
+		SELECT *
+		  FROM PL_USER
+		 WHERE USER_ID = #{user_id}
+	</select>
+	
+	<select id="userPwdOverlapCheck" parameterType="string" resultMap="userMap">
+		SELECT *
+		  FROM PL_USER
+		 WHERE USER_PWD = #{user_pwd}
+	</select>
+	
+	<insert id="registUser" parameterType="pl.model.dto.PLUserDTO">
+        INSERT
+          INTO PL_USER A
+        (
+          A.USER_NO
+        , A.USER_ID
+        , A.USER_PWD
+        , A.USER_NAME
+        , A.PHONE
+        )
+        VALUES
+        (
+          SEQ_USER_NO.NEXTVAL
+        , #{ user_id }
+        , #{ user_pwd }
+        , #{ user_name }
+        , #{ phone }
+        )
+	</insert>
+	
+	
+	<select id = "selectUserList" parameterType="common.SearchUserStandard" resultMap="userMap">
+		SELECT
+		       *
+		  FROM PL_USER
+		
+		<if test ="condition == 'user_name'">
+			WHERE USER_NAME = #{value}
+		</if>
+		
+		<if test ="condition == 'user_id'">
+			WHERE USER_ID = #{value}
+		</if>
+	</select>
 
 </mapper>

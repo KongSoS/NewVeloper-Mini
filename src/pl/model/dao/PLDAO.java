@@ -6,10 +6,12 @@ package pl.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.SearchUserStandard;
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLRservationDTO;
+import pl.model.dto.PLUserDTO;
 
 /**
   * @FileName : PlaceListDAO.java
@@ -91,5 +93,16 @@ public interface PLDAO {
 
 	int cancelReserve(int num);
 
+	
+	
+	
+	
+	PLUserDTO userIdOverlapCheck(String userId);
+	
+	PLUserDTO userPwdOverlapCheck(String userPwd);
+
+	int registUser(PLUserDTO user);
+
+	List<PLUserDTO> selectUserList(SearchUserStandard searchUserStandard);
 	
 }

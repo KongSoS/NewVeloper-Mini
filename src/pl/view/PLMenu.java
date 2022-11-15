@@ -11,12 +11,12 @@ import pl.model.dto.PLTagDTO;
 
 public class PLMenu {
 
-	private Scanner sc = new Scanner(System.in);
-	private PLController plController = new PLController();
-  private PLReserveMenu remenu = new PLReserveMenu();
+	//private Scanner sc = new Scanner(System.in);
+	//private PLController plController = new PLController();
+    //private PLReserveMenu remenu = new PLReserveMenu();
 	private PLMyListDTO myListDTO;
 	private PLController controller = new PLController();
-	private ResultView rv = new ResultView();
+	//private ResultView rv = new ResultView();
 
 
 	
@@ -28,7 +28,11 @@ public class PLMenu {
 	 * @변경이력 :
 	 * @Method 설명 : 처음 보여지는 메뉴
 	 */
-	public void mainMenu() {
+	public static void mainMenu() {
+		
+		Scanner sc = new Scanner(System.in);
+		PLController plController = new PLController();
+		PLReserveMenu remenu = new PLReserveMenu();
 
 		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
@@ -45,7 +49,7 @@ public class PLMenu {
 
 			switch (no) {
 			case 1:
-        seletSort();
+				selectSort();
 				break;
 			case 2:
 				myPlaceList();
@@ -75,7 +79,11 @@ public class PLMenu {
 
 	}
 
-private void selectSort() {
+	private static void selectSort() {
+		
+		Scanner sc = new Scanner(System.in);
+		PLController plController = new PLController();
+		
 		do {
 			System.out.println("=========== PLACE LIST ===========");
 			System.out.println("1. 매장명으로 정렬");
@@ -102,8 +110,6 @@ private void selectSort() {
 	}
 	
 
-}
-
 
 
 	/**
@@ -113,10 +119,15 @@ private void selectSort() {
 	  * @변경이력 : 
 	  * @Method 설명 :전체리스트를 받는 리스트
 	  */
-	private void myPlaceList() {
+	private static void myPlaceList() {
+		
+		Scanner sc = new Scanner(System.in);
+		PLController plController = new PLController();
+		ResultView rv = new ResultView();
+		
 		int num=0;
 		int input;
-		List<PLMyListDTO> list = controller.myPlaceList();
+		List<PLMyListDTO> list = plController.myPlaceList();
 		System.out.println(list.size());
 		System.out.println("=========== 내 장소 ===========");
 		for(PLMyListDTO pd : list) {
@@ -143,7 +154,10 @@ private void selectSort() {
 	 * @Method 설명 :
 	 * @return
 	 */
-	private List<PLMyListAndCategoryDTO> inputSubMenu() {
+	private static List<PLMyListAndCategoryDTO> inputSubMenu() {
+		
+		Scanner sc = new Scanner(System.in);
+		
 		PLMyListAndCategoryDTO dto = new PLMyListAndCategoryDTO();
 		PLTagDTO plTagDTO = new PLTagDTO();
 		List<String> list = new ArrayList<>();
