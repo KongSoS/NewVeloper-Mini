@@ -2,7 +2,7 @@ package common;
 
 import java.util.List;
 
-import pl.model.dto.PLUserDTO;
+import pl.model.dto.PL_UserDTO;
 
 public class PrintUserResult {
 	
@@ -13,9 +13,9 @@ public class PrintUserResult {
 	 * @변경이력 :
 	 * @Method 설명 : 리스트에 저장된 사용자 값을 반복문을 통해 출력하는 메소드
 	 */
-	public void printUserList(List<PLUserDTO> userList) {
+	public void printUserList(List<PL_UserDTO> userList) {
 		
-		for(PLUserDTO user : userList) {
+		for(PL_UserDTO user : userList) {
 			System.out.println(user);
 		}
 	}
@@ -27,7 +27,7 @@ public class PrintUserResult {
 	 * @변경이력 :
 	 * @Method 설명 : 전달받은 사용자 값을 출력하는 메소드
 	 */
-	public void printUser(PLUserDTO user) {
+	public void printUser(PL_UserDTO user) {
 		System.out.println(user);
 	}
 	
@@ -38,7 +38,7 @@ public class PrintUserResult {
 	 * @변경이력 :
 	 * @Method 설명 : 사용자가 정보 조회 시 출력되는 사용자 전용 출력 메소드
 	 */
-	public void printMyInfo(PLUserDTO user) {
+	public void printMyInfo(PL_UserDTO user) {
 		System.out.println("내 정보 [아이디 = " + user.getUser_id() + ", 비밀번호 = " + user.getUser_pwd() + ", 이름 = "
 				+ user.getUser_name() + ", 전화번호 = " + user.getPhone() + ", 가입일 = " + user.getEnroll_date() + "]");
 	}

@@ -1,17 +1,17 @@
 package pl.model.dto;
 
-public class PLListAndReserveDTO {
+public class PL_ListAndReserveDTO {
 	private int reserve_no;
 	private int user_no;
 	private int my_no;
 	private String reserve_day;
 	private String reserve_time;
-	private PLListAllDTO listDTO;
+	private PL_ListAllDTO listDTO;
 	
 	/**
 	 * 예약 가게이름을 조회하기 위한 dto
 	 */
-	public PLListAndReserveDTO() {
+	public PL_ListAndReserveDTO() {
 		// 기본생성자
 	}  
 	
@@ -24,8 +24,8 @@ public class PLListAndReserveDTO {
 	 * @param listDTO PLlistDTO
 	 * 
 	 */
-	public PLListAndReserveDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time,
-			PLListAllDTO listDTO) {
+	public PL_ListAndReserveDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time,
+			PL_ListAllDTO listDTO) {
 		super();
 		this.reserve_no = reserve_no;
 		this.user_no = user_no;
@@ -55,14 +55,14 @@ public class PLListAndReserveDTO {
 	/**
 	 * @return the listDTO
 	 */
-	public PLListAllDTO getListDTO() {
+	public PL_ListAllDTO getListDTO() {
 		return listDTO;
 	}
 
 	/**
 	 * @param listDTO the listDTO to set
 	 */
-	public void setListDTO(PLListAllDTO listDTO) {
+	public void setListDTO(PL_ListAllDTO listDTO) {
 		this.listDTO = listDTO;
 	}
 

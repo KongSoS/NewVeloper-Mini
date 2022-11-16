@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="pl.model.dao.PLDAO">
+<mapper namespace="pl.model.dao.PL_DAO">
 
-<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
+<resultMap type="pl.model.dto.PL_CategoryDTO" id="categoryResultMap">
 	<id property="category_code" column="CATEGORY_CODE"/>
 	<result property="category_name" column="CATEGORY_NAME"/>
 </resultMap>
 
-<resultMap type="pl.model.dto.PLTagDTO" id="tagResultMap">
+<resultMap type="pl.model.dto.PL_TagDTO" id="tagResultMap">
 	<id property="tag_code" column="TAG_CODE"/>
 	<result property="tag_name" column="TAG_NAME"/>
 </resultMap> 
-<resultMap type="pl.model.dto.PLListAllDTO" id="plListAllResultMap">
+<resultMap type="pl.model.dto.PL_ListAllDTO" id="plListAllResultMap">
 	<id property="pl_no" column="PL_NO"/>
 	<result property="rownum" column="ROWNUM"/>
 	<result property="pl_name" column="PL_NAME"/>
@@ -121,7 +121,7 @@
 
 
 
-<resultMap type="pl.model.dto.PLListAllDTO" id="myListAllResultMap">
+<resultMap type="pl.model.dto.PL_ListAllDTO" id="myListAllResultMap">
 	<id property="pl_no" column="MY_NO"/>
 	<result property="rownum" column="ROWNUM"/>
 	<result property="pl_name" column="MY_NAME"/>
@@ -137,12 +137,12 @@
 
 </resultMap>
 
-<resultMap type="pl.model.dto.PLCategoryDTO" id="myCategoryResultMap">
+<resultMap type="pl.model.dto.PL_CategoryDTO" id="myCategoryResultMap">
 	<id property="category_code" column="CATEGORY_CODE"/>
 	<result property="category_name" column="CATEGORY_NAME"/>
 </resultMap>
 
-<resultMap type="pl.model.dto.PLTagDTO" id="myTagResultMap">
+<resultMap type="pl.model.dto.PL_TagDTO" id="myTagResultMap">
 	<id property="tag_code" column="TAG_CODE"/>
 	<result property="tag_name" column="TAG_NAME"/>
 </resultMap>
@@ -154,7 +154,7 @@
 		JOIN TAG c ON a.MY_TAGCODE = c.TAG_CODE
 	</select>
 	
-	<update id="renamePL" parameterType="pl.model.dto.PLListAllDTO">
+	<update id="renamePL" parameterType="pl.model.dto.PL_ListAllDTO">
 		UPDATE MY_LIST M SET
 		 M.MY_NAME = #{ pl_name } ,
 		 M.MY_ADDRESS = #{ pl_address } ,
@@ -166,7 +166,7 @@
 		 WHERE M.MY_NO = #{ pl_no } 
 	
 	</update>
-	<insert id="insertPlace" parameterType="pl.model.dto.PLListAllDTO">
+	<insert id="insertPlace" parameterType="pl.model.dto.PL_ListAllDTO">
 		INSERT INTO MY_LIST M
 		(
 		    M.MY_NO ,
@@ -192,7 +192,7 @@
 		)
 	</insert>
 	
-<resultMap type = "pl.model.dto.PLListAndReserveDTO" id = "reserveResultMap">
+<resultMap type = "pl.model.dto.PL_ListAndReserveDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>
 		<result property = "my_no" column ="MY_NO"/>
@@ -201,7 +201,7 @@
 	
 	<association property="listDTO" resultMap="PllistResultMap"/>
 	</resultMap>
-<resultMap type="pl.model.dto.PLListAllDTO" id="PllistResultMap">
+<resultMap type="pl.model.dto.PL_ListAllDTO" id="PllistResultMap">
 	<id property="pl_no" column="MY_NO"/>
 	<result property="rownum" column="ROWNUM"/>
 	<result property="pl_name" column="MY_NAME"/>
@@ -238,7 +238,7 @@
 			WHERE B.RESERVE_NO = #{ reserve_no }
 	</select>
 	
-	<insert id="addReserve" parameterType="pl.model.dto.PLReservationDTO">
+	<insert id="addReserve" parameterType="pl.model.dto.PL_ReservationDTO">
  INSERT
           INTO RESERVATION A
         (
@@ -258,7 +258,7 @@
         )
 	</insert>
 
-	<update id="editReserve" parameterType="pl.model.dto.PLReservationDTO">
+	<update id="editReserve" parameterType="pl.model.dto.PL_ReservationDTO">
        UPDATE RESERVATION
         SET
       
@@ -280,7 +280,7 @@
 
 
 	
-	<resultMap type="pl.model.dto.PLUserDTO" id="userMap">
+	<resultMap type="pl.model.dto.PL_UserDTO" id="userMap">
 	<id property="user_no" column="USER_NO"/>
 	<result property="user_id" column="USER_ID"/>
 	<result property="user_pwd" column="USER_PWD"/>
@@ -307,7 +307,7 @@
 		   AND STATUS = 'N'
 	</select>
 	
-	<insert id="registUser" parameterType="pl.model.dto.PLUserDTO">
+	<insert id="registUser" parameterType="pl.model.dto.PL_UserDTO">
         INSERT
           INTO PL_USER
         (
@@ -351,7 +351,7 @@
 	
 	
 	<!-- 관리자 실행 쿼리 -->
-	<select id = "selectUserList" parameterType="pl.model.dto.PLUserDTO" resultMap="userMap">
+	<select id = "selectUserList" parameterType="pl.model.dto.PL_UserDTO" resultMap="userMap">
 		SELECT *
 		  FROM PL_USER
 		ORDER BY USER_NO
@@ -371,7 +371,7 @@
 		</if>
 	</select>
 	
-	<update id="updateUserinfo" parameterType="pl.model.dto.PLUserDTO">
+	<update id="updateUserinfo" parameterType="pl.model.dto.PL_UserDTO">
         UPDATE
                PL_USER
         <trim prefix="SET" prefixOverrides=",">

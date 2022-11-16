@@ -7,7 +7,7 @@ package pl.model.dto;
  * @author jihee
  *
  */
-public class PLListAllDTO {
+public class PL_ListAllDTO {
 	
 	private int rownum;
 	private int pl_no;
@@ -18,10 +18,10 @@ public class PLListAllDTO {
 	private String pl_catecode;
 	private String pl_tagcode;
 	private String pl_reserve;
-	private PLCategoryDTO category;
-	private PLTagDTO tag;
+	private PL_CategoryDTO category;
+	private PL_TagDTO tag;
 	
-	public PLListAllDTO() {
+	public PL_ListAllDTO() {
 		//기본생성자
 	}
 
@@ -37,8 +37,8 @@ public class PLListAllDTO {
 	 * @param category 카테고리DTO
 	 * @param tag 테그DTO
 	 */
-	public PLListAllDTO(int rownum, int pl_no, String pl_name, String pl_address, String pl_tel, int score,
-			String pl_catecode, String pl_tagcode, String pl_reserve, PLCategoryDTO category, PLTagDTO tag) {
+	public PL_ListAllDTO(int rownum, int pl_no, String pl_name, String pl_address, String pl_tel, int score,
+			String pl_catecode, String pl_tagcode, String pl_reserve, PL_CategoryDTO category, PL_TagDTO tag) {
 		super();
 		this.rownum = rownum;
 		this.pl_no = pl_no;
@@ -182,28 +182,28 @@ public class PLListAllDTO {
 	/**
 	 * @return the category
 	 */
-	public PLCategoryDTO getCategory() {
+	public PL_CategoryDTO getCategory() {
 		return category;
 	}
 
 	/**
 	 * @param category the category to set
 	 */
-	public void setCategory(PLCategoryDTO category) {
+	public void setCategory(PL_CategoryDTO category) {
 		this.category = category;
 	}
 
 	/**
 	 * @return the tag
 	 */
-	public PLTagDTO getTag() {
+	public PL_TagDTO getTag() {
 		return tag;
 	}
 
 	/**
 	 * @param tag the tag to set
 	 */
-	public void setTag(PLTagDTO tag) {
+	public void setTag(PL_TagDTO tag) {
 		this.tag = tag;
 	}
 	

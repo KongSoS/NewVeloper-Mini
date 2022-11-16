@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import common.PrintUserResult;
 import common.SearchUserStandard;
-import pl.model.dto.PLUserDTO;
-import pl.model.dto.PLListAllDTO;
-import pl.model.dto.PLListAndReserveDTO;
-import pl.model.dto.PLReservationDTO;
-import pl.serivce.PLService;
-import pl.view.PLManagerMenu;
-import pl.view.PLMemberMenu;
-import pl.view.PLMenu;
+import pl.model.dto.PL_UserDTO;
+import pl.model.dto.PL_ListAllDTO;
+import pl.model.dto.PL_ListAndReserveDTO;
+import pl.model.dto.PL_ReservationDTO;
+import pl.serivce.PL_Service;
+import pl.view.PL_ManagerMenu;
+import pl.view.PL_MemberMenu;
+import pl.view.PL_Menu;
 import pl.view.subView;
 
 /**
@@ -31,15 +31,15 @@ import pl.view.subView;
   * @변경이력 :
   * @프로그램 설명 : 사용자의 요청을 처리하는 controller view에서 받은 자료를 serivce에 전달
   */
-public class PLController {
+public class PL_Controller {
 	
-	private final PLService plService;
-	private final PLMemberMenu plMemberMenu;
+	private final PL_Service plService;
+	private final PL_MemberMenu plMemberMenu;
 	private final PrintUserResult printUserResult;
 
-	public PLController() {
-		plService = new PLService();
-		plMemberMenu = new PLMemberMenu();
+	public PL_Controller() {
+		plService = new PL_Service();
+		plMemberMenu = new PL_MemberMenu();
 		printUserResult = new PrintUserResult();
 	}
 
@@ -51,8 +51,8 @@ public class PLController {
 	  * @변경이력 : 
 	  * @Method 설명 : 내가 저장한 장소를 전체 출력
 	  */
-	public List<PLListAllDTO> myPlaceList() {
-		ArrayList<PLListAllDTO> list = plService.myPlaceList();
+	public List<PL_ListAllDTO> myPlaceList() {
+		ArrayList<PL_ListAllDTO> list = plService.myPlaceList();
 		
 		return list;
 	}
@@ -65,16 +65,16 @@ public class PLController {
 	  * @변경이력 : 
 	  * @Method 설명 : 새로운 장소를 직접 등록하는 메소드
 	  */
-	public void addPlaceList(PLListAllDTO dto) {
+	public void addPlaceList(PL_ListAllDTO dto) {
 		plService.addPlaceList(dto);
 	
 	}
 
 	
-	public List<PLListAndReserveDTO> reserveMine() {
+	public List<PL_ListAndReserveDTO> reserveMine() {
 		subView print = new subView();
-		List<PLListAndReserveDTO> reserveList = plService.reserveMine();
-		PLListAllDTO pd = new PLListAllDTO();
+		List<PL_ListAndReserveDTO> reserveList = plService.reserveMine();
+		PL_ListAllDTO pd = new PL_ListAllDTO();
 
 		if(reserveList != null) {
 			System.out.println("예약 목록 조회 성공");
@@ -84,9 +84,9 @@ public class PLController {
 		return reserveList;
 		
 	}
-	public PLListAndReserveDTO reserveInfo(int num) {
+	public PL_ListAndReserveDTO reserveInfo(int num) {
 //		subView print = new subView();
-		PLListAndReserveDTO menu = plService.reserveInfo(num);
+		PL_ListAndReserveDTO menu = plService.reserveInfo(num);
 		
 		if(menu != null) {
 			menu.setReserve_no(num);
@@ -100,7 +100,7 @@ public class PLController {
 }
 	public void editReserve(int num, String day, String time) {
 		// TODO Auto-generated method stub
-		PLReservationDTO re = new PLReservationDTO();
+		PL_ReservationDTO re = new PL_ReservationDTO();
 		re.setReserve_no(num);
 		re.setReserve_day(day);
 		re.setReserve_time(time);
@@ -113,7 +113,7 @@ public class PLController {
 	}
 	public void cancelReserve(int num) {
 		// cancel에는 num을 setter로 전달하지 않은 상태이다.... 예시가 달라서 전달해야할 것 같기도..
-		PLReservationDTO re = new PLReservationDTO();
+		PL_ReservationDTO re = new PL_ReservationDTO();
 		re.setReserve_no(num);
 		if(plService.cancelReserve(num)) {
 			
@@ -131,19 +131,19 @@ public class PLController {
 	 * @변경이력 :
 	 * @Method 설명 : 입력받은 아이디와 비밀번호의 존재 여부 확인하여 처리한 뒤 상황에 맞는 메세지 출력 후 화면이동
 	 */
-	public void userLogin(PLUserDTO parameter) {
+	public void userLogin(PL_UserDTO parameter) {
 		String userId = parameter.getUser_id();
 		String userPwd = parameter.getUser_pwd();
 		
 		
 		/* 아이디 중복 체크 확인하는 메소드 통해 반환 */
-		PLUserDTO checkId = plService.userIdOverlapCheck(userId);
+		PL_UserDTO checkId = plService.userIdOverlapCheck(userId);
 		
 		/*아이디 중복 아닐 경우 실행*/
 		if(checkId != null) {
 			
 			/*비밀번호 중복 체크 확인하는 메소드 통해 반환*/
-			PLUserDTO checkPwd = plService.userPwdOverlapCheck(userPwd);
+			PL_UserDTO checkPwd = plService.userPwdOverlapCheck(userPwd);
 			
 			/*비밀번호 중복일때 실행하여 안내문 출력*/
 			if(checkPwd == null) {
@@ -153,12 +153,12 @@ public class PLController {
 				/*로그인 정보가 관리자일때 관리자 전용 화면으로 이동*/
 				if(userId.equals("manager") && userPwd.equals("manager")) {
 					System.out.println("관리자 로그인 성공!");
-					new PLManagerMenu().managerMenu();
+					new PL_ManagerMenu().managerMenu();
 				} else {
 					/*로그인 정보가 정상적으로 입력됐을때 메인 화면으로 이동*/
 					System.out.println("로그인 성공!");
 					plMemberMenu.wellcome();
-					new PLMenu().mainMenu(userId);
+					new PL_Menu().mainMenu(userId);
 				}
 			}
 		} else {
@@ -176,7 +176,7 @@ public class PLController {
 	 * @변경이력 :
 	 * @Method 설명 : 회원가입에 필요한 데이터를 plService.registUser에 전달하여 반환 값에 따라 메세지 출력 및 처리
 	 */
-	public void registUser(PLUserDTO parameter) {
+	public void registUser(PL_UserDTO parameter) {
 		if(plService.registUser(parameter)) {
 			printUserResult.printSuccessMessage("insert");
 		} else {
@@ -194,7 +194,7 @@ public class PLController {
 	 */
 	public String checkId(String parameter) {
 		/*회원가입 시 입력한 아이디가 이미 존재하는지 확인*/
-		PLUserDTO check = plService.userIdOverlapCheck(parameter);
+		PL_UserDTO check = plService.userIdOverlapCheck(parameter);
 		
 		/*입력한 아이디가 이미 존재할 경우 안내문 출력 후 다시 로그인 화면으로 이동*/
 		if(check != null) {
@@ -216,7 +216,7 @@ public class PLController {
 	 * @Method 설명 : 관리자)사용자 목록 조회 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리
 	 */
 	public void selectUserList() {
-		List<PLUserDTO> userList = plService.selectUserList();
+		List<PL_UserDTO> userList = plService.selectUserList();
 		
 		if(userList != null && userList.size() > 0) {
 			printUserResult.printUserList(userList);
@@ -234,7 +234,7 @@ public class PLController {
 	 * @Method 설명 : 관리자)사용자 단일 조회 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리
 	 */
 	public void selectUserOne(SearchUserStandard searchUserStandard) {
-		PLUserDTO user = plService.selectUserOne(searchUserStandard);
+		PL_UserDTO user = plService.selectUserOne(searchUserStandard);
 		
 		if(user != null) {
 			printUserResult.printUser(user);
@@ -251,7 +251,7 @@ public class PLController {
 	 * @변경이력 :
 	 * @Method 설명 : 사용자 정보 변경 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리
 	 */
-	public void updateUserInfo(PLUserDTO parameter) {
+	public void updateUserInfo(PL_UserDTO parameter) {
 		if(plService.updateUserInfo(parameter)) {
 			printUserResult.printSuccessMessage("update");
 		} else {
@@ -302,7 +302,7 @@ public class PLController {
 	 * @Method 설명 : 사용자 정보 조회 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리
 	 */
 	public void selectMyInfo(String parameter) {
-		PLUserDTO user = plService.selectMyInfo(parameter);
+		PL_UserDTO user = plService.selectMyInfo(parameter);
 		
 		if(user != null) {
 			printUserResult.printMyInfo(user);
@@ -323,9 +323,9 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 이름을 기준으로 추천 장소를 정렬하는 메소드
 	 */
-	public ArrayList<PLListAllDTO> selectAllName() {
+	public ArrayList<PL_ListAllDTO> selectAllName() {
 		
-		ArrayList<PLListAllDTO> placeList = plService.selectAllName();
+		ArrayList<PL_ListAllDTO> placeList = plService.selectAllName();
 		
 		return placeList;
 		
@@ -340,8 +340,8 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 주소를 기준으로 추천 장소를 정렬하는 메소드
 	 */
-	public ArrayList<PLListAllDTO> selectAllAddress() {
-		ArrayList<PLListAllDTO> placeList = plService.selectAllAddress();
+	public ArrayList<PL_ListAllDTO> selectAllAddress() {
+		ArrayList<PL_ListAllDTO> placeList = plService.selectAllAddress();
 		
 		return placeList;
 		
@@ -356,8 +356,8 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 별점를 기준으로 추천 장소를 정렬하는 메소드 
 	 */
-	public ArrayList<PLListAllDTO> selectAllScore() {
-		ArrayList<PLListAllDTO> placeList = plService.selectAllScore();
+	public ArrayList<PL_ListAllDTO> selectAllScore() {
+		ArrayList<PL_ListAllDTO> placeList = plService.selectAllScore();
 		
 		return placeList;
 	}
@@ -371,8 +371,8 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 카테고리를 기준으로 추천 장소를 정렬하는 메소드 
 	 */
-	public ArrayList<PLListAllDTO> selectAllCategory() {
-		ArrayList<PLListAllDTO> placeList = plService.selectAllCategory();
+	public ArrayList<PL_ListAllDTO> selectAllCategory() {
+		ArrayList<PL_ListAllDTO> placeList = plService.selectAllCategory();
 		
 		return placeList;
 		
@@ -387,7 +387,7 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천장소 리스트에서 내 장소 리스트로 저장하는 메소드
 	 */
-	public void saveMyList(PLListAllDTO parameter) {
+	public void saveMyList(PL_ListAllDTO parameter) {
 		
 		String name = parameter.getPl_name();
 		String address = parameter.getPl_address();
@@ -397,7 +397,7 @@ public class PLController {
 		String tagcode = parameter.getTag().getTag_code();
 		String reserve = parameter.getPl_reserve();
 		
-		PLListAllDTO myList = new PLListAllDTO();
+		PL_ListAllDTO myList = new PL_ListAllDTO();
 		myList.setPl_name(name);
 		myList.setPl_address(address);
 		myList.setPl_tel(tel);
@@ -445,7 +445,7 @@ public class PLController {
 	  * @Method 설명 : 내 리스트에 저장된 장소를 수정하는 메소드
 	  * @param inputRename
 	  */
-	public void renamePL(PLListAllDTO placDTO) {
+	public void renamePL(PL_ListAllDTO placDTO) {
 		plService.renamePL(placDTO);
 		
 			
@@ -453,7 +453,7 @@ public class PLController {
 
 	public void addReserve(int num, String day, String time) {
 		// TODO Auto-generated method stub
-		PLReservationDTO re = new PLReservationDTO();
+		PL_ReservationDTO re = new PL_ReservationDTO();
 		re.setMy_no(num);
 		re.setReserve_day(day);
 		re.setReserve_time(time);
@@ -481,7 +481,7 @@ public class PLController {
 			
 			System.out.println("파일 생성 완료! " + file);
 			out = new BufferedOutputStream(new FileOutputStream(file));
-			List<PLListAllDTO> fList = plService.myPlaceList();
+			List<PL_ListAllDTO> fList = plService.myPlaceList();
 
 			System.out.println("list에 값 넣기 : " + fList);
 			for(int i = 0; i < fList.size(); i++) {

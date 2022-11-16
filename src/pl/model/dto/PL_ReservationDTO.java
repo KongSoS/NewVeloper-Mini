@@ -1,17 +1,17 @@
 package pl.model.dto;
 
-public class PLReservationDTO {
+public class PL_ReservationDTO {
 	private int reserve_no;
 	private int user_no=1;
 	private int my_no;
 	private String reserve_day;
 	private String reserve_time;
 	
-	public PLReservationDTO() {
+	public PL_ReservationDTO() {
 		// reservation테이블의 기본 생성자
 	}  
 
-	public PLReservationDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time) {
+	public PL_ReservationDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time) {
 		super();
 		this.reserve_no = reserve_no;
 		this.user_no = user_no;
