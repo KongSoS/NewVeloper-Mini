@@ -3,6 +3,12 @@
   */
 package pl.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -107,7 +113,9 @@ public class PLController {
 		}
 	}
 
+
 	/**
+	 * @return 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
@@ -115,22 +123,16 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public void selectAllName() {
+	public ArrayList<PLListAndCategoryDTO> selectAllName() {
+		
 		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllName();
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-				System.out.print(list.getPl_no() + " ");
-				System.out.println(list.getPl_name());
-				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
-			}
-		} else {
-			System.out.println("에러발생");
-		}
+		return placeList;
 		
 	}
 
 	/**
+	 * @return 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
@@ -138,23 +140,15 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public void selectAllAddress() {
+	public ArrayList<PLListAndCategoryDTO> selectAllAddress() {
 		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllAddress();
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-				System.out.print(list.getRownum() + " | ");
-				System.out.print(list.getPl_name() + " | ");
-				System.out.println(list.getPl_address());
-				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
-			}
-		} else {
-			System.out.println("에러발생");
-		}
+		return placeList;
 		
 	}
 
 	/**
+	 * @return 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
@@ -162,22 +156,14 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public void selectAllScore() {
+	public ArrayList<PLListAndCategoryDTO> selectAllScore() {
 		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllScore();
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-				System.out.print(list.getRownum() + " | ");
-				System.out.print(list.getPl_name() + " | ");
-				System.out.println(list.getScore() + "점");
-				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
-			}
-		} else {
-			System.out.println("에러발생");
-		}
+		return placeList;
 	}
 
 	/**
+	 * @return 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
@@ -185,18 +171,66 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public void selectAllCategory() {
+	public ArrayList<PLListAndCategoryDTO> selectAllCategory() {
 		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllCategory();
-	//	ArrayList<PLCategoryDTO> category = plService.selectOnlyCategory();
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-					System.out.print(list.getRownum() + " | ");
-					System.out.println(list.getPl_name() + " | ");
-			}
-		} else {
-			System.out.println("에러발생");
+		return placeList;
+		
+	}
+
+	/**
+	 * @param plListAndCategoryDTO 
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void saveMyList(PLListAndCategoryDTO parameter) {
+		
+		String name = parameter.getPl_name();
+		String address = parameter.getPl_address();
+		String tel = parameter.getPl_tel();
+		int score = parameter.getScore();
+		String catecode = parameter.getCategory().getCategory_code();
+		String reserve = parameter.getPl_reserve();
+		
+		PLMyListDTO myList = new PLMyListDTO();
+		myList.setPl_name(name);
+		myList.setPl_address(address);
+		myList.setPl_tel(tel);
+		myList.setScore(score);
+		myList.setPl_catecode(catecode);
+		myList.setPl_reserve(reserve);
+		
+		
+		if(plService.saveMyList(myList)) {
+			System.out.println("저장 완료");
 		}
+		else {
+			System.out.println("저장 실패");
+		}
+		
+	}
+
+	/**
+	 * @param plNo 
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void deleteMyList(int plNo) {
+		
+		if(plService.deleteMyList(plNo)) {
+			System.out.println("삭제 완료");
+		}else {
+			System.out.println("삭제 실패");
+		}
+		
 		
 	}
 
@@ -226,6 +260,45 @@ public class PLController {
 			System.out.println("예약 성공");
 		} else {
 			System.out.println("예약 실패");
+		}
+	}
+
+
+	/**
+	  * @Method Name : fileOut
+	  * @작성일 : 2022. 11. 16.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 :
+	  */
+	public void fileOut() {
+		try {
+			OutputStream out = null;
+			File file = new File("MyPLFile.txt");
+			file.createNewFile();
+			
+			System.out.println("파일 생성 완료! " + file);
+			out = new BufferedOutputStream(new FileOutputStream(file));
+			List<PLListAndCategoryDTO> fList = plService.myPlaceList();
+
+			System.out.println("list에 값 넣기 : " + fList);
+			for(int i = 0; i < fList.size(); i++) {
+				System.out.println("list의 값: " + fList);
+				String contents = "가게 이름 : " + fList.get(i).getPl_name() + ", 주소 : " + fList.get(i).getPl_address() 
+						+ ", 전화번호 : " + fList.get(i).getPl_tel() + ", 별점 : " + fList.get(i).getScore() + "\n";
+				
+				byte[] b = contents.getBytes();
+				
+				out.write(b);
+			}
+			
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

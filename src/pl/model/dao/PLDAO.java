@@ -33,54 +33,44 @@ public interface PLDAO {
 	ArrayList<PLListAndCategoryDTO> selectAllPlace();
 
 	/**
-	 * @FileName : PLDAO.java
+	 * @Method Name : selectAllName
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소 이름순으로 정렬된 리스트 출력
 	 */
 	ArrayList<PLListAndCategoryDTO> selectAllName();
 
 	/**
-	 * @FileName : PLDAO.java
+	 * @Method Name : selectAllAddress
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소 주소순으로 정렬된 리스트 출력
 	 */
 	ArrayList<PLListAndCategoryDTO> selectAllAddress();
 
 	/**
-	 * @FileName : PLDAO.java
+	 * @Method Name : selectAllScore
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소 별점순으로 정렬된 리스트 출력
 	 */
 	ArrayList<PLListAndCategoryDTO> selectAllScore();
 
 	/**
-	 * @FileName : PLDAO.java
+	 * @Method Name : selectAllCategory
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소 카테고리순으로 정렬된 리스트 출력
 	 */
 	ArrayList<PLListAndCategoryDTO> selectAllCategory();
-
-//	/**
-//	 * @FileName : PLDAO.java
-//	 * @Project : NewVeloper_mini
-//	 * @Date : 2022. 11. 15.
-//	 * @작성자 : jihee
-//	 * @변경이력 :
-//	 * @프로그램 설명 : 
-//	 */
-//	ArrayList<PLCategoryDTO> selectOnlyCategory();
 
 	
 
@@ -94,12 +84,11 @@ public interface PLDAO {
 
 	int addReserve(PLReservationDTO re);
 	/**
-	  * @param dto 
-	 * @Method Name : insertPlace
+	  * @Method Name : insertPlace
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 : 내 장소에 새로운 장소 등록
+	  * @프로그램 설명 : 내 장소에 새로운 장소 등록
 	  * @return
 	  */
 	int insertPlace(PLListAndCategoryDTO dto);
@@ -109,11 +98,22 @@ public interface PLDAO {
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 :
-	  * @param placDTO
-	  * @return
+	  * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 수정
 	  */
 	int renamePL(PLListAndCategoryDTO placDTO);
+	
+	int saveMyList(PLMyListDTO myList);
 
+	/**
+	 * @Method Name : deleteMyList
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 삭제
+	 */
+	int deleteMyList(int plNo);
+
+	
 	
 }

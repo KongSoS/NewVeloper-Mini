@@ -69,6 +69,14 @@ public class PLService {
 		}
 		session.close();
 	}
+	/**
+	  * @Method Name : reserveMine
+	  * @작성일 : 2022. 11. 11.
+	  * @작성자 : Yuri
+	  * @변경이력 : 
+	  * @Method 설명 : 내 예약 리스트를 보여주는 메소드
+	  * @return
+	  */
 
 	public List<PLReservationDTO> reserveMine() {
 		
@@ -114,12 +122,12 @@ public class PLService {
 	}
 
 /**
-	 * @FileName : PLService.java
+	 * @FileName Name : selectAllName
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소의 리스트를 이름으로 정렬
 	 */
 	public ArrayList<PLListAndCategoryDTO> selectAllName() {
 		SqlSession session = getSession();
@@ -134,12 +142,12 @@ public class PLService {
 	
 	
 	/**
-	 * @FileName : PLService.java
+	 * @FileName Name : selectAllAddress
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소의 리스트를 주소로 정렬
 	 */
 	public ArrayList<PLListAndCategoryDTO> selectAllAddress() {
 		SqlSession session = getSession();
@@ -153,12 +161,12 @@ public class PLService {
 	}
 
 	/**
-	 * @FileName : PLService.java
+	 * @FileName Name : selectAllScore
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소의 리스트를 별점으로 정렬
 	 */
 	public ArrayList<PLListAndCategoryDTO> selectAllScore() {
 		SqlSession session = getSession();
@@ -172,12 +180,12 @@ public class PLService {
 	}
 
 	/**
-	 * @FileName : PLService.java
+	 * @FileName Name : selectAllCategory
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소의 리스트를 카테고리순으로 정렬
 	 */
 	public ArrayList<PLListAndCategoryDTO> selectAllCategory() {
 		SqlSession session = getSession();
@@ -190,26 +198,6 @@ public class PLService {
 		return placeList;
 	}
 
-
-
-//	/**
-//	 * @FileName : PLService.java
-//	 * @Project : NewVeloper_mini
-//	 * @Date : 2022. 11. 15.
-//	 * @작성자 : jihee
-//	 * @변경이력 :
-//	 * @프로그램 설명 : 
-//	 */
-//	public ArrayList<PLCategoryDTO> selectOnlyCategory() {
-//		SqlSession session = getSession();
-//		mapper = session.getMapper(PLDAO.class);
-//		
-//		ArrayList<PLCategoryDTO> category = mapper.selectOnlyCategory();
-//		
-//		session.close();
-//		
-//		return category;
-//	}
 
 	public boolean cancelReserve(int num) {
 		SqlSession session = getSession();
@@ -251,7 +239,6 @@ public class PLService {
 	}
 
 	public boolean addReserve(PLReservationDTO re) {
-		// TODO Auto-generated method stub
 		SqlSession session = getSession();
 		
 		mapper = session.getMapper(PLDAO.class);
@@ -268,4 +255,57 @@ public class PLService {
 		return result > 0? true: false;
 	}
 
+
+
+	/**
+	 * @FileName Name : saveMyList
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 추천 장소의 리스트를 내 장소의 리스트로 저장하는 메소드
+	 */
+	public boolean saveMyList(PLMyListDTO myList) {
+		
+		SqlSession session = getSession();
+		
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.saveMyList(myList);
+	
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result > 0? true: false;
+	}
+
+
+	/**
+	 * @FileName Name : deleteMyList
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 내 장소에 있는 리스트를 삭제 하는 메소드
+	 */
+	public boolean deleteMyList(int plNo) {
+		SqlSession session = getSession();
+		
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.deleteMyList(plNo);
+	
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result > 0? true: false;
+	}
 }
