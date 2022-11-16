@@ -52,7 +52,7 @@ public class PLMenu {
 
 				break;
 			case 6:
-				controller.reserveMine();
+				remenu.reserveMine();
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");

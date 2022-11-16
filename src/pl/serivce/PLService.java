@@ -15,6 +15,7 @@ import org.apache.ibatis.session.SqlSession;
 import pl.model.dao.PLDAO;
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
+import pl.model.dto.PLListAndReserveDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLReservationDTO;
 
@@ -70,14 +71,14 @@ public class PLService {
 		session.close();
 	}
 
-	public List<PLReservationDTO> reserveMine() {
+	public List<PLListAndReserveDTO> reserveMine() {
 		
 		
 		SqlSession session = getSession();
 		
 		mapper = session.getMapper(PLDAO.class);
 		
-		List<PLReservationDTO> reserveList = mapper.reserveMine();
+		List<PLListAndReserveDTO> reserveList = mapper.reserveMine();
 		
 		session.close();
 		
@@ -85,11 +86,11 @@ public class PLService {
 }
 
 
-	public PLReservationDTO reserveInfo(int num) {
+	public PLListAndReserveDTO reserveInfo(int num) {
 		SqlSession session = getSession();
 	
 		mapper = session.getMapper(PLDAO.class);
-		PLReservationDTO menu = mapper.reserveInfo(num);
+		PLListAndReserveDTO menu = mapper.reserveInfo(num);
 	
 		session.close();
 	

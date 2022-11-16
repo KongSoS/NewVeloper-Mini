@@ -8,7 +8,7 @@ public class PLReservationDTO {
 	private String reserve_time;
 	
 	public PLReservationDTO() {
-		// TODO Auto-generated constructor stub
+		// reservation테이블의 기본 생성자
 	}
 
 	public PLReservationDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time) {

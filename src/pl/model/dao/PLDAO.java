@@ -9,6 +9,7 @@ import java.util.Map;
 
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
+import pl.model.dto.PLListAndReserveDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLReservationDTO;
 
@@ -84,9 +85,9 @@ public interface PLDAO {
 
 	
 
-	List<PLReservationDTO> reserveMine();
+	List<PLListAndReserveDTO> reserveMine();
 
-	PLReservationDTO reserveInfo(int num);
+	PLListAndReserveDTO reserveInfo(int num);
 
 	int editReserve(PLReservationDTO re);
 
