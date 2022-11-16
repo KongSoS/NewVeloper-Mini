@@ -8,14 +8,11 @@ import static common.PLTemplate.getSession;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import pl.model.dao.PLDAO;
-import pl.model.dto.PLCategoryDTO;
-import pl.model.dto.PLListAndCategoryDTO;
-import pl.model.dto.PLMyListDTO;
+import pl.model.dto.PLListAllDTO;
 import pl.model.dto.PLReservationDTO;
 
 /**
@@ -37,10 +34,10 @@ public class PLService {
 	  * @Method 설명 : 내 장소 전체를 보여주는 메소드
 	  * @return
 	  */
-	public ArrayList<PLListAndCategoryDTO> myPlaceList() {
+	public ArrayList<PLListAllDTO> myPlaceList() {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
-		ArrayList<PLListAndCategoryDTO> Plist = mapper.selectAllPlace();
+		ArrayList<PLListAllDTO> Plist = mapper.selectAllPlace();
 		
 		session.close();
 		return Plist;
@@ -54,7 +51,7 @@ public class PLService {
 	  * @Method 설명 : 새로운 장소를 등록할 sql문에 접근하는 메소드
 	  * @return
 	  */
-	public void addPlaceList(PLListAndCategoryDTO dto) {
+	public void addPlaceList(PLListAllDTO dto) {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
 		System.out.println("service의 dto : " + dto);
@@ -121,11 +118,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public ArrayList<PLListAndCategoryDTO> selectAllName() {
+	public ArrayList<PLListAllDTO> selectAllName() {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
 		
-		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllName();
+		ArrayList<PLListAllDTO> placeList = mapper.selectAllName();
 		
 		session.close();
 		
@@ -141,11 +138,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public ArrayList<PLListAndCategoryDTO> selectAllAddress() {
+	public ArrayList<PLListAllDTO> selectAllAddress() {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
 		
-		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllAddress();
+		ArrayList<PLListAllDTO> placeList = mapper.selectAllAddress();
 		
 		session.close();
 		
@@ -160,11 +157,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public ArrayList<PLListAndCategoryDTO> selectAllScore() {
+	public ArrayList<PLListAllDTO> selectAllScore() {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
 		
-		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllScore();
+		ArrayList<PLListAllDTO> placeList = mapper.selectAllScore();
 		
 		session.close();
 		
@@ -179,11 +176,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public ArrayList<PLListAndCategoryDTO> selectAllCategory() {
+	public ArrayList<PLListAllDTO> selectAllCategory() {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
 		
-		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllCategory();
+		ArrayList<PLListAllDTO> placeList = mapper.selectAllCategory();
 		
 		session.close();
 		
@@ -216,7 +213,7 @@ public class PLService {
 	  * @Method 설명 :
 	  * @param placDTO
 	  */
-	public void renamePL(PLListAndCategoryDTO placDTO) {
+	public void renamePL(PLListAllDTO placDTO) {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
 		int result = mapper.renamePL(placDTO);
@@ -257,7 +254,7 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public boolean saveMyList(PLMyListDTO myList) {
+	public boolean saveMyList(PLListAllDTO myList) {
 		
 		SqlSession session = getSession();
 		

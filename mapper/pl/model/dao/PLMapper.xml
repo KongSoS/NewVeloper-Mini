@@ -2,8 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pl.model.dao.PLDAO">
 
- 
-<resultMap type="pl.model.dto.PLListAndCategoryDTO" id="plListAllResultMap">
+<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
+	<id property="category_code" column="CATEGORY_CODE"/>
+	<result property="category_name" column="CATEGORY_NAME"/>
+</resultMap>
+
+<resultMap type="pl.model.dto.PLTagDTO" id="tagResultMap">
+	<id property="tag_code" column="TAG_CODE"/>
+	<result property="tag_name" column="TAG_NAME"/>
+</resultMap> 
+<resultMap type="pl.model.dto.PLListAllDTO" id="plListAllResultMap">
 	<id property="pl_no" column="PL_NO"/>
 	<result property="rownum" column="ROWNUM"/>
 	<result property="pl_name" column="PL_NAME"/>
@@ -11,12 +19,10 @@
 	<result property="pl_tel" column="PL_TEL"/>
 	<result property="score" column="SCORE"/>
 	<result property="pl_reserve" column="PL_RESERVE"/>
-	<association property="category" resultMap="categoryResultMap"/> 
+	<collection property="category" resultMap="categoryResultMap"/> 
+	<collection property="tag" resultMap="tagResultMap"/>
 </resultMap>
-<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
-	<id property="category_code" column="CATEGORY_CODE"/>
-	<result property="category_name" column="CATEGORY_NAME"/>
-</resultMap>
+
 
 	<select id="selectAllName" resultMap="plListAllResultMap">
 		
@@ -24,11 +30,13 @@
 			ROWNUM,
 			A.*
 		FROM (
-				SELECT
+				SELECT 
 					A.*,
-					B.*
+					B.*,
+					C.*
 				FROM PLACE_LIST A
 				JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+				JOIN TAG C ON A.PL_TAGCODE = C.TAG_CODE
 			 	ORDER BY A.PL_NAME 
 		) A
 		
@@ -40,9 +48,14 @@
 			ROWNUM,
 			A.*
 		FROM (
-			 SELECT *
-			 FROM PLACE_LIST
-			 ORDER BY PL_ADDRESS 
+			 	SELECT 
+					A.*,
+					B.*,
+					C.*
+				FROM PLACE_LIST A
+				JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+				JOIN TAG C ON A.PL_TAGCODE = C.TAG_CODE
+			 	ORDER BY PL_ADDRESS 
 		) A
 	</select>
 	
@@ -52,8 +65,13 @@
 			ROWNUM,
 			SS.*
 		FROM (
-				SELECT *
+				SELECT 
+					A.*,
+					B.*,
+					C.*
 				FROM PLACE_LIST A
+				JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+				JOIN TAG C ON A.PL_TAGCODE = C.TAG_CODE
 				ORDER BY A.SCORE DESC
 			) SS
 	</select>
@@ -65,25 +83,45 @@
 		FROM (
 				SELECT 
 					A.*,
-					B.*
+					B.*,
+					C.*
 				FROM PLACE_LIST A
 				JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+				JOIN TAG C ON A.PL_TAGCODE = C.TAG_CODE 
 				ORDER BY A.PL_CATECODE
 			)CS
 	</select>
-	
-	<select id="selectOnlyCategory" resultMap="categoryResultMap">
-		SELECT 
-			B.CATEGORY_CODE ,
-			B.CATEGORY_NAME
-		FROM PLACE_LIST A
-		JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
-		ORDER BY A.PL_CATECODE
-	</select>
+
+
+	<insert id="saveMyList" parameterType="pl.model.dto.PLListAllDTO">
+		INSERT INTO MY_LIST A
+		(
+			A.MY_NO ,
+			A.MY_NAME ,
+			A.MY_ADDRESS ,
+			A.MY_TEL ,
+			A.MY_SCORE ,
+			A.MY_CATECODE ,
+			A.MY_TAGCODE ,
+			A.MY_RESERVE
+		)
+		VALUES 
+		(
+			SEQ_MY_NO.NEXTVAL ,
+			#{ pl_name } ,
+			#{ pl_address } ,
+			#{ pl_tel } ,
+			#{ score } ,
+			#{ pl_catecode } ,
+			#{ pl_tagcode } ,
+			#{ pl_reserve } 
+		)
+	</insert>
 	
 
 
-<resultMap type="pl.model.dto.PLListAndCategoryDTO" id="myListAllResultMap">
+
+<resultMap type="pl.model.dto.PLListAllDTO" id="myListAllResultMap">
 	<id property="pl_no" column="MY_NO"/>
 	<result property="rownum" column="ROWNUM"/>
 	<result property="pl_name" column="MY_NAME"/>
@@ -91,19 +129,28 @@
 	<result property="pl_tel" column="MY_TEL"/>
 	<result property="score" column="MY_SCORE"/>
 	<result property="pl_reserve" column="MY_RESERVE"/>
-	<association property="category" resultMap="myCategoryResultMap"/>
+	<collection property="category" resultMap="myCategoryResultMap"/>
+	<collection property="tag" resultMap="myTagResultMap"/>
 </resultMap>
+
 <resultMap type="pl.model.dto.PLCategoryDTO" id="myCategoryResultMap">
 	<id property="category_code" column="CATEGORY_CODE"/>
 	<result property="category_name" column="CATEGORY_NAME"/>
+</resultMap>
+
+<resultMap type="pl.model.dto.PLTagDTO" id="myTagResultMap">
+	<id property="tag_code" column="TAG_CODE"/>
+	<result property="tag_name" column="TAG_NAME"/>
 </resultMap>
 
 	<select id="selectAllPlace" resultMap="myListAllResultMap">
 		SELECT * 
 		FROM MY_LIST a
 		JOIN CATEGORY b ON a.MY_CATECODE = b.CATEGORY_CODE
+		JOIN TAG c ON a.MY_TAGCODE = c.TAG_CODE
 	</select>
-	<update id="renamePL" parameterType="pl.model.dto.PLListAndCategoryDTO">
+	
+	<update id="renamePL" parameterType="pl.model.dto.PLListAllDTO">
 		UPDATE MY_LIST M SET
 		 M.MY_NAME = #{ pl_name } ,
 		 M.MY_ADDRESS = #{ pl_address } ,
@@ -114,7 +161,7 @@
 		 WHERE M.MY_NO = #{ pl_no } 
 	
 	</update>
-	<insert id="insertPlace" parameterType="pl.model.dto.PLListAndCategoryDTO">
+	<insert id="insertPlace" parameterType="pl.model.dto.PLListAllDTO">
 		INSERT INTO MY_LIST M
 		(
 		    M.MY_NO ,

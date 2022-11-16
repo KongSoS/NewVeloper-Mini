@@ -3,7 +3,6 @@ package pl.view;
 import java.util.Scanner;
 
 import pl.controller.PLController;
-import pl.model.dto.PLMyListDTO;
 
 public class PLMenu {
 	
