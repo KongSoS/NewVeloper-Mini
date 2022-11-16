@@ -8,10 +8,10 @@ import pl.model.dto.PLMyListDTO;
 
 public class PLMenu {
 	
-	Scanner sc = new Scanner(System.in);
-	PLReserveMenu remenu = new PLReserveMenu();
-	PLController controller = new PLController();
-	subView sv = new subView();
+	private Scanner sc = new Scanner(System.in);
+	private PLReserveMenu remenu = new PLReserveMenu();
+	private PLController controller = new PLController();
+	private subView sv = new subView();
 	/**
 	 * @Method Name : mainMenu
 	 * @작성일 : 2022. 11. 11.
@@ -70,7 +70,7 @@ public class PLMenu {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소에 관련된 메소드
 	 */
 	private void selectSort() {
 		do {

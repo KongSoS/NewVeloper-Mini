@@ -14,15 +14,15 @@ import java.sql.Date;
   * @프로그램 설명 : 변수들을 선언하고 SQL문의 값들과 매치가 되야 한다.
   */
 public class PLUserDTO {
-	private int user_no;		// 회원번호
-	private String user_id;		// 아이디
-	private String user_pwd;	// 비밀번호
-	private String user_name;	// 이름
-	private String phone;		// 휴대전화
-	private Date enroll_date;	// 가입일
-	private Date del_date;		// 탈퇴일
-	private String status;		// 탈퇴여부
-	private String manager;		// 관리자여부
+	private int user_no;		
+	private String user_id;		
+	private String user_pwd;	
+	private String user_name;	
+	private String phone;		
+	private Date enroll_date;
+	private Date del_date;		
+	private String status;		
+	private String manager;		
 	
 	/**
 	 * 기본 생성자

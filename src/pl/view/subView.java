@@ -27,12 +27,12 @@ import pl.model.dto.PLReservationDTO;
 import pl.model.dto.PLTagDTO;
 
 /**
- * @FileName : ResultView.java
+ * @FileName : subView.java
  * @Project : NewVeloper_mini
  * @Date : 2022. 11. 15.
  * @작성자 : heojaehong
  * @변경이력 :
- * @프로그램 설명 :
+ * @프로그램 설명 : 서브 메뉴 뷰
  */
 public class subView {
 	private PLController controller = new PLController();
@@ -75,7 +75,7 @@ public class subView {
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : heojaehong
 	 * @변경이력 :
-	 * @Method 설명 :
+	 * @Method 설명 : 장소 추가하는 메소드
 	 * @return
 	 */
 	public void addPlaceList() {
@@ -85,11 +85,11 @@ public class subView {
 		do {
 			System.out.println("=========== 장소 추가 ===========");
 			System.out.print("장소이름을 입력하세요 : ");
-			dto.setPl_name(sc.next());
+			dto.setPl_name(sc.nextLine());
 			System.out.print("장소주소을 입력하세요 : ");
-			dto.setPl_address(sc.next());
+			dto.setPl_address(sc.nextLine());
 			System.out.print("전화번호을 입력하세요(- 포함) : ");
-			dto.setPl_tel(sc.next());
+			dto.setPl_tel(sc.nextLine());
 			System.out.print("별점을 입력하세요(1~5) : ");
 			dto.setScore(sc.nextInt());
 //			System.out.print("태그를 입력하세요(, 로 공백없이 입력): ");
@@ -261,7 +261,7 @@ public class subView {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 주소를 기준으로 리스트를 정렬하는 메소드
 	 */
 	public void selectAllName() {
 		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllName();
@@ -272,7 +272,7 @@ public class subView {
 				System.out.print(list.getRownum() + " ");
 				System.out.println(list.getPl_name());
 			}
-			System.out.println("=================================================");
+			System.out.println("====================================");
 			System.out.println("원하는 매장번호를 입력하세요 : ");
 			System.out.println("0. 이전 메뉴로");
 			int no = sc.nextInt();
@@ -292,7 +292,7 @@ public class subView {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 주소를 기준으로 리스트를 정렬하는 메소드
 	 */
 	public void selectAllAddress() {
 		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllAddress();
@@ -304,7 +304,7 @@ public class subView {
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getPl_address());
 			}
-			System.out.println("=================================================");
+			System.out.println("=================================");
 			System.out.println("원하는 매장번호를 입력하세요 : ");
 			System.out.println("0. 이전 메뉴로");
 			int no = sc.nextInt();
@@ -323,7 +323,7 @@ public class subView {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 별점 기준으로 리스트를 정렬하는 메소드
 	 */
 	public void selectAllScore() {
 		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllScore();
@@ -335,7 +335,7 @@ public class subView {
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getScore() + "점");
 			}
-			System.out.println("=================================================");
+			System.out.println("=================================");
 			System.out.println("원하는 매장번호를 입력하세요 : ");
 			System.out.println("0. 이전 메뉴로");
 			int no = sc.nextInt();
@@ -354,7 +354,7 @@ public class subView {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 카테고리 기준으로 리스트를 정렬하는 메소드
 	 */
 	public void selectAllCategory() {
 		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllCategory();
@@ -366,7 +366,7 @@ public class subView {
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getCategory().getCategory_name());
 			}
-			System.out.println("=================================================");
+			System.out.println("====================================");
 			System.out.println("원하는 매장번호를 입력하세요 : ");
 			System.out.println("0. 이전 메뉴로");
 			int no = sc.nextInt();

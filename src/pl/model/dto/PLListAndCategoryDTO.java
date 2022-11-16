@@ -23,15 +23,15 @@ public class PLListAndCategoryDTO {
 		//기본생성자
 	}
 	/**
-	 * @param pl_no
-	 * @param pl_name
-	 * @param pl_address
-	 * @param pl_tel
-	 * @param score
-	 * @param pl_catecode
-	 * @param pl_reserve
+	 * @param pl_no 장소의 번호
+	 * @param pl_name 장소의 이름
+	 * @param pl_address 장소의 주소
+	 * @param pl_tel 장소의 전화번호
+	 * @param score 장소의 별점
+	 * @param pl_catecode 장소의 카테고리
+	 * @param pl_reserve 장소의 예약 유무
 	 * @param rownum
-	 * @param category
+	 * @param category 카테고리 
 	 */
 	public PLListAndCategoryDTO(int pl_no, String pl_name, String pl_address, String pl_tel, int score,
 			String pl_catecode, String pl_reserve, int rownum, PLCategoryDTO category) {
