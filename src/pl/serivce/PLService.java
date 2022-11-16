@@ -12,6 +12,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import pl.model.dao.PLDAO;
+import pl.model.dto.PLCategoryDTO;
+import pl.model.dto.PLListAndReserveDTO;
 import pl.model.dto.PLListAllDTO;
 import pl.model.dto.PLReservationDTO;
 
@@ -24,7 +26,7 @@ import pl.model.dto.PLReservationDTO;
   * @프로그램 설명 : service 클래스
   */
 public class PLService {
-	
+	  
 	private PLDAO mapper;
 	/**
 	  * @Method Name : myPlaceList
@@ -67,14 +69,14 @@ public class PLService {
 		session.close();
 	}
 
-	public List<PLReservationDTO> reserveMine() {
+	public List<PLListAndReserveDTO> reserveMine() {
 		
 		
 		SqlSession session = getSession();
 		
 		mapper = session.getMapper(PLDAO.class);
 		
-		List<PLReservationDTO> reserveList = mapper.reserveMine();
+		List<PLListAndReserveDTO> reserveList = mapper.reserveMine();
 		
 		session.close();
 		
@@ -82,11 +84,11 @@ public class PLService {
 }
 
 
-	public PLReservationDTO reserveInfo(int num) {
+	public PLListAndReserveDTO reserveInfo(int num) {
 		SqlSession session = getSession();
 	
 		mapper = session.getMapper(PLDAO.class);
-		PLReservationDTO menu = mapper.reserveInfo(num);
+		PLListAndReserveDTO menu = mapper.reserveInfo(num);
 	
 		session.close();
 	

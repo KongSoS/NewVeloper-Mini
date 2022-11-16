@@ -17,7 +17,7 @@ public class PLMenu {
 	 * @작성자 : heojaehong
 	 * @변경이력 :
 	 * @Method 설명 : 처음 보여지는 메뉴
-	 */
+	 */  
 	public void mainMenu() {
 
 		do { // 메인메뉴를 보여주는 반복문
@@ -50,7 +50,7 @@ public class PLMenu {
 
 				break;
 			case 6:
-				controller.reserveMine();
+				remenu.reserveMine();
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");

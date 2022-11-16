@@ -12,6 +12,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import pl.view.subView;
+import pl.model.dto.PLListAndCategoryDTO;
+import pl.model.dto.PLListAndReserveDTO;
+import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLListAllDTO;
 import pl.model.dto.PLReservationDTO;
 import pl.serivce.PLService;
@@ -63,27 +68,37 @@ public class PLController {
 	
 	}
 
+
+	public List<PLListAndReserveDTO> reserveMine() {
+//		subView print = new subView();
+		List<PLListAndReserveDTO> reserveList = plService.reserveMine();
+//		PLMyListDTO pd = new PLMyListDTO();
+
 	public void reserveMine() {
 		subView print = new subView();
 		List<PLReservationDTO> reserveList = plService.reserveMine();
 		PLListAllDTO pd = new PLListAllDTO();
+
 		if(reserveList != null) {
-			print.printReserveList(reserveList, pd);
+			System.out.println("예약 목록 조회 성공");
 		} else {
 			System.out.println("예약 목록 조회 실패");
 		}
+		return reserveList;
+		
 	}
-	public void reserveInfo(int num) {
-		subView print = new subView();
-		PLReservationDTO menu = plService.reserveInfo(num);
+	public PLListAndReserveDTO reserveInfo(int num) {
+//		subView print = new subView();
+		PLListAndReserveDTO menu = plService.reserveInfo(num);
 		
 		if(menu != null) {
 			menu.setReserve_no(num);
-			print.printMenu(menu);
+			System.out.println("예약 내역 조회 성공");
 		} else {
 			System.out.println("예약 내역 조회 실패");
 		
 	}
+		return menu;
 
 }
 	public void editReserve(int num, String day, String time) {

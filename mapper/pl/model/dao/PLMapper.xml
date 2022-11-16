@@ -185,14 +185,24 @@
 		)
 	</insert>
 	
-<resultMap type = "pl.model.dto.PLReservationDTO" id = "reserveResultMap">
+<resultMap type = "pl.model.dto.PLListandReserveDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>
 		<result property = "my_no" column ="MY_NO"/>
 		<result property = "reserve_day" column ="RESERVE_DAY"/>
 		<result property = "reserve_time" column ="RESERVE_TIME"/>
+	
+	<association property="listDTO" resultMap="PllistResultMap"/>
 	</resultMap>
-
+<resultMap type="pl.model.dto.PLMyListDTO" id="PllistResultMap">
+	<id property="pl_no" column="MY_NO"/>
+	<result property="rownum" column="ROWNUM"/>
+	<result property="pl_name" column="MY_NAME"/>
+	<result property="pl_address" column="MY_ADDRESS"/>
+	<result property="pl_tel" column="MY_TEL"/>
+	<result property="score" column="MY_SCORE"/>
+	<result property="pl_reserve" column="MY_RESERVE"/>
+</resultMap>
 	<select id = "reserveMine" resultMap = "reserveResultMap">
 		SELECT
 				A. RESERVE_NO AS 예약번호

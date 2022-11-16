@@ -29,7 +29,12 @@ import java.io.OutputStreamWriter;
 import java.nio.Buffer;
 import java.text.SimpleDateFormat;
 import pl.controller.PLController;
+import pl.model.dto.PLListAndCategoryDTO;
+import pl.model.dto.PLMyListDTO;
+import pl.model.dto.PLListAndReserveDTO;
+import pl.model.dto.PLTagDTO;
 import pl.model.dto.PLReservationDTO;
+
 
 /**
  * @FileName : ResultView.java
@@ -37,7 +42,7 @@ import pl.model.dto.PLReservationDTO;
  * @Date : 2022. 11. 15.
  * @작성자 : heojaehong
  * @변경이력 :
- * @프로그램 설명 :
+ * @프로그램 설명 :  
  */
 public class subView {
 	private PLController controller = new PLController();
