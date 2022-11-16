@@ -35,7 +35,7 @@ public class MoreInfoView {
 	 * @param
 	 */
 
-	public void MoreInfo(PLListAllDTO placDTO) {
+	public void MoreInfo(PLListAllDTO placDTO, int no) {
 
 		int num;
 		
@@ -64,7 +64,7 @@ public class MoreInfoView {
 		switch (num) {
 		case 1:renamePL(placDTO); break;
 		case 2:controller.deleteMyList(placDTO.getPl_no()); break;
-		case 3:rm.addReserve(rd.getMy_no());
+		case 3:rm.addReserve(no);
 		case 9:new subView().myPlaceList();
 		case 0:new PLMenu().mainMenu(); break;
 
@@ -169,5 +169,10 @@ public class MoreInfoView {
 		}
 
 	}
+
+	
+		// TODO Auto-generated method stub
+		
+	
 
 }

@@ -59,7 +59,7 @@ public class subView {
 		if (input == 0) {
 			return;
 		} else {
-			mv.MoreInfo(list.get(input - 1));
+			mv.MoreInfo(list.get(input - 1), num);
 		}
 
 	}
