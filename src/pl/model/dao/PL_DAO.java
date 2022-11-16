@@ -93,13 +93,13 @@ public interface PL_DAO {
 	int insertPlace(PL_ListAllDTO dto);
 
 	/**
-	  * @Method Name : renamePL
+	  * @Method Name : updateMyList
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 수정
 	  */
-	int renamePL(PL_ListAllDTO placDTO);
+	int updateMyList(PL_ListAllDTO placDTO);
 	/**
 	 * @Method Name : deleteMyList
 	 * @Project : NewVeloper_mini
@@ -147,5 +147,26 @@ public interface PL_DAO {
 
 	/*사용자 정보 확인*/
 	PL_UserDTO selectMyInfo(String userId);
+	
+	/**
+	 * @FileName : PL_DAO.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 17.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	int deletePlaceList(int plNo);
+
+	/**
+	 * @FileName : PL_DAO.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 17.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	int updatePlaceList(PL_ListAllDTO place);
+	
 	
 }

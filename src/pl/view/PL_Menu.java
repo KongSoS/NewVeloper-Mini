@@ -1,18 +1,13 @@
 package pl.view;
 
-import java.util.List;
 import java.util.Scanner;
 
-import pl.controller.PL_Controller;
-import pl.model.dto.PL_ListAllDTO;
-import pl.model.dto.PL_ListAndReserveDTO;
 
 
 public class PL_Menu {
 
 	private PL_ReserveMenu remenu = new PL_ReserveMenu();
 	private PL_UserInfoMenu plUserInfoMenu = new PL_UserInfoMenu();
-	private PL_Controller controller = new PL_Controller();
 	private subView sv = new subView();
 	
 	/**

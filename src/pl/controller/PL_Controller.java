@@ -52,9 +52,9 @@ public class PL_Controller {
 	  * @Method 설명 : 내가 저장한 장소를 전체 출력
 	  */
 	public List<PL_ListAllDTO> myPlaceList() {
-		ArrayList<PL_ListAllDTO> list = plService.myPlaceList();
+		ArrayList<PL_ListAllDTO> placeList = plService.myPlaceList();
 		
-		return list;
+		return placeList;
 	}
 
 	/**
@@ -65,8 +65,8 @@ public class PL_Controller {
 	  * @변경이력 : 
 	  * @Method 설명 : 새로운 장소를 직접 등록하는 메소드
 	  */
-	public void addPlaceList(PL_ListAllDTO dto) {
-		plService.addPlaceList(dto);
+	public void addPlaceList(PL_ListAllDTO place) {
+		plService.addPlaceList(place);
 	
 	}
 
@@ -438,15 +438,15 @@ public class PL_Controller {
 
 
 	/**
-	  * @Method Name : renamePL
+	  * @Method Name : updateMyList
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 : 내 리스트에 저장된 장소를 수정하는 메소드
 	  * @param inputRename
 	  */
-	public void renamePL(PL_ListAllDTO placDTO) {
-		plService.renamePL(placDTO);
+	public void updateMyList(PL_ListAllDTO place) {
+		plService.updateMyList(place);
 		
 			
 	}
@@ -504,4 +504,35 @@ public class PL_Controller {
 		}
 	}
 
+	/**
+	 * @FileName : PL_Controller.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 17.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void deletePlaceList(int plNo) {
+		
+		if(plService.deletePlaceList(plNo)) {
+			System.out.println("삭제 완료");
+		}else {
+			System.out.println("삭제 실패");
+		}
+		
+		
+	}
+
+	/**
+	 * @FileName : PL_Controller.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 17.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void updatePlaceList(PL_ListAllDTO place) {
+		plService.updatePlaceList(place);
+		
+	}
 }

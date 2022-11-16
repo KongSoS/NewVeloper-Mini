@@ -1,9 +1,11 @@
 package pl.view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import common.SearchUserStandard;
 import pl.controller.PL_Controller;
+import pl.model.dto.PL_ListAllDTO;
 import pl.model.dto.PL_UserDTO;
 
 /**
@@ -15,7 +17,7 @@ import pl.model.dto.PL_UserDTO;
  * @프로그램 설명 : 로그인 화면에서 관리자 로그인 정보를 입력 시 이동되는 화면, 회원 관리 및 추천장소 관리가 가능하다.
  */
 public class PL_ManagerMenu {
-	
+	PL_Controller plController = new PL_Controller();
 	/**
 	 * @Method Name : managerMenu
 	 * @작성일 : 2022. 11. 16.
@@ -40,7 +42,7 @@ public class PL_ManagerMenu {
 				userManagementMenu();
 				break;
 			case 2:
-				//plController.registUser(inputUser());
+				placeManagementMenu();
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다.");
@@ -63,7 +65,7 @@ public class PL_ManagerMenu {
 	private void userManagementMenu() {
 		Scanner sc = new Scanner(System.in);
 		
-		PL_Controller plController = new PL_Controller();
+//		PL_Controller plController = new PL_Controller();
 		do {
 			System.out.println("=========== 회원 관리 ============");
 			System.out.println("+ 탈퇴 회원은 2, 3번 사용 불가 \n");
@@ -109,7 +111,7 @@ public class PL_ManagerMenu {
 		String value = null;
 		
 		System.out.print("검색 기준을 입력해주세요(이름 or 아이디) : ");
-		sc.nextLine();
+		//sc.nextLine();
 		String inputCon = sc.nextLine();
 		
 		/*입력받은 문자열을 판단하여 condition 변수에 값 대입*/
@@ -186,4 +188,148 @@ public class PL_ManagerMenu {
 		return userNo;
 	}
 
+	/**
+	 * @FileName : PL_ManagerMenu.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 17.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	private void placeManagementMenu() {
+		
+		int no;
+		
+		Scanner sc = new Scanner(System.in);
+		PL_Controller plController = new PL_Controller();
+		
+		ArrayList<PL_ListAllDTO> placeList = plController.selectAllName();
+
+		if(placeList != null) {
+			System.out.println("=========== 추천장소 리스트 ===========");
+			for(PL_ListAllDTO list : placeList) {
+				System.out.print(list.getRownum() + " ");
+				System.out.println(list.getPl_name());
+			}
+			System.out.println("====================================");
+			System.out.println("원하는 매장번호를 입력하세요 : ");
+			System.out.println("0. 이전 메뉴로");
+			no = sc.nextInt();
+			if(no == 0) {
+				return;
+			}
+			else if( no > 0 && no <= placeList.size()){
+				selectOne(placeList,no);
+			}
+			else {
+				System.out.println("잘못 입력하셨습니다 다시 입력하세요 ");
+			}
+			
+		} else {
+			System.out.println("에러발생");
+		}
+		
+	}
+
+	/**
+	 * @FileName : PL_ManagerMenu.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 17.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	private void selectOne(ArrayList<PL_ListAllDTO> placeList, int no) {
+		
+		int choice;
+		
+		Scanner sc = new Scanner(System.in);
+		PL_Controller plController = new PL_Controller();
+		
+		System.out.println(placeList.get(no));
+		System.out.println("==================== 장소 정보 ====================");
+		System.out.println("매장명 : " + placeList.get(no - 1).getPl_name());
+		System.out.println("주소 : " + placeList.get(no - 1).getPl_address());
+		System.out.println("전화번호 : " + placeList.get(no - 1).getPl_tel());
+		System.out.println("별점 : " + placeList.get(no - 1).getScore() + "점");
+		System.out.println("카테고리 : " + placeList.get(no - 1).getCategory().getCategory_name());
+		System.out.println("태그 : " + placeList.get(no - 1).getTag().getTag_name());
+		System.out.println("예약가능여부 : " + placeList.get(no - 1).getPl_reserve());
+		System.out.println();
+		System.out.println();
+		System.out.println("1. 장소 수정하기");
+		System.out.println("2. 장소 삭제하기");
+//		System.out.println("0. 이전 메뉴로");
+//		System.out.println("9. 메인 메뉴로");
+		System.out.println("=================================================");
+		System.out.print("번호를 입력하세요 : ");
+		choice = sc.nextInt();
+		sc.nextLine();
+		
+		switch (choice) {
+		case 1:updatePlaceList(placeList.get(no - 1)); break;
+		case 2:plController.deletePlaceList(placeList.get(choice).getPl_no()); break;
+		case 0: return;
+		//case 9:new PLMenu().mainMenu(); break;
+		default:System.out.println("잘못입력하셨습니다."); break;
+
+		}
+		
+	}
+
+	/**
+	 * @FileName : PL_ManagerMenu.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 17.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	private void updatePlaceList(PL_ListAllDTO place) {
+		int category;
+		int tag;
+		
+		Scanner sc = new Scanner(System.in);
+		PL_Controller plController = new PL_Controller();
+		
+		//System.out.println("renamePL에 있는 DTO : " + place.getPl_no());
+		System.out.println("==================== 장소 수정 ====================");
+		System.out.println("변경될 이름을 입력하세요 (건너뛰기 -> 빈칸입력) : ");
+		place.setPl_name(sc.nextLine());
+		System.out.println("변경될 주소를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
+		place.setPl_address(sc.nextLine());
+		System.out.println("변경될 전화번호를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
+		place.setPl_tel(sc.nextLine());
+		System.out.println("변경될 별점를 입력하세요 (필수입력) : ");
+		place.setScore(sc.nextInt());
+		System.out.println("1. 한식, 2. 중식, 3. 일식, 4. 양식, 5. 분식, 6. 카페&디저트");
+		System.out.println("변경될 카테고리를 입력하세요 (필수입력) : ");
+		category = sc.nextInt();
+		sc.nextLine();
+		System.out.println("변경될 예약여부를 입력하세요 (Y/N) (건너뛰기 -> 빈칸입력) : ");
+		place.setPl_reserve(sc.nextLine().toUpperCase());
+		System.out.println("1. 맛있는, 2. 분위기 좋은, 3. 친절한, 4. 깨끗한, 5. 양이 많은");
+		System.out.println("변경될 태그를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
+		tag = sc.nextInt();
+		sc.nextLine();
+		switch (category) {
+		case 1:place.setPl_catecode("C1");break;
+		case 2:place.setPl_catecode("C2");break;
+		case 3:place.setPl_catecode("C3");break;
+		case 4:place.setPl_catecode("C4");break;
+		case 5:place.setPl_catecode("C5");break;
+		case 6:place.setPl_catecode("C6");break;
+		}
+		// 태그생성
+		switch (tag) {
+		case 1:place.setPl_tagcode("T1"); break;
+		case 2:place.setPl_tagcode("T2"); break;
+		case 3:place.setPl_tagcode("T3"); break;
+		case 4:place.setPl_tagcode("T4"); break;
+		case 5:place.setPl_tagcode("T5"); break;
+		}
+		
+		plController.updatePlaceList(place);
+		
+	}
 }
