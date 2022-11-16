@@ -3,8 +3,8 @@ package pl.view;
 import java.util.Scanner;
 
 import common.SearchUserStandard;
-import pl.controller.PLController;
-import pl.model.dto.PLUserDTO;
+import pl.controller.PL_Controller;
+import pl.model.dto.PL_UserDTO;
 
 /**
  * @FileName : PLManagerMenu.java
@@ -14,9 +14,7 @@ import pl.model.dto.PLUserDTO;
  * @변경이력 :
  * @프로그램 설명 : 로그인 화면에서 관리자 로그인 정보를 입력 시 이동되는 화면, 회원 관리 및 추천장소 관리가 가능하다.
  */
-public class PLManagerMenu {
-	
-	Scanner sc = new Scanner(System.in);
+public class PL_ManagerMenu {
 	
 	/**
 	 * @Method Name : managerMenu
@@ -26,6 +24,8 @@ public class PLManagerMenu {
 	 * @Method 설명 : 관리자 메인 메뉴, 회원 및 추천장소 관리화면으로 이동 가능
 	 */
 	public void managerMenu() {
+		Scanner sc = new Scanner(System.in);
+		
 		do {
 			System.out.println("=========== Manager Menu ===========");
 			System.out.println("1. 회원 관리 ");
@@ -61,8 +61,9 @@ public class PLManagerMenu {
 	 * @Method 설명 : 회원 관리 메뉴(회원에 대한 조회, 수정, 삭제 등이 가능)
 	 */
 	private void userManagementMenu() {
+		Scanner sc = new Scanner(System.in);
 		
-		PLController plController = new PLController();
+		PL_Controller plController = new PL_Controller();
 		do {
 			System.out.println("=========== 회원 관리 ============");
 			System.out.println("+ 탈퇴 회원은 2, 3번 사용 불가 \n");
@@ -102,6 +103,7 @@ public class PLManagerMenu {
 	 * @Method 설명 : 회원 단일 조회 시 기준이 될 검색어를 한글로 입력받고 DTO에 컬럼명으로 변환하여 전달한다.
 	 */
 	private SearchUserStandard inputSearchUser() {
+		Scanner sc = new Scanner(System.in);
 		
 		String condition = null;
 		String value = null;
@@ -145,7 +147,8 @@ public class PLManagerMenu {
 	 * @변경이력 :
 	 * @Method 설명 : 회원 정보 수정에 필요한 데이터를 입력받고 전달한다.
 	 */
-	private PLUserDTO inputUserInfo() {
+	private PL_UserDTO inputUserInfo() {
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("변경하려는 사용자 아이디를 입력하세요 : ");
 		sc.nextLine();
@@ -157,7 +160,7 @@ public class PLManagerMenu {
 		System.out.print("변경될 사용자 전화번호를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
 		String userPhone = sc.nextLine();
 		
-		PLUserDTO parameter = new PLUserDTO();
+		PL_UserDTO parameter = new PL_UserDTO();
 		parameter.setUser_id(userId);
 		parameter.setUser_pwd(userPwd);
 		parameter.setUser_name(userName);
@@ -174,6 +177,7 @@ public class PLManagerMenu {
 	 * @Method 설명 : 사용자 아이디를 입력받고 전달한다.
 	 */
 	private int inputUserNo() {
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("삭제할 회원번호를 입력하세요 : ");
 		sc.nextLine();

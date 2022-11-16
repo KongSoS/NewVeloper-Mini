@@ -4,7 +4,7 @@
 package pl.serivce;
 
 
-import static common.PLTemplate.getSession;
+import static common.PL_Template.getSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +12,12 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import common.SearchUserStandard;
-import pl.model.dao.PLDAO;
-import pl.model.dto.PLUserDTO;
-import pl.model.dto.PLCategoryDTO;
-import pl.model.dto.PLListAndReserveDTO;
-import pl.model.dto.PLListAllDTO;
-import pl.model.dto.PLReservationDTO;
+import pl.model.dao.PL_DAO;
+import pl.model.dto.PL_UserDTO;
+import pl.model.dto.PL_CategoryDTO;
+import pl.model.dto.PL_ListAndReserveDTO;
+import pl.model.dto.PL_ListAllDTO;
+import pl.model.dto.PL_ReservationDTO;
 
 /**
   * @FileName : PLService.java
@@ -27,9 +27,9 @@ import pl.model.dto.PLReservationDTO;
   * @변경이력 :
   * @프로그램 설명 : service 클래스
   */
-public class PLService {
+public class PL_Service {
 	  
-	private PLDAO mapper;
+	private PL_DAO mapper;
 	/**
 	  * @Method Name : myPlaceList
 	  * @작성일 : 2022. 11. 11.
@@ -38,10 +38,10 @@ public class PLService {
 	  * @Method 설명 : 내 장소 전체를 보여주는 메소드
 	  * @return
 	  */
-	public ArrayList<PLListAllDTO> myPlaceList() {
+	public ArrayList<PL_ListAllDTO> myPlaceList() {
 		SqlSession session = getSession();
-		mapper = session.getMapper(PLDAO.class);
-		ArrayList<PLListAllDTO> Plist = mapper.selectAllPlace();
+		mapper = session.getMapper(PL_DAO.class);
+		ArrayList<PL_ListAllDTO> Plist = mapper.selectAllPlace();
 		
 		session.close();
 		return Plist;
@@ -55,9 +55,9 @@ public class PLService {
 	  * @Method 설명 : 새로운 장소를 등록할 sql문에 접근하는 메소드
 	  * @return
 	  */
-	public void addPlaceList(PLListAllDTO dto) {
+	public void addPlaceList(PL_ListAllDTO dto) {
 		SqlSession session = getSession();
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		System.out.println("service의 dto : " + dto);
 		int result = mapper.insertPlace(dto);
 		
@@ -79,9 +79,9 @@ public class PLService {
 	  * @Method 설명 :
 	  * @param placDTO
 	  */
-	public void renamePL(PLListAllDTO placDTO) {
+	public void renamePL(PL_ListAllDTO placDTO) {
 		SqlSession session = getSession();
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		int result = mapper.renamePL(placDTO);
 		
 		if(result > 0) {
@@ -102,14 +102,14 @@ public class PLService {
 	  * @return
 	  */
 
-	public List<PLListAndReserveDTO> reserveMine() {
+	public List<PL_ListAndReserveDTO> reserveMine() {
 		
 		
 		SqlSession session = getSession();
 		
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		
-		List<PLListAndReserveDTO> reserveList = mapper.reserveMine();
+		List<PL_ListAndReserveDTO> reserveList = mapper.reserveMine();
 		
 		session.close();
 		
@@ -117,21 +117,21 @@ public class PLService {
 }
 
 
-	public PLListAndReserveDTO reserveInfo(int num) {
+	public PL_ListAndReserveDTO reserveInfo(int num) {
 		SqlSession session = getSession();
 	
-		mapper = session.getMapper(PLDAO.class);
-		PLListAndReserveDTO menu = mapper.reserveInfo(num);
+		mapper = session.getMapper(PL_DAO.class);
+		PL_ListAndReserveDTO menu = mapper.reserveInfo(num);
 	
 		session.close();
 	
 		return menu;
 	}
 
-	public boolean editReserve(PLReservationDTO re) {
+	public boolean editReserve(PL_ReservationDTO re) {
 		SqlSession session = getSession();
 	
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		int result = mapper.editReserve(re);
 	
 		if(result > 0) {
@@ -148,7 +148,7 @@ public class PLService {
 	public boolean cancelReserve(int num) {
 		SqlSession session = getSession();
 	
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		int result = mapper.cancelReserve(num);
 	
 		if(result > 0) {
@@ -162,10 +162,10 @@ public class PLService {
 		return result > 0? true: false;
 	}
 	
-	public boolean addReserve(PLReservationDTO re) {
+	public boolean addReserve(PL_ReservationDTO re) {
 		SqlSession session = getSession();
 		
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		int result = mapper.addReserve(re);
 	
 		if(result > 0) {
@@ -187,11 +187,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소의 리스트를 이름으로 정렬
 	 */
-	public ArrayList<PLListAllDTO> selectAllName() {
+	public ArrayList<PL_ListAllDTO> selectAllName() {
 		SqlSession session = getSession();
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		
-		ArrayList<PLListAllDTO> placeList = mapper.selectAllName();
+		ArrayList<PL_ListAllDTO> placeList = mapper.selectAllName();
 		
 		session.close();
 		
@@ -207,11 +207,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소의 리스트를 주소로 정렬
 	 */
-	public ArrayList<PLListAllDTO> selectAllAddress() {
+	public ArrayList<PL_ListAllDTO> selectAllAddress() {
 		SqlSession session = getSession();
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		
-		ArrayList<PLListAllDTO> placeList = mapper.selectAllAddress();
+		ArrayList<PL_ListAllDTO> placeList = mapper.selectAllAddress();
 		
 		session.close();
 		
@@ -226,11 +226,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소의 리스트를 별점으로 정렬
 	 */
-	public ArrayList<PLListAllDTO> selectAllScore() {
+	public ArrayList<PL_ListAllDTO> selectAllScore() {
 		SqlSession session = getSession();
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		
-		ArrayList<PLListAllDTO> placeList = mapper.selectAllScore();
+		ArrayList<PL_ListAllDTO> placeList = mapper.selectAllScore();
 		
 		session.close();
 		
@@ -245,11 +245,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소의 리스트를 카테고리순으로 정렬
 	 */
-	public ArrayList<PLListAllDTO> selectAllCategory() {
+	public ArrayList<PL_ListAllDTO> selectAllCategory() {
 		SqlSession session = getSession();
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		
-		ArrayList<PLListAllDTO> placeList = mapper.selectAllCategory();
+		ArrayList<PL_ListAllDTO> placeList = mapper.selectAllCategory();
 		
 		session.close();
 		
@@ -264,11 +264,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소의 리스트를 내 장소의 리스트로 저장하는 메소드
 	 */
-	public boolean saveMyList(PLListAllDTO myList) {
+	public boolean saveMyList(PL_ListAllDTO myList) {
 		
 		SqlSession session = getSession();
 		
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		int result = mapper.saveMyList(myList);
 	
 		if(result > 0) {
@@ -294,7 +294,7 @@ public class PLService {
 	public boolean deleteMyList(int plNo) {
 		SqlSession session = getSession();
 		
-		mapper = session.getMapper(PLDAO.class);
+		mapper = session.getMapper(PL_DAO.class);
 		int result = mapper.deleteMyList(plNo);
 	
 		if(result > 0) {
@@ -316,11 +316,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @Method 설명 : 입력받은 아이디를 매퍼에 전달, 결과 값을 반환
 	 */
-	public PLUserDTO userIdOverlapCheck(String userId) {
+	public PL_UserDTO userIdOverlapCheck(String userId) {
 		SqlSession sqlSession = getSession();
 		
-		mapper = sqlSession.getMapper(PLDAO.class);
-		PLUserDTO check = mapper.userIdOverlapCheck(userId);
+		mapper = sqlSession.getMapper(PL_DAO.class);
+		PL_UserDTO check = mapper.userIdOverlapCheck(userId);
 		
 		sqlSession.close();
 		
@@ -334,11 +334,11 @@ public class PLService {
 	 * @변경이력 :
 	 * @Method 설명 : 입력받은 비밀번호를 매퍼에 전달, 결과 값을 반환
 	 */
-	public PLUserDTO userPwdOverlapCheck(String userPwd) {
+	public PL_UserDTO userPwdOverlapCheck(String userPwd) {
 		SqlSession sqlSession = getSession();
 		
-		mapper = sqlSession.getMapper(PLDAO.class);
-		PLUserDTO check = mapper.userPwdOverlapCheck(userPwd);
+		mapper = sqlSession.getMapper(PL_DAO.class);
+		PL_UserDTO check = mapper.userPwdOverlapCheck(userPwd);
 		
 		sqlSession.close();
 		
@@ -352,10 +352,10 @@ public class PLService {
 	 * @변경이력 :
 	 * @Method 설명 : 입력받은 회원 정보를 매퍼에 전달하고 반환값의 결과에 따라 트랜젝션 처리
 	 */
-	public boolean registUser(PLUserDTO user) {
+	public boolean registUser(PL_UserDTO user) {
 		SqlSession sqlSession = getSession();
 		
-		mapper = sqlSession.getMapper(PLDAO.class);
+		mapper = sqlSession.getMapper(PL_DAO.class);
 		int result = mapper.registUser(user);
 		
 		if(result > 0) {
@@ -376,12 +376,12 @@ public class PLService {
 	 * @변경이력 :
 	 * @Method 설명 : 처리된 결과 값을 반환
 	 */
-	public List<PLUserDTO> selectUserList() {
+	public List<PL_UserDTO> selectUserList() {
 		SqlSession sqlSession = getSession();
 		
-		mapper = sqlSession.getMapper(PLDAO.class);
+		mapper = sqlSession.getMapper(PL_DAO.class);
 		
-		List<PLUserDTO> menuList = mapper.selectUserList();
+		List<PL_UserDTO> menuList = mapper.selectUserList();
 		
 		sqlSession.close();
 		
@@ -395,12 +395,12 @@ public class PLService {
 	 * @변경이력 :
 	 * @Method 설명 : 입력받은 기준 검색어를 전달, 처리된 결과 값을 반환
 	 */
-	public PLUserDTO selectUserOne(SearchUserStandard searchUserStandard) {
+	public PL_UserDTO selectUserOne(SearchUserStandard searchUserStandard) {
 		SqlSession sqlSession = getSession();
 		
-		mapper = sqlSession.getMapper(PLDAO.class);
+		mapper = sqlSession.getMapper(PL_DAO.class);
 		
-		PLUserDTO user = mapper.selectUserOne(searchUserStandard);
+		PL_UserDTO user = mapper.selectUserOne(searchUserStandard);
 		
 		sqlSession.close();
 		
@@ -414,10 +414,10 @@ public class PLService {
 	 * @변경이력 :
 	 * @Method 설명 : 전달받은 값을 매퍼에 전달, 결과값에 따라 트랜젝션 처리 및 반환
 	 */
-	public boolean updateUserInfo(PLUserDTO user) {
+	public boolean updateUserInfo(PL_UserDTO user) {
 		SqlSession sqlSession = getSession();
 		
-		mapper = sqlSession.getMapper(PLDAO.class);
+		mapper = sqlSession.getMapper(PL_DAO.class);
 		int result = mapper.updateUserinfo(user);
 		
 		if(result > 0) {
@@ -441,7 +441,7 @@ public class PLService {
 	public boolean withdrawalUserOne(String userId) {
 		SqlSession sqlSession = getSession();
 		
-		mapper = sqlSession.getMapper(PLDAO.class);
+		mapper = sqlSession.getMapper(PL_DAO.class);
 		int result = mapper.withdrawalUserOne(userId);
 		
 		if(result > 0) {
@@ -465,7 +465,7 @@ public class PLService {
 	public boolean deleteUserOne(int userNo) {
 		SqlSession sqlSession = getSession();
 		
-		mapper = sqlSession.getMapper(PLDAO.class);
+		mapper = sqlSession.getMapper(PL_DAO.class);
 		int result = mapper.deleteUserOne(userNo);
 		
 		if(result > 0) {
@@ -486,12 +486,12 @@ public class PLService {
 	 * @변경이력 :
 	 * @Method 설명 : 전달받은 아이디 값을 매퍼에 연결하여 전달, 처리된 결과 값을 반환
 	 */
-	public PLUserDTO selectMyInfo(String userId) {
+	public PL_UserDTO selectMyInfo(String userId) {
 		SqlSession sqlSession = getSession();
 		
-		mapper = sqlSession.getMapper(PLDAO.class);
+		mapper = sqlSession.getMapper(PL_DAO.class);
 		
-		PLUserDTO user = mapper.selectMyInfo(userId);
+		PL_UserDTO user = mapper.selectMyInfo(userId);
 		
 		sqlSession.close();
 		

@@ -11,7 +11,7 @@ package pl.model.dto;
   * @변경이력 :
   * @프로그램 설명 : 태그 DTO
   */
-public class PLTagDTO {
+public class PL_TagDTO {
 	private String tag_code;
 	private String tag_name;
 	/**
@@ -21,10 +21,10 @@ public class PLTagDTO {
 	/**
 	 * 
 	 */
-	public PLTagDTO() {
+	public PL_TagDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	public PLTagDTO( String tag_code, String tag_name) {
+	public PL_TagDTO( String tag_code, String tag_name) {
 		super();
 		this.tag_code = tag_code;
 		this.tag_name = tag_name;

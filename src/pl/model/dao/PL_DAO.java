@@ -6,10 +6,10 @@ package pl.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 import common.SearchUserStandard;
-import pl.model.dto.PLUserDTO;
-import pl.model.dto.PLListAndReserveDTO;
-import pl.model.dto.PLListAllDTO;
-import pl.model.dto.PLReservationDTO;
+import pl.model.dto.PL_UserDTO;
+import pl.model.dto.PL_ListAndReserveDTO;
+import pl.model.dto.PL_ListAllDTO;
+import pl.model.dto.PL_ReservationDTO;
 
 /**
   * @FileName : PlaceListDAO.java
@@ -19,7 +19,7 @@ import pl.model.dto.PLReservationDTO;
   * @변경이력 :
   * @프로그램 설명 :DB와 직접적으로 접근하며 SQL구문을 실행하는 클래스
   */
-public interface PLDAO {
+public interface PL_DAO {
   
 	/**
 	  * @Method Name : selectAllPlace
@@ -29,7 +29,7 @@ public interface PLDAO {
 	  * @Method 설명 : 내 장소의 전체 리스트 출력
 	  * @return
 	  */
-	ArrayList<PLListAllDTO> selectAllPlace();
+	ArrayList<PL_ListAllDTO> selectAllPlace();
 
 	/**
 	 * @Method Name : selectAllName
@@ -39,7 +39,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소 이름순으로 정렬된 리스트 출력
 	 */
-	ArrayList<PLListAllDTO> selectAllName();
+	ArrayList<PL_ListAllDTO> selectAllName();
 
 	/**
 	 * @Method Name : selectAllAddress
@@ -49,7 +49,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소 주소순으로 정렬된 리스트 출력
 	 */
-	ArrayList<PLListAllDTO> selectAllAddress();
+	ArrayList<PL_ListAllDTO> selectAllAddress();
 
 	/**
 	 * @Method Name : selectAllScore
@@ -59,7 +59,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소 별점순으로 정렬된 리스트 출력
 	 */
-	ArrayList<PLListAllDTO> selectAllScore();
+	ArrayList<PL_ListAllDTO> selectAllScore();
 
 	/**
 	 * @Method Name : selectAllCategory
@@ -69,19 +69,19 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소 카테고리순으로 정렬된 리스트 출력
 	 */
-	ArrayList<PLListAllDTO> selectAllCategory();
+	ArrayList<PL_ListAllDTO> selectAllCategory();
 
 	
 
-	List<PLListAndReserveDTO> reserveMine();
+	List<PL_ListAndReserveDTO> reserveMine();
 
-	PLListAndReserveDTO reserveInfo(int num);
+	PL_ListAndReserveDTO reserveInfo(int num);
 
-	int editReserve(PLReservationDTO re);
+	int editReserve(PL_ReservationDTO re);
 
 	int cancelReserve(int num);
 
-	int addReserve(PLReservationDTO re);
+	int addReserve(PL_ReservationDTO re);
 	/**
 	  * @Method Name : insertPlace
 	  * @작성일 : 2022. 11. 15.
@@ -90,7 +90,7 @@ public interface PLDAO {
 	  * @프로그램 설명 : 내 장소에 새로운 장소 등록
 	  * @return
 	  */
-	int insertPlace(PLListAllDTO dto);
+	int insertPlace(PL_ListAllDTO dto);
 
 	/**
 	  * @Method Name : renamePL
@@ -99,7 +99,7 @@ public interface PLDAO {
 	  * @변경이력 : 
 	  * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 수정
 	  */
-	int renamePL(PLListAllDTO placDTO);
+	int renamePL(PL_ListAllDTO placDTO);
 	/**
 	 * @Method Name : deleteMyList
 	 * @Project : NewVeloper_mini
@@ -108,7 +108,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천장소리스트에서 내 장소리스트로 장소 정보를 저장
 	 */
-	int saveMyList(PLListAllDTO myList);
+	int saveMyList(PL_ListAllDTO myList);
 
 	/**
 	 * @Method Name : deleteMyList
@@ -122,22 +122,22 @@ public interface PLDAO {
 	
 	
 	/*아이디 중복 확인*/
-	PLUserDTO userIdOverlapCheck(String userId);
+	PL_UserDTO userIdOverlapCheck(String userId);
 	
 	/*비밀번호 중복 확인*/
-	PLUserDTO userPwdOverlapCheck(String userPwd);
+	PL_UserDTO userPwdOverlapCheck(String userPwd);
 
 	/*회원가입*/
-	int registUser(PLUserDTO user);
+	int registUser(PL_UserDTO user);
 
 	/*회원 전체 조회*/
-	List<PLUserDTO> selectUserList();
+	List<PL_UserDTO> selectUserList();
 	
 	/*회원 선택 조회*/
-	PLUserDTO selectUserOne(SearchUserStandard searchUserStandard);
+	PL_UserDTO selectUserOne(SearchUserStandard searchUserStandard);
 
 	/*회원 정보 수정*/
-	int updateUserinfo(PLUserDTO user);
+	int updateUserinfo(PL_UserDTO user);
 
 	/*회원 탈퇴*/
 	int withdrawalUserOne(String userId);
@@ -146,6 +146,6 @@ public interface PLDAO {
 	int deleteUserOne(int userId);
 
 	/*사용자 정보 확인*/
-	PLUserDTO selectMyInfo(String userId);
+	PL_UserDTO selectMyInfo(String userId);
 	
 }

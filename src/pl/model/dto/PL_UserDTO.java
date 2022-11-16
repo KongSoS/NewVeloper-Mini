@@ -13,7 +13,7 @@ import java.sql.Date;
   * @변경이력 : 2022. 11. 16 성식 (toString 설정 변경)
   * @프로그램 설명 : 변수들을 선언하고 SQL문의 값들과 매치가 되야 한다.
   */
-public class PLUserDTO {
+public class PL_UserDTO {
 	private int user_no;		
 	private String user_id;		
 	private String user_pwd;	
@@ -27,7 +27,7 @@ public class PLUserDTO {
 	/**
 	 * 기본 생성자
 	 */
-	public PLUserDTO() {
+	public PL_UserDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	/**
@@ -41,7 +41,7 @@ public class PLUserDTO {
 	 * @param status 탈퇴여부
 	 * @param manager 관리자여부
 	 */
-	public PLUserDTO(int user_no, String user_id, String user_pwd, String user_name, String phone, Date enroll_date,
+	public PL_UserDTO(int user_no, String user_id, String user_pwd, String user_name, String phone, Date enroll_date,
 			Date del_date, String status, String manager) {
 		super();
 		this.user_no = user_no;

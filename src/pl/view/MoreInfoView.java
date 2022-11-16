@@ -6,9 +6,9 @@ package pl.view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import pl.controller.PLController;
-import pl.model.dto.PLListAllDTO;
-import pl.model.dto.PLReservationDTO;
+import pl.controller.PL_Controller;
+import pl.model.dto.PL_ListAllDTO;
+import pl.model.dto.PL_ReservationDTO;
 
 /**
  * @FileName : MoreInfoView.java
@@ -20,11 +20,9 @@ import pl.model.dto.PLReservationDTO;
 
  */
 public class MoreInfoView {
-	private Scanner sc = new Scanner(System.in);
-	private PLController controller = new PLController();
-	private PLListAllDTO placDTO = new PLListAllDTO();
-	private PLReserveMenu rm = new PLReserveMenu();
-	private PLReservationDTO rd = new PLReservationDTO();
+	private PL_Controller controller = new PL_Controller();
+	private PL_ReserveMenu rm = new PL_ReserveMenu();
+	private PL_ReservationDTO rd = new PL_ReservationDTO();
 
 	/**
 	 * @Method Name : MoreInfo
@@ -35,9 +33,11 @@ public class MoreInfoView {
 	 * @param
 	 */
 
-	public void MoreInfo(PLListAllDTO placDTO, int no) {
+	public void MoreInfo(PL_ListAllDTO placDTO, int no) {
 
 		int num;
+		
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("==================== 장소 정보 ====================");
 		System.out.println("이름 : " + placDTO.getPl_name());
@@ -82,10 +82,12 @@ public class MoreInfoView {
 	 * @Method 설명 : 내 장소리스트에 있는 장소 정보를 수정하는 메소드
 	 * @param placDTO
 	 */
-	private void renamePL(PLListAllDTO placDTO) {
+	private void renamePL(PL_ListAllDTO placDTO) {
 
 		int category;
 		int tag;
+		
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("renamePL에 있는 DTO : " + placDTO.getPl_no());
 		System.out.println("==================== 장소 수정 ====================");
@@ -138,9 +140,11 @@ public class MoreInfoView {
 
 	 */
 
-	public void selectOne(ArrayList<PLListAllDTO> placeList, int no) {
+	public void selectOne(ArrayList<PL_ListAllDTO> placeList, int no) {
 
 		int choice;
+		
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.println(placeList.get(no - 1));
 		System.out.println("==================== 장소 정보 ====================");

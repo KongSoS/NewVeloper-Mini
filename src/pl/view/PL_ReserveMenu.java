@@ -5,14 +5,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import pl.controller.PLController;
-import pl.model.dto.PLListAndReserveDTO;
-import pl.model.dto.PLReservationDTO;
+import pl.controller.PL_Controller;
+import pl.model.dto.PL_ListAndReserveDTO;
+import pl.model.dto.PL_ReservationDTO;
 
-public class PLReserveMenu {
-	private Scanner sc = new Scanner(System.in);
-	private PLController controller = new PLController();
-	private PLReservationDTO rd = new PLReservationDTO();
+public class PL_ReserveMenu {
+	private PL_Controller controller = new PL_Controller();
+	private PL_ReservationDTO rd = new PL_ReservationDTO();
 	
   
 	/**  
@@ -24,8 +23,9 @@ public class PLReserveMenu {
 		*/
 	
 	public void reserveMine() {
+		Scanner sc = new Scanner(System.in);
 		
-		List<PLListAndReserveDTO> reserveList = controller.reserveMine();
+		List<PL_ListAndReserveDTO> reserveList = controller.reserveMine();
 		
 		System.out.println("=============내 예약===============");
 		for (int i = 1; i <= reserveList.size(); i++) {
@@ -43,7 +43,7 @@ public class PLReserveMenu {
 		if (num == 0) {
 			return;
 		} else if (num <= reserveList.size()) {
-			PLReserveMenu rm = new PLReserveMenu();
+			PL_ReserveMenu rm = new PL_ReserveMenu();
 			rm.reserveInfo();
 
 		} else {
@@ -53,11 +53,12 @@ public class PLReserveMenu {
 	}
 	
 	public void reserveInfo() {
+		Scanner sc = new Scanner(System.in);
 
 //		//시간 형태 받는 것도 고민해봐야함
 		
 		
-			PLListAndReserveDTO menu= controller.reserveInfo(rd.getReserve_no());
+			PL_ListAndReserveDTO menu= controller.reserveInfo(rd.getReserve_no());
 			System.out.println("==============예약정보==============");
 			System.out.println("가게 이름 : "+menu.getListDTO().getPl_name());
 			// 가게 이름을 소환해야함
@@ -98,7 +99,7 @@ public class PLReserveMenu {
 
 			String num2 = sc.next();
 			System.out.println();
-			PLReserveMenu rm = new PLReserveMenu();
+			PL_ReserveMenu rm = new PL_ReserveMenu();
 			switch (num2) {
 			case "1":
 				rm.editReserve();
@@ -117,6 +118,8 @@ public class PLReserveMenu {
 		
 	
 	public void addReserve(int my_no) {
+		Scanner sc = new Scanner(System.in);
+		
 		//이 클래스는 저장소로부터 불러올 수 있음
 		System.out.println("==========예약하기===========");
 		System.out.println("Ex) 날짜 : 2022/01/01 -> 220101");
@@ -135,6 +138,7 @@ public class PLReserveMenu {
 	
 
 	public void editReserve() {
+		Scanner sc = new Scanner(System.in);
 		
 		 System.out.println("=============예약 변경==========");
 		 System.out.println("Ex) 날짜 : 2022/01/01 -> 220101");
@@ -152,6 +156,7 @@ public class PLReserveMenu {
 	}
 	
 	public void cancelReserve() {
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("===========예약 =============");
 		System.out.print("정말 취소하시겠습니까? (Y, N) : ");

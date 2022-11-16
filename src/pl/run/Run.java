@@ -3,7 +3,7 @@
   */
 package pl.run;
 
-import pl.view.PLMemberMenu;
+import pl.view.PL_MemberMenu;
 
 /**
   * @FileName : Run.java
@@ -16,7 +16,7 @@ import pl.view.PLMemberMenu;
 public class Run {
 	
 	public static void main(String[] args) {
-		new PLMemberMenu().roginMenu();
+		new PL_MemberMenu().roginMenu();
 	}
 
 }

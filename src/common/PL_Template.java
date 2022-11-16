@@ -24,7 +24,7 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
   * @변경이력 :
   * @프로그램 설명 : DB 마이바티스 연동 클래스
   */
-public class PLTemplate {
+public class PL_Template {
 
 	
 	private static SqlSessionFactory sqlSessionFactory;

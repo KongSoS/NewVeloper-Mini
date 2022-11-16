@@ -4,8 +4,8 @@
 package pl.view;
 
 import java.util.Scanner;
-import pl.controller.PLController;
-import pl.model.dto.PLUserDTO;
+import pl.controller.PL_Controller;
+import pl.model.dto.PL_UserDTO;
 
 /**
  * @FileName : PLMemberMenu.java
@@ -16,7 +16,7 @@ import pl.model.dto.PLUserDTO;
  * @프로그램 설명 : 사용자는 중복되지 않는 아이디로 회원가입을 통해 로그인을 해야하고, 로그인 시 메인메뉴 화면으로 이동된다.
  * @프로그램 설명 : 첫번째 화면
  */
-public class PLMemberMenu {
+public class PL_MemberMenu {
 	
 	/**
 	 * @Method Name : roginMenu
@@ -28,7 +28,7 @@ public class PLMemberMenu {
 	public void roginMenu() {
 
 		Scanner sc = new Scanner(System.in);
-		PLController plController = new PLController();
+		PL_Controller plController = new PL_Controller();
 
 		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
@@ -65,7 +65,7 @@ public class PLMemberMenu {
 	 * @Method 설명 : 사용자 로그인 정보 입력 메소드
 	 * @return : 입력받은 아이디를 Map 변수에 담아 반환
 	 */
-	private PLUserDTO inputLogin() {
+	private PL_UserDTO inputLogin() {
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -74,7 +74,7 @@ public class PLMemberMenu {
 		System.out.print("비밀번호를 입력하세요 : ");
 		String userPwd = sc.nextLine();
 		
-		PLUserDTO parameter = new PLUserDTO();
+		PL_UserDTO parameter = new PL_UserDTO();
 		parameter.setUser_id(userId);
 		parameter.setUser_pwd(userPwd);
 		
@@ -90,10 +90,10 @@ public class PLMemberMenu {
 	 * @Method 설명 : 회원가입 정보 입력 메소드
 	 * @return : 입력받은 아이디를 Map 변수에 담아 반환
 	 */
-	private PLUserDTO inputUser() {
+	private PL_UserDTO inputUser() {
 		
 		Scanner sc = new Scanner(System.in);
-		PLController plController = new PLController();
+		PL_Controller plController = new PL_Controller();
 		
 		System.out.println("=========== 회원 가입 ============");
 		
@@ -107,7 +107,7 @@ public class PLMemberMenu {
 		System.out.print("전화번호를 입력하세요 : ");
 		String userPhone = sc.nextLine();
 		
-		PLUserDTO parameter = new PLUserDTO();
+		PL_UserDTO parameter = new PL_UserDTO();
 		parameter.setUser_id(userId);
 		parameter.setUser_pwd(userPwd);
 		parameter.setUser_name(userName);

@@ -8,9 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import pl.controller.PLController;
-import pl.model.dto.PLListAllDTO;
-import pl.model.dto.PLReservationDTO;
+import pl.controller.PL_Controller;
+import pl.model.dto.PL_ListAllDTO;
+import pl.model.dto.PL_ReservationDTO;
 
 
 /**
@@ -23,7 +23,7 @@ import pl.model.dto.PLReservationDTO;
 
  */
 public class subView {
-	private PLController controller = new PLController();
+	private PL_Controller controller = new PL_Controller();
 	private MoreInfoView mv = new MoreInfoView();
 
 	/**
@@ -43,11 +43,11 @@ public class subView {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		List<PLListAllDTO> list = controller.myPlaceList();
+		List<PL_ListAllDTO> list = controller.myPlaceList();
 		
 		System.out.println(list.size());
 		System.out.println("=========== 내 장소 ===========");
-		for(PLListAllDTO pd : list) {
+		for(PL_ListAllDTO pd : list) {
 			num++;
 			System.out.println(num + ". " + pd.getPl_name());
 		}
@@ -82,9 +82,9 @@ public class subView {
 		int tag;
 		
 		Scanner sc = new Scanner(System.in);
-		PLListAllDTO dto = new PLListAllDTO();
+		PL_ListAllDTO dto = new PL_ListAllDTO();
 		
-		List<PLListAllDTO> PLList = new ArrayList<>();
+		List<PL_ListAllDTO> PLList = new ArrayList<>();
 		
 		do {
 			System.out.println("=========== 장소 추가 ===========");
@@ -137,7 +137,7 @@ public class subView {
 		controller.addPlaceList(dto);
 	}
 
-	public void printReserveList(List<PLReservationDTO> reserveList, PLListAllDTO pd) {
+	public void printReserveList(List<PL_ReservationDTO> reserveList, PL_ListAllDTO pd) {
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -157,7 +157,7 @@ public class subView {
 		if (num == 0) {
 			return;
 		} else if (num <= reserveList.size()) {
-			PLReserveMenu rm = new PLReserveMenu();
+			PL_ReserveMenu rm = new PL_ReserveMenu();
 			rm.reserveInfo();
 
 		} else {
@@ -167,7 +167,7 @@ public class subView {
 
 	}
 
-	public void printMenu(PLReservationDTO menu) {
+	public void printMenu(PL_ReservationDTO menu) {
 		/*
 		 * 변수 선언
 		 */
@@ -222,7 +222,7 @@ public class subView {
 
 		String num2 = sc.next();
 		System.out.println();
-		PLReserveMenu rm = new PLReserveMenu();
+		PL_ReserveMenu rm = new PL_ReserveMenu();
 		switch (num2) {
 		case "1":rm.editReserve(); break;
 		case "2":rm.cancelReserve(); break;
@@ -274,11 +274,11 @@ public class subView {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		ArrayList<PLListAllDTO> placeList = controller.selectAllName();
+		ArrayList<PL_ListAllDTO> placeList = controller.selectAllName();
 
 		if(placeList != null) {
 			System.out.println("=========== 매장명으로 정렬 ===========");
-			for(PLListAllDTO list : placeList) {
+			for(PL_ListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.println(list.getPl_name());
 			}
@@ -310,11 +310,11 @@ public class subView {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		ArrayList<PLListAllDTO> placeList = controller.selectAllAddress();
+		ArrayList<PL_ListAllDTO> placeList = controller.selectAllAddress();
 
 		if(placeList != null) {
 			System.out.println("=========== 주소로 정렬 ===========");
-			for(PLListAllDTO list : placeList) {
+			for(PL_ListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getPl_address());
@@ -346,11 +346,11 @@ public class subView {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		ArrayList<PLListAllDTO> placeList = controller.selectAllScore();
+		ArrayList<PL_ListAllDTO> placeList = controller.selectAllScore();
 
 		if(placeList != null) {
 			System.out.println("=========== 별점으로 정렬 ===========");
-			for(PLListAllDTO list : placeList) {
+			for(PL_ListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getScore() + "점");
@@ -382,11 +382,11 @@ public class subView {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		ArrayList<PLListAllDTO> placeList = controller.selectAllCategory();
+		ArrayList<PL_ListAllDTO> placeList = controller.selectAllCategory();
 
 		if(placeList != null) {
 			System.out.println("=========== 카테고리로 정렬 ===========");
-			for(PLListAllDTO list : placeList) {
+			for(PL_ListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getCategory().getCategory_name());

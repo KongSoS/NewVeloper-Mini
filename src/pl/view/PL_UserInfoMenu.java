@@ -2,8 +2,8 @@ package pl.view;
 
 import java.util.Scanner;
 
-import pl.controller.PLController;
-import pl.model.dto.PLUserDTO;
+import pl.controller.PL_Controller;
+import pl.model.dto.PL_UserDTO;
 
 /**
  * @FileName : PLUserInfoMenu.java
@@ -13,9 +13,7 @@ import pl.model.dto.PLUserDTO;
  * @변경이력 :
  * @프로그램 설명 : 메인 메뉴에서 회원 정보 수정을 통해 이동, 회원 정보 조작 가능
  */
-public class PLUserInfoMenu {
-	
-	Scanner sc = new Scanner(System.in);
+public class PL_UserInfoMenu {
 	
 	/**
 	 * @Method Name : userInfoMenu
@@ -25,7 +23,9 @@ public class PLUserInfoMenu {
 	 * @Method 설명 : 사용자 정보 확인 메뉴, 정보 조작 가능
 	 */
 	public void userInfoMenu(String userId) {
-		PLController plController = new PLController();
+		Scanner sc = new Scanner(System.in);
+		
+		PL_Controller plController = new PL_Controller();
 		
 		do {
 			System.out.println("=========== My Information Menu ===========");
@@ -65,7 +65,8 @@ public class PLUserInfoMenu {
 	 * @변경이력 :
 	 * @Method 설명 : 사용자 정보 선택적으로 수정 가능
 	 */
-	private PLUserDTO inputUserInfo(String userId) {
+	private PL_UserDTO inputUserInfo(String userId) {
+		Scanner sc = new Scanner(System.in);
 		
 		sc.nextLine();
 		System.out.print("변경될 사용자 비밀번호를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
@@ -75,7 +76,7 @@ public class PLUserInfoMenu {
 		System.out.print("변경될 사용자 전화번호를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
 		String userPhone = sc.nextLine();
 		
-		PLUserDTO parameter = new PLUserDTO();
+		PL_UserDTO parameter = new PL_UserDTO();
 		parameter.setUser_id(userId);
 		parameter.setUser_pwd(userPwd);
 		parameter.setUser_name(userName);
