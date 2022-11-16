@@ -228,7 +228,6 @@ public class PLService {
 	}
 
 	public boolean addReserve(PLReservationDTO re) {
-		// TODO Auto-generated method stub
 		SqlSession session = getSession();
 		
 		mapper = session.getMapper(PLDAO.class);
@@ -244,6 +243,7 @@ public class PLService {
 	
 		return result > 0? true: false;
 	}
+
 
 
 	/**

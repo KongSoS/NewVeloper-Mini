@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import pl.controller.PLController;
 
+
 public class PLMenu {
 	
 	Scanner sc = new Scanner(System.in);
@@ -43,7 +44,7 @@ public class PLMenu {
 				sv.addPlaceList();
 				break;
 			case 4:
-
+				sv.fileOut();
 				break;
 			case 5:
 
