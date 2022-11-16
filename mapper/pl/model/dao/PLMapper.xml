@@ -185,7 +185,7 @@
 		)
 	</insert>
 	
-<resultMap type = "pl.model.dto.PLListandReserveDTO" id = "reserveResultMap">
+<resultMap type = "pl.model.dto.PLListAndReserveDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>
 		<result property = "my_no" column ="MY_NO"/>
@@ -194,7 +194,7 @@
 	
 	<association property="listDTO" resultMap="PllistResultMap"/>
 	</resultMap>
-<resultMap type="pl.model.dto.PLMyListDTO" id="PllistResultMap">
+<resultMap type="pl.model.dto.PLListAllDTO" id="PllistResultMap">
 	<id property="pl_no" column="MY_NO"/>
 	<result property="rownum" column="ROWNUM"/>
 	<result property="pl_name" column="MY_NAME"/>

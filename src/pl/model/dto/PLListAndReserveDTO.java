@@ -6,7 +6,7 @@ public class PLListAndReserveDTO {
 	private int my_no;
 	private String reserve_day;
 	private String reserve_time;
-	private PLMyListDTO listDTO;
+	private PLListAllDTO listDTO;
 	
 	/**
 	 * 예약 가게이름을 조회하기 위한 dto
@@ -24,7 +24,7 @@ public class PLListAndReserveDTO {
 	 * @param listDTO
 	 */
 	public PLListAndReserveDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time,
-			PLMyListDTO listDTO) {
+			PLListAllDTO listDTO) {
 		super();
 		this.reserve_no = reserve_no;
 		this.user_no = user_no;
@@ -54,14 +54,14 @@ public class PLListAndReserveDTO {
 	/**
 	 * @return the listDTO
 	 */
-	public PLMyListDTO getListDTO() {
+	public PLListAllDTO getListDTO() {
 		return listDTO;
 	}
 
 	/**
 	 * @param listDTO the listDTO to set
 	 */
-	public void setListDTO(PLMyListDTO listDTO) {
+	public void setListDTO(PLListAllDTO listDTO) {
 		this.listDTO = listDTO;
 	}
 

@@ -3,36 +3,13 @@
   */
 package pl.view;
 import java.text.SimpleDateFormat;
-
-
-import java.util.Date;
-
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-
-import pl.model.dto.PLListAllDTO;
-
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.Buffer;
-import java.text.SimpleDateFormat;
 import pl.controller.PLController;
-import pl.model.dto.PLListAndCategoryDTO;
-import pl.model.dto.PLMyListDTO;
-import pl.model.dto.PLListAndReserveDTO;
-import pl.model.dto.PLTagDTO;
+import pl.model.dto.PLListAllDTO;
 import pl.model.dto.PLReservationDTO;
 
 
