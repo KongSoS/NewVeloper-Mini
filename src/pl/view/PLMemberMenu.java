@@ -25,7 +25,6 @@ public class PLMemberMenu {
 	 * @Method 설명 : 로그인 화면
 	 */
 	public void roginMenu() {
-
 		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
 			System.out.println("1. 로그인");
@@ -41,8 +40,7 @@ public class PLMemberMenu {
 			case 2:
 
 				break;
-			default:
-				break;
+		
 			}
 		} while (true);
 

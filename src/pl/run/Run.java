@@ -16,7 +16,6 @@ import pl.view.PLMemberMenu;
 public class Run {
 	
 	public static void main(String[] args) {
-		
 		new PLMemberMenu().roginMenu();
 	}
 

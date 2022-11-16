@@ -7,6 +7,7 @@ import pl.model.dto.PLMyListDTO;
 
 public class PLMenu {
 
+
 	private Scanner sc = new Scanner(System.in);
 	private PLController plController = new PLController();
 	private PLMyListDTO myListDTO;
@@ -21,6 +22,9 @@ public class PLMenu {
 	 * @Method 설명 : 처음 보여지는 메뉴
 	 */
 	public void mainMenu() {
+		Scanner sc = new Scanner(System.in);
+		PLReserveMenu remenu = new PLReserveMenu();
+		subView sv = new subView();
 
 		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
@@ -53,9 +57,8 @@ public class PLMenu {
 
 				break;
 			case 6:
+				remenu.reserveMine(); // 클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
 				plController.reserveMine();  //클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
-				
-				
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");
@@ -68,10 +71,6 @@ public class PLMenu {
 		} while (true);
 
 	}
-
-
-
-
 
 
 	/**
@@ -144,9 +143,5 @@ public class PLMenu {
 		
 		return PLList;
 	}
-	
-	
-	
-		
+
 }
-	

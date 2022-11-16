@@ -8,13 +8,13 @@ import static common.PLTemplate.getSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import pl.model.dao.PLDAO;
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
-import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLReservationDTO;
 
@@ -24,7 +24,7 @@ import pl.model.dto.PLReservationDTO;
   * @Date : 2022. 11. 11. 
   * @작성자 : heojaehong
   * @변경이력 :
-  * @프로그램 설명 :
+  * @프로그램 설명 : service 클래스
   */
 public class PLService {
 	
@@ -46,14 +46,28 @@ public class PLService {
 		return Plist;
 	}
 	
-
-	public List<PLMyListAndCategoryDTO> addPlaceList() {
+	/**
+	  * @Method Name : addPlaceList
+	  * @작성일 : 2022. 11. 11.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 : 새로운 장소를 등록할 sql문에 접근하는 메소드
+	  * @return
+	  */
+	public void addPlaceList(PLListAndCategoryDTO dto) {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
-		ArrayList<PLMyListAndCategoryDTO> Plist = mapper.insertPlace();
+		System.out.println("service의 dto : " + dto);
+		int result = mapper.insertPlace(dto);
 		
+		if(result > 0) {
+			System.out.println("장소등록 성공!");
+			session.commit();
+		}else {
+			System.out.println("장소등록 실패!");
+			session.rollback();			
+		}
 		session.close();
-		return Plist;
 	}
 
 	public List<PLReservationDTO> reserveMine() {
@@ -214,6 +228,27 @@ public class PLService {
 		return result > 0? true: false;
 	}
 
+	/**
+	  * @Method Name : renamePL
+	  * @작성일 : 2022. 11. 15.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 :
+	  * @param placDTO
+	  */
+	public void renamePL(PLListAndCategoryDTO placDTO) {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.renamePL(placDTO);
+		
+		if(result > 0) {
+			System.out.println("수정 성공!");
+			session.commit();
+		}else {
+			System.out.println("수정 실패!");
+			session.rollback();
+		}
+	}
 
 	public boolean addReserve(PLReservationDTO re) {
 		// TODO Auto-generated method stub
@@ -232,6 +267,5 @@ public class PLService {
 	
 		return result > 0? true: false;
 	}
-  
-  
+
 }
