@@ -258,7 +258,7 @@ public class PLController {
 	public void addReserve(int num, String day, String time) {
 		// TODO Auto-generated method stub
 		PLReservationDTO re = new PLReservationDTO();
-		re.setReserve_no(num);
+		re.setMy_no(num);
 		re.setReserve_day(day);
 		re.setReserve_time(time);
 		

@@ -235,20 +235,23 @@
 	</select>
 	
 	<insert id="addReserve" parameterType="pl.model.dto.PLReservationDTO">
-        INSERT
+ INSERT
           INTO RESERVATION A
         (
         A.RESERVE_NO
         , A.RESERVE_DAY
         , A.RESERVE_TIME
+        , A.USER_NO
+        , A.MY_NO
         )
         VALUES
         (
           SEQ_RESERVE_NO.NEXTVAL
         , #{ reserve_day }
         , #{ reserve_time }
+        , 1
+        , #{ my_no }
         )
-        
 	</insert>
 
 	<update id="editReserve" parameterType="pl.model.dto.PLReservationDTO">
