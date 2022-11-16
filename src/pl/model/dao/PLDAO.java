@@ -22,7 +22,7 @@ import pl.model.dto.PLReservationDTO;
   * @프로그램 설명 :DB와 직접적으로 접근하며 SQL구문을 실행하는 클래스
   */
 public interface PLDAO {
-
+  
 	/**
 	  * @Method Name : selectAllPlace
 	  * @작성일 : 2022. 11. 14.

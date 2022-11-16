@@ -32,7 +32,7 @@ import pl.model.dto.PLTagDTO;
  * @Date : 2022. 11. 15.
  * @작성자 : heojaehong
  * @변경이력 :
- * @프로그램 설명 :
+ * @프로그램 설명 :  
  */
 public class subView {
 	private PLController controller = new PLController();

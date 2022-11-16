@@ -9,7 +9,7 @@ public class PLReservationDTO {
 	
 	public PLReservationDTO() {
 		// reservation테이블의 기본 생성자
-	}
+	}  
 
 	public PLReservationDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time) {
 		super();

@@ -14,7 +14,7 @@ public class PLMenu {
 	 * @작성자 : heojaehong
 	 * @변경이력 :
 	 * @Method 설명 : 처음 보여지는 메뉴
-	 */
+	 */  
 	public void mainMenu() {
 		Scanner sc = new Scanner(System.in);
 		PLReserveMenu remenu = new PLReserveMenu();

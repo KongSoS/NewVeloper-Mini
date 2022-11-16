@@ -13,7 +13,7 @@ public class PLListAndReserveDTO {
 	 */
 	public PLListAndReserveDTO() {
 		// 기본생성자
-	}
+	}  
 	
 	/**
 	 * @param reserve_no

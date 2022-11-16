@@ -15,7 +15,7 @@ public class PLReserveMenu {
 	private PLController controller = new PLController();
 	private PLReservationDTO rd = new PLReservationDTO();
 	
-
+  
 	/**  
 		* @Title: reserveMine  
 		* @Description: 내 예약 목록 조회

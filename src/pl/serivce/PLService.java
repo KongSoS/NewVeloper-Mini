@@ -28,7 +28,7 @@ import pl.model.dto.PLReservationDTO;
   * @프로그램 설명 : service 클래스
   */
 public class PLService {
-	
+	  
 	private PLDAO mapper;
 	/**
 	  * @Method Name : myPlaceList
