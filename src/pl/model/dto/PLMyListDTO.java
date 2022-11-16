@@ -19,7 +19,45 @@ public class PLMyListDTO {
 	private int score;
 	private String pl_catecode;
 	private String pl_reserve;
+	private int rownum;
 	
+	/**
+	 * @param pl_no
+	 * @param pl_name
+	 * @param pl_address
+	 * @param pl_tel
+	 * @param score
+	 * @param pl_catecode
+	 * @param pl_reserve
+	 * @param rownum
+	 */
+	public PLMyListDTO(int pl_no, String pl_name, String pl_address, String pl_tel, int score, String pl_catecode,
+			String pl_reserve, int rownum) {
+		super();
+		this.pl_no = pl_no;
+		this.pl_name = pl_name;
+		this.pl_address = pl_address;
+		this.pl_tel = pl_tel;
+		this.score = score;
+		this.pl_catecode = pl_catecode;
+		this.pl_reserve = pl_reserve;
+		this.rownum = rownum;
+	}
+
+	/**
+	 * @return the rownum
+	 */
+	public int getRownum() {
+		return rownum;
+	}
+
+	/**
+	 * @param rownum the rownum to set
+	 */
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+
 	/**
 	 * 
 	 */

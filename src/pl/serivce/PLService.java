@@ -8,12 +8,15 @@ import static common.PLTemplate.getSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import pl.model.dao.PLDAO;
-import pl.model.dto.PLMyListAndCategoryDTO;
+import pl.model.dto.PLCategoryDTO;
+import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
+import pl.model.dto.PLReservationDTO;
 
 /**
   * @FileName : PLService.java
@@ -21,7 +24,7 @@ import pl.model.dto.PLMyListDTO;
   * @Date : 2022. 11. 11. 
   * @작성자 : heojaehong
   * @변경이력 :
-  * @프로그램 설명 :
+  * @프로그램 설명 : service 클래스
   */
 public class PLService {
 	
@@ -34,18 +37,235 @@ public class PLService {
 	  * @Method 설명 : 내 장소 전체를 보여주는 메소드
 	  * @return
 	  */
-	public ArrayList<PLMyListDTO> myPlaceList() {
+	public ArrayList<PLListAndCategoryDTO> myPlaceList() {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PLDAO.class);
-		ArrayList<PLMyListDTO> Plist = mapper.selectAllPlace();
+		ArrayList<PLListAndCategoryDTO> Plist = mapper.selectAllPlace();
 		
 		session.close();
 		return Plist;
 	}
 	
-	public List<PLMyListAndCategoryDTO> addPlaceList() {
+	/**
+	  * @Method Name : addPlaceList
+	  * @작성일 : 2022. 11. 11.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 : 새로운 장소를 등록할 sql문에 접근하는 메소드
+	  * @return
+	  */
+	public void addPlaceList(PLListAndCategoryDTO dto) {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		System.out.println("service의 dto : " + dto);
+		int result = mapper.insertPlace(dto);
+		
+		if(result > 0) {
+			System.out.println("장소등록 성공!");
+			session.commit();
+		}else {
+			System.out.println("장소등록 실패!");
+			session.rollback();			
+		}
+		session.close();
+	}
+
+	public List<PLReservationDTO> reserveMine() {
+		
+		
+		SqlSession session = getSession();
+		
+		mapper = session.getMapper(PLDAO.class);
+		
+		List<PLReservationDTO> reserveList = mapper.reserveMine();
+		
+		session.close();
+		
+		return reserveList;
+}
+
+
+	public PLReservationDTO reserveInfo(int num) {
+		SqlSession session = getSession();
+	
+		mapper = session.getMapper(PLDAO.class);
+		PLReservationDTO menu = mapper.reserveInfo(num);
+	
+		session.close();
+	
+		return menu;
+	}
+
+	public boolean editReserve(PLReservationDTO re) {
+		SqlSession session = getSession();
+	
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.editReserve(re);
+	
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+	
+		session.close();
+	
+		return result > 0? true: false;
+	}
+
+/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public ArrayList<PLListAndCategoryDTO> selectAllName() {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		
+		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllName();
+		
+		session.close();
+		
+		return placeList;
+	}
+	
+	
+	/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public ArrayList<PLListAndCategoryDTO> selectAllAddress() {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		
+		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllAddress();
+		
+		session.close();
+		
+		return placeList;
+	}
+
+	/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public ArrayList<PLListAndCategoryDTO> selectAllScore() {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		
+		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllScore();
+		
+		session.close();
+		
+		return placeList;
+	}
+
+	/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public ArrayList<PLListAndCategoryDTO> selectAllCategory() {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		
+		ArrayList<PLListAndCategoryDTO> placeList = mapper.selectAllCategory();
+		
+		session.close();
+		
+		return placeList;
+	}
+
+
+
+//	/**
+//	 * @FileName : PLService.java
+//	 * @Project : NewVeloper_mini
+//	 * @Date : 2022. 11. 15.
+//	 * @작성자 : jihee
+//	 * @변경이력 :
+//	 * @프로그램 설명 : 
+//	 */
+//	public ArrayList<PLCategoryDTO> selectOnlyCategory() {
+//		SqlSession session = getSession();
+//		mapper = session.getMapper(PLDAO.class);
+//		
+//		ArrayList<PLCategoryDTO> category = mapper.selectOnlyCategory();
+//		
+//		session.close();
+//		
+//		return category;
+//	}
+
+	public boolean cancelReserve(int num) {
+		SqlSession session = getSession();
+	
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.cancelReserve(num);
+	
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result > 0? true: false;
+	}
+
+	/**
+	  * @Method Name : renamePL
+	  * @작성일 : 2022. 11. 15.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 :
+	  * @param placDTO
+	  */
+	public void renamePL(PLListAndCategoryDTO placDTO) {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.renamePL(placDTO);
+		
+		if(result > 0) {
+			System.out.println("수정 성공!");
+			session.commit();
+		}else {
+			System.out.println("수정 실패!");
+			session.rollback();
+		}
+	}
+
+	public boolean addReserve(PLReservationDTO re) {
 		// TODO Auto-generated method stub
-		return null;
+		SqlSession session = getSession();
+		
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.addReserve(re);
+	
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+	
+		session.close();
+	
+		return result > 0? true: false;
 	}
 
 }

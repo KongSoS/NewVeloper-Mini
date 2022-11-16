@@ -2,19 +2,206 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pl.model.dao.PLDAO">
 
-<resultMap type="pl.model.dto.PLMyListDTO" id="listMap">
+ 
+<resultMap type="pl.model.dto.PLListAndCategoryDTO" id="plListAllResultMap">
+	<id property="pl_no" column="PL_NO"/>
+	<result property="rownum" column="ROWNUM"/>
+	<result property="pl_name" column="PL_NAME"/>
+	<result property="pl_address" column="PL_ADDRESS"/>
+	<result property="pl_tel" column="PL_TEL"/>
+	<result property="score" column="SCORE"/>
+	<result property="pl_reserve" column="PL_RESERVE"/>
+	<association property="category" resultMap="categoryResultMap"/> 
+</resultMap>
+<resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
+	<id property="category_code" column="CATEGORY_CODE"/>
+	<result property="category_name" column="CATEGORY_NAME"/>
+</resultMap>
+
+	<select id="selectAllName" resultMap="plListAllResultMap">
+		SELECT
+			A.*,
+			B.*
+		FROM PLACE_LIST A
+		JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+	</select>
+
+
+	<select id="selectAllAddress" resultMap="plListAllResultMap">
+		SELECT 
+			ROWNUM,
+			A.*
+		FROM (
+			 SELECT *
+			 FROM PLACE_LIST
+			 ORDER BY PL_ADDRESS 
+		) A
+	</select>
+	
+	
+	<select id="selectAllScore" resultMap="plListAllResultMap">
+		SELECT  
+			ROWNUM,
+			SS.*
+		FROM (
+				SELECT *
+				FROM PLACE_LIST A
+				ORDER BY A.SCORE DESC
+			) SS
+	</select>
+	
+	<select id="selectAllCategory" resultMap="plListAllResultMap">
+		SELECT  
+			ROWNUM,
+			CS.*
+		FROM (
+				SELECT 
+					A.*,
+					B.*
+				FROM PLACE_LIST A
+				JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+				ORDER BY A.PL_CATECODE
+			)CS
+	</select>
+	
+	<select id="selectOnlyCategory" resultMap="categoryResultMap">
+		SELECT 
+			B.CATEGORY_CODE ,
+			B.CATEGORY_NAME
+		FROM PLACE_LIST A
+		JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+		ORDER BY A.PL_CATECODE
+	</select>
+	
+
+
+<resultMap type="pl.model.dto.PLListAndCategoryDTO" id="myListAllResultMap">
 	<id property="pl_no" column="MY_NO"/>
+	<result property="rownum" column="ROWNUM"/>
 	<result property="pl_name" column="MY_NAME"/>
 	<result property="pl_address" column="MY_ADDRESS"/>
 	<result property="pl_tel" column="MY_TEL"/>
 	<result property="score" column="MY_SCORE"/>
-	<result property="pl_catecode" column="MY_CATECODE"/>
 	<result property="pl_reserve" column="MY_RESERVE"/>
+	<association property="category" resultMap="myCategoryResultMap"/>
+</resultMap>
+<resultMap type="pl.model.dto.PLCategoryDTO" id="myCategoryResultMap">
+	<id property="category_code" column="CATEGORY_CODE"/>
+	<result property="category_name" column="CATEGORY_NAME"/>
 </resultMap>
 
-
-	<select id="selectAllPlace" resultMap="listMap">
-		SELECT * FROM MY_LIST
+	<select id="selectAllPlace" resultMap="myListAllResultMap">
+		SELECT * 
+		FROM MY_LIST a
+		JOIN CATEGORY b ON a.MY_CATECODE = b.CATEGORY_CODE
 	</select>
+	<update id="renamePL" parameterType="pl.model.dto.PLListAndCategoryDTO">
+		UPDATE MY_LIST M SET
+		 M.MY_NAME = #{ pl_name } ,
+		 M.MY_ADDRESS = #{ pl_address } ,
+		 M.MY_TEL = #{ pl_tel } ,
+		 M.MY_SCORE = #{ score } ,
+		 M.MY_CATECODE = #{ pl_catecode } ,
+		 M.MY_RESERVE = #{ pl_reserve } 
+		 WHERE M.MY_NO = #{ pl_no } 
+	
+	</update>
+	<insert id="insertPlace" parameterType="pl.model.dto.PLListAndCategoryDTO">
+		INSERT INTO MY_LIST M
+		(
+		    M.MY_NO ,
+			M.MY_NAME ,
+			M.MY_ADDRESS ,
+			M.MY_TEL ,
+			M.MY_SCORE ,
+			M.MY_CATECODE ,
+			M.MY_RESERVE
+		)
+		VALUES	
+		(
+			SEQ_MY_NO.NEXTVAL ,
+			#{ pl_name } ,
+			#{ pl_address } ,
+			#{ pl_tel } ,
+			#{ score } ,
+			#{ pl_catecode },
+			#{ pl_reserve } 
+			
+		)
+	</insert>
+	
+<resultMap type = "pl.model.dto.PLReservationDTO" id = "reserveResultMap">
+		<id property = "reserve_no" column = "RESERVE_NO"/>
+		<result property = "user_no" column ="USER_NO"/>
+		<result property = "my_no" column ="MY_NO"/>
+		<result property = "reserve_day" column ="RESERVE_DAY"/>
+		<result property = "reserve_time" column ="RESERVE_TIME"/>
+	</resultMap>
+
+	<select id = "reserveMine" resultMap = "reserveResultMap">
+		SELECT
+				A. RESERVE_NO AS 예약번호
+				, B. MY_NAME AS 매장명
+			FROM RESERVATION A
+			JOIN MY_LIST B
+			ON A.MY_NO = B.MY_NO
+--JOIN USER C
+--ON B.USER_NO = C.USER_NO
+--WHERE B.USER_NO = ?
+--;
+	</select>
+
+	<select id = "reserveInfo" parameterType="_int" resultMap = "reserveResultMap">
+		SELECT
+				A. MY_NAME
+				, TO_CHAR(TO_DATE(B. RESERVE_DAY,'YYMMDD'),'RRRR-MM-DD') AS 예약일
+				, B. RESERVE_TIME
+			FROM MY_LIST A
+			JOIN RESERVATION B
+			ON A.MY_NO = B.MY_NO
+--JOIN USER C
+--ON B.USER_NO = C.USER_NO
+--WHERE B.USER_NO = ?
+--;
+			WHERE B.RESERVE_NO = #{ reserve_no }
+	</select>
+	
+	<insert id="addReserve" parameterType="pl.model.dto.PLReservationDTO">
+        INSERT
+          INTO RESERVATION A
+        (
+        A.RESERVE_NO
+        , A.RESERVE_DAY
+        , A.RESERVE_TIME
+        )
+        VALUES
+        (
+          SEQ_RESERVE_NO.NEXTVAL
+        , #{ reserve_day }
+        , #{ reserve_time }
+        )
+        
+	</insert>
+
+	<update id="editReserve" parameterType="pl.model.dto.PLReservationDTO">
+       UPDATE RESERVATION
+        SET
+      
+      , RESERVE_DAY =#{ reserve_day }
+        , RESERVE_TIME=#{ reserve_time }
+        WHERE RESERVE_NO=#{ reserve_no }
+        
+        
+       
+        
+	</update>
+	
+	<delete id="cancelReserve" parameterType="_int">
+        DELETE
+          FROM RESERVATION
+       	 WHERE RESERVE_NO = #{ reserve_no }
+        
+	</delete>
+	
 
 </mapper>

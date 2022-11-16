@@ -1,22 +1,18 @@
 package pl.view;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import pl.controller.PLController;
-import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
-import pl.model.dto.PLTagDTO;
 
 public class PLMenu {
 
+
 	private Scanner sc = new Scanner(System.in);
 	private PLController plController = new PLController();
-	
 	private PLMyListDTO myListDTO;
 	private PLController controller = new PLController();
-	private ResultView rv = new ResultView();
+	private subView sv = new subView();
 
 	/**
 	 * @Method Name : mainMenu
@@ -26,6 +22,9 @@ public class PLMenu {
 	 * @Method 설명 : 처음 보여지는 메뉴
 	 */
 	public void mainMenu() {
+		Scanner sc = new Scanner(System.in);
+		PLReserveMenu remenu = new PLReserveMenu();
+		subView sv = new subView();
 
 		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
@@ -42,13 +41,14 @@ public class PLMenu {
 
 			switch (no) {
 			case 1:
-
+        //seletSort();
+				sv.selectSort();
 				break;
 			case 2:
-				myPlaceList();
+				sv.myPlaceList();
 				break;
 			case 3:
-				plController.addPlaceList(inputSubMenu());
+				sv.addPlaceList();
 				break;
 			case 4:
 
@@ -57,7 +57,8 @@ public class PLMenu {
 
 				break;
 			case 6:
-				
+				remenu.reserveMine(); // 클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
+				plController.reserveMine();  //클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");
@@ -70,6 +71,7 @@ public class PLMenu {
 		} while (true);
 
 	}
+
 
 	/**
 	  * @Method Name : myPlaceList
