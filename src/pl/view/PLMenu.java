@@ -3,6 +3,7 @@ package pl.view;
 import java.util.Scanner;
 
 import pl.controller.PLController;
+import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 
 public class PLMenu {
@@ -19,7 +20,8 @@ public class PLMenu {
 		PLReserveMenu remenu = new PLReserveMenu();
 		PLController controller = new PLController();
 		subView sv = new subView();
-
+		PLListAndCategoryDTO placDTO = new PLListAndCategoryDTO();
+		
 		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
 			System.out.println("1. 추천 장소");
@@ -44,7 +46,7 @@ public class PLMenu {
 				sv.addPlaceList();
 				break;
 			case 4:
-
+				sv.fileOut();
 				break;
 			case 5:
 
