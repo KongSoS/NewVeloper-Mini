@@ -117,7 +117,9 @@ public class PLController {
 		}
 	}
 
+
 	/**
+	 * @return 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
@@ -125,22 +127,16 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public void selectAllName() {
+	public ArrayList<PLListAndCategoryDTO> selectAllName() {
+		
 		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllName();
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-				System.out.print(list.getPl_no() + " ");
-				System.out.println(list.getPl_name());
-				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
-			}
-		} else {
-			System.out.println("에러발생");
-		}
+		return placeList;
 		
 	}
 
 	/**
+	 * @return 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
@@ -148,23 +144,15 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public void selectAllAddress() {
+	public ArrayList<PLListAndCategoryDTO> selectAllAddress() {
 		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllAddress();
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-				System.out.print(list.getRownum() + " | ");
-				System.out.print(list.getPl_name() + " | ");
-				System.out.println(list.getPl_address());
-				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
-			}
-		} else {
-			System.out.println("에러발생");
-		}
+		return placeList;
 		
 	}
 
 	/**
+	 * @return 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
@@ -172,22 +160,14 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public void selectAllScore() {
+	public ArrayList<PLListAndCategoryDTO> selectAllScore() {
 		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllScore();
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-				System.out.print(list.getRownum() + " | ");
-				System.out.print(list.getPl_name() + " | ");
-				System.out.println(list.getScore() + "점");
-				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
-			}
-		} else {
-			System.out.println("에러발생");
-		}
+		return placeList;
 	}
 
 	/**
+	 * @return 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
@@ -195,18 +175,66 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public void selectAllCategory() {
+	public ArrayList<PLListAndCategoryDTO> selectAllCategory() {
 		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllCategory();
-	//	ArrayList<PLCategoryDTO> category = plService.selectOnlyCategory();
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-					System.out.print(list.getRownum() + " | ");
-					System.out.println(list.getPl_name() + " | ");
-			}
-		} else {
-			System.out.println("에러발생");
+		return placeList;
+		
+	}
+
+	/**
+	 * @param plListAndCategoryDTO 
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void saveMyList(PLListAndCategoryDTO parameter) {
+		
+		String name = parameter.getPl_name();
+		String address = parameter.getPl_address();
+		String tel = parameter.getPl_tel();
+		int score = parameter.getScore();
+		String catecode = parameter.getCategory().getCategory_code();
+		String reserve = parameter.getPl_reserve();
+		
+		PLMyListDTO myList = new PLMyListDTO();
+		myList.setPl_name(name);
+		myList.setPl_address(address);
+		myList.setPl_tel(tel);
+		myList.setScore(score);
+		myList.setPl_catecode(catecode);
+		myList.setPl_reserve(reserve);
+		
+		
+		if(plService.saveMyList(myList)) {
+			System.out.println("저장 완료");
 		}
+		else {
+			System.out.println("저장 실패");
+		}
+		
+	}
+
+	/**
+	 * @param plNo 
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void deleteMyList(int plNo) {
+		
+		if(plService.deleteMyList(plNo)) {
+			System.out.println("삭제 완료");
+		}else {
+			System.out.println("삭제 실패");
+		}
+		
 		
 	}
 
@@ -238,6 +266,7 @@ public class PLController {
 			System.out.println("예약 실패");
 		}
 	}
+
 
 	/**
 	  * @Method Name : fileOut

@@ -3,8 +3,7 @@
   */
 package pl.view;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import pl.controller.PLController;
@@ -46,11 +45,12 @@ public class MoreInfoView {
 		System.out.println();
 		System.out.println("1. 장소 수정");
 		System.out.println("2. 장소 삭제");
-    switch(placDTO.getPl_reserve()) {
+		switch(placDTO.getPl_reserve()) {
 		case "Y":
 			System.out.println("3. 예약하기");
 			break;
 		}
+		System.out.println();
 		System.out.println("0. 메인 메뉴로");
 		System.out.println("=================================================");
 		System.out.print("번호를 입력하세요 : " );
@@ -61,7 +61,7 @@ public class MoreInfoView {
 			renamePL(placDTO);
 			break;
 		case 2:
-			delPL();
+			controller.deleteMyList(placDTO.getPl_no());
 			break;
 		case 3:
 			rm.addReserve(rd.getMy_no());
@@ -129,17 +129,39 @@ public class MoreInfoView {
 
 	}
 
-
-
 	/**
-	  * @Method Name : delPL
-	  * @작성일 : 2022. 11. 15.
-	  * @작성자 : heojaehong
-	  * @변경이력 : 
-	  * @Method 설명 : 장소 삭제 메소드
-	  */
-	private void delPL() {
-		// TODO Auto-generated method stub
+	 * @param placeList 
+	 * @FileName : MoreInfoView.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void selectOne(ArrayList<PLListAndCategoryDTO> placeList, int no) {
+		
+		System.out.println(placeList.get(no-1));
+		System.out.println("==================== 장소 정보 ====================");
+		System.out.println("매장명 : " + placeList.get(no-1).getPl_name());
+		System.out.println("주소 : " + placeList.get(no-1).getPl_address());
+		System.out.println("전화번호 : " + placeList.get(no-1).getPl_tel());
+		System.out.println("별점 : " + placeList.get(no-1).getScore() + "점");
+		System.out.println("카테고리 : " + placeList.get(no-1).getCategory().getCategory_name());
+		System.out.println("예약가능여부 : " + placeList.get(no-1).getPl_reserve());
+		System.out.println();
+		System.out.println();
+		System.out.println("1. 내 장소에 저장하기");
+		System.out.println("0. 이전 메뉴로");
+		System.out.println("9. 메인 메뉴로");
+		System.out.println("=================================================");
+		
+		int choice = sc.nextInt();
+		switch (choice) {
+		case 1 : controller.saveMyList(placeList.get(no-1)); break;
+		case 0 : return;
+		case 9 :new PLMenu().mainMenu(); break;
+		default : System.out.println("잘못입력하셨습니다."); break;
+		}
 		
 	}
 	

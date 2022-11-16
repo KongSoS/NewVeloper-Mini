@@ -19,11 +19,19 @@
 </resultMap>
 
 	<select id="selectAllName" resultMap="plListAllResultMap">
-		SELECT
-			A.*,
-			B.*
-		FROM PLACE_LIST A
-		JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+		
+		SELECT 
+			ROWNUM,
+			A.*
+		FROM (
+				SELECT
+					A.*,
+					B.*
+				FROM PLACE_LIST A
+				JOIN CATEGORY B ON A.PL_CATECODE = B.CATEGORY_CODE 
+			 	ORDER BY A.PL_NAME 
+		) A
+		
 	</select>
 
 
@@ -213,5 +221,12 @@
         
 	</delete>
 	
+	
+	
+	
+	<delete id="deleteMyList" parameterType="_int">
+		DELETE FROM MY_LIST
+		WHERE MY_NO = #{ plNo }
+	</delete>
 
 </mapper>

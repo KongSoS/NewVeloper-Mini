@@ -73,16 +73,6 @@ public interface PLDAO {
 	 */
 	ArrayList<PLListAndCategoryDTO> selectAllCategory();
 
-//	/**
-//	 * @FileName : PLDAO.java
-//	 * @Project : NewVeloper_mini
-//	 * @Date : 2022. 11. 15.
-//	 * @작성자 : jihee
-//	 * @변경이력 :
-//	 * @프로그램 설명 : 
-//	 */
-//	ArrayList<PLCategoryDTO> selectOnlyCategory();
-
 	
 
 	List<PLListAndReserveDTO> reserveMine();
@@ -115,6 +105,28 @@ public interface PLDAO {
 	  * @return
 	  */
 	int renamePL(PLListAndCategoryDTO placDTO);
+	
+	int saveMyList(PLMyListDTO myList);
+
+	/**
+	 * @FileName : PLDAO.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	int deleteMyList(int plNo);
+
+	/**
+	 * @FileName : PLDAO.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	int updateMyList(Map<String, String> parameter);
 
 	
 }

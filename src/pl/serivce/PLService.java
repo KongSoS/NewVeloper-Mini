@@ -192,26 +192,6 @@ public class PLService {
 	}
 
 
-
-//	/**
-//	 * @FileName : PLService.java
-//	 * @Project : NewVeloper_mini
-//	 * @Date : 2022. 11. 15.
-//	 * @작성자 : jihee
-//	 * @변경이력 :
-//	 * @프로그램 설명 : 
-//	 */
-//	public ArrayList<PLCategoryDTO> selectOnlyCategory() {
-//		SqlSession session = getSession();
-//		mapper = session.getMapper(PLDAO.class);
-//		
-//		ArrayList<PLCategoryDTO> category = mapper.selectOnlyCategory();
-//		
-//		session.close();
-//		
-//		return category;
-//	}
-
 	public boolean cancelReserve(int num) {
 		SqlSession session = getSession();
 	
@@ -268,5 +248,57 @@ public class PLService {
 		return result > 0? true: false;
 	}
 
+
+
+	/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public boolean saveMyList(PLMyListDTO myList) {
+		
+		SqlSession session = getSession();
+		
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.saveMyList(myList);
 	
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result > 0? true: false;
+	}
+
+
+	/**
+	 * @FileName : PLService.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public boolean deleteMyList(int plNo) {
+		SqlSession session = getSession();
+		
+		mapper = session.getMapper(PLDAO.class);
+		int result = mapper.deleteMyList(plNo);
+	
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result > 0? true: false;
+	}
 }
