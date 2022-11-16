@@ -157,7 +157,8 @@
 		 M.MY_TEL = #{ pl_tel } ,
 		 M.MY_SCORE = #{ score } ,
 		 M.MY_CATECODE = #{ pl_catecode } ,
-		 M.MY_RESERVE = #{ pl_reserve } 
+		 M.MY_RESERVE = #{ pl_reserve } ,
+		 M.MY_TAGCODE = #{ pl_tagcode } 
 		 WHERE M.MY_NO = #{ pl_no } 
 	
 	</update>
@@ -170,6 +171,7 @@
 			M.MY_TEL ,
 			M.MY_SCORE ,
 			M.MY_CATECODE ,
+			M.MY_TAGCODE ,
 			M.MY_RESERVE
 		)
 		VALUES	
@@ -180,12 +182,13 @@
 			#{ pl_tel } ,
 			#{ score } ,
 			#{ pl_catecode },
+			#{ pl_tagcode },
 			#{ pl_reserve } 
 			
 		)
 	</insert>
 	
-<resultMap type = "pl.model.dto.PLListandReserveDTO" id = "reserveResultMap">
+<resultMap type = "pl.model.dto.PLListAndReserveDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>
 		<result property = "my_no" column ="MY_NO"/>
@@ -194,7 +197,7 @@
 	
 	<association property="listDTO" resultMap="PllistResultMap"/>
 	</resultMap>
-<resultMap type="pl.model.dto.PLMyListDTO" id="PllistResultMap">
+<resultMap type="pl.model.dto.PLListAllDTO" id="PllistResultMap">
 	<id property="pl_no" column="MY_NO"/>
 	<result property="rownum" column="ROWNUM"/>
 	<result property="pl_name" column="MY_NAME"/>

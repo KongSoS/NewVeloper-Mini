@@ -26,8 +26,8 @@ public class PLListAllDTO {
 	}
 
 	/**
-	 * @param rownum
-	 * @param pl_no
+	 * @param rownum 정렬 기준을 잡기위한 변수
+	 * @param pl_no 장소 번호 PK
 	 * @param pl_name
 	 * @param pl_address
 	 * @param pl_tel
