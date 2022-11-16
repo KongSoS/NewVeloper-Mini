@@ -3,23 +3,25 @@
   */
 package pl.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import common.PrintUserResult;
 import common.SearchUserStandard;
-import pl.model.dto.PLCategoryDTO;
-import pl.model.dto.PLListAndCategoryDTO;
-import pl.model.dto.PLMyListAndCategoryDTO;
-import pl.model.dto.PLMyListDTO;
-import pl.model.dto.PLRservationDTO;
 import pl.model.dto.PLUserDTO;
+import pl.model.dto.PLListAllDTO;
+import pl.model.dto.PLListAndReserveDTO;
+import pl.model.dto.PLReservationDTO;
 import pl.serivce.PLService;
 import pl.view.PLManagerMenu;
 import pl.view.PLMemberMenu;
 import pl.view.PLMenu;
-import pl.view.ResultView;
+import pl.view.subView;
 
 /**
   * @FileName : PLController.java
@@ -49,49 +51,56 @@ public class PLController {
 	  * @변경이력 : 
 	  * @Method 설명 : 내가 저장한 장소를 전체 출력
 	  */
-	public List<PLMyListDTO> myPlaceList() {
-		int number = 1; // 내 저장소 번호
-		ArrayList<PLMyListDTO> list = plService.myPlaceList();
+	public List<PLListAllDTO> myPlaceList() {
+		ArrayList<PLListAllDTO> list = plService.myPlaceList();
 		
-	
 		return list;
 	}
 
 	/**
-	  * @param list 
+	  * @param dto 
 	 * @Method Name : addPlaceList
 	  * @작성일 : 2022. 11. 11.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 :
+	  * @Method 설명 : 새로운 장소를 직접 등록하는 메소드
 	  */
-	public void addPlaceList(List<PLMyListAndCategoryDTO> list) {
-		list = plService.addPlaceList();
+	public void addPlaceList(PLListAllDTO dto) {
+		plService.addPlaceList(dto);
+	
 	}
 
-	public void reserveMine() {
-		// TODO Auto-generated method stub
-		List<PLRservationDTO> reserveList = plService.reserveMine();
+	
+	public List<PLListAndReserveDTO> reserveMine() {
+		subView print = new subView();
+		List<PLListAndReserveDTO> reserveList = plService.reserveMine();
+		PLListAllDTO pd = new PLListAllDTO();
+
 		if(reserveList != null) {
-			//print.printReserveList(reserveList);
+			System.out.println("예약 목록 조회 성공");
 		} else {
 			System.out.println("예약 목록 조회 실패");
 		}
+		return reserveList;
+		
 	}
-	public void reserveInfo(int num) {
-		// TODO Auto-generated method stub
-		PLRservationDTO menu = plService.reserveInfo(num);
+	public PLListAndReserveDTO reserveInfo(int num) {
+//		subView print = new subView();
+		PLListAndReserveDTO menu = plService.reserveInfo(num);
+		
 		if(menu != null) {
-			//print.printMenu(menu);
+			menu.setReserve_no(num);
+			System.out.println("예약 내역 조회 성공");
 		} else {
 			System.out.println("예약 내역 조회 실패");
 		
 	}
+		return menu;
 
 }
 	public void editReserve(int num, String day, String time) {
 		// TODO Auto-generated method stub
-		PLRservationDTO re = new PLRservationDTO();
+		PLReservationDTO re = new PLReservationDTO();
 		re.setReserve_no(num);
 		re.setReserve_day(day);
 		re.setReserve_time(time);
@@ -103,22 +112,17 @@ public class PLController {
 		}
 	}
 	public void cancelReserve(int num) {
-		// TODO Auto-generated method stub
+		// cancel에는 num을 setter로 전달하지 않은 상태이다.... 예시가 달라서 전달해야할 것 같기도..
+		PLReservationDTO re = new PLReservationDTO();
+		re.setReserve_no(num);
 		if(plService.cancelReserve(num)) {
+			
 			System.out.println("예약 취소 성공");
 		} else {
 			System.out.println("예약 취소 실패");
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * @Method Name : userLogin
@@ -130,6 +134,7 @@ public class PLController {
 	public void userLogin(PLUserDTO parameter) {
 		String userId = parameter.getUser_id();
 		String userPwd = parameter.getUser_pwd();
+		
 		
 		/* 아이디 중복 체크 확인하는 메소드 통해 반환 */
 		PLUserDTO checkId = plService.userIdOverlapCheck(userId);
@@ -309,126 +314,194 @@ public class PLController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
+	 * @return 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 이름을 기준으로 추천 장소를 정렬하는 메소드
 	 */
-	public void selectAllName() {
-		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllName();
+	public ArrayList<PLListAllDTO> selectAllName() {
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-				System.out.print(list.getPl_no() + " ");
-				System.out.println(list.getPl_name());
-				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
-			}
-		} else {
-			System.out.println("에러발생");
+		ArrayList<PLListAllDTO> placeList = plService.selectAllName();
+		
+		return placeList;
+		
+	}
+
+	/**
+	 * @return 
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 주소를 기준으로 추천 장소를 정렬하는 메소드
+	 */
+	public ArrayList<PLListAllDTO> selectAllAddress() {
+		ArrayList<PLListAllDTO> placeList = plService.selectAllAddress();
+		
+		return placeList;
+		
+	}
+
+	/**
+	 * @return 
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 별점를 기준으로 추천 장소를 정렬하는 메소드 
+	 */
+	public ArrayList<PLListAllDTO> selectAllScore() {
+		ArrayList<PLListAllDTO> placeList = plService.selectAllScore();
+		
+		return placeList;
+	}
+
+	/**
+	 * @return 
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 카테고리를 기준으로 추천 장소를 정렬하는 메소드 
+	 */
+	public ArrayList<PLListAllDTO> selectAllCategory() {
+		ArrayList<PLListAllDTO> placeList = plService.selectAllCategory();
+		
+		return placeList;
+		
+	}
+
+	/**
+	 * @param plListAndCategoryDTO 
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 추천장소 리스트에서 내 장소 리스트로 저장하는 메소드
+	 */
+	public void saveMyList(PLListAllDTO parameter) {
+		
+		String name = parameter.getPl_name();
+		String address = parameter.getPl_address();
+		String tel = parameter.getPl_tel();
+		int score = parameter.getScore();
+		String catecode = parameter.getCategory().getCategory_code();
+		String tagcode = parameter.getTag().getTag_code();
+		String reserve = parameter.getPl_reserve();
+		
+		PLListAllDTO myList = new PLListAllDTO();
+		myList.setPl_name(name);
+		myList.setPl_address(address);
+		myList.setPl_tel(tel);
+		myList.setScore(score);
+		myList.setPl_catecode(catecode);
+		myList.setPl_tagcode(tagcode);
+		myList.setPl_reserve(reserve);
+		
+		
+		if(plService.saveMyList(myList)) {
+			System.out.println("저장 완료");
+		}
+		else {
+			System.out.println("저장 실패");
 		}
 		
 	}
 
 	/**
+	 * @param plNo 
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 내가 선택한 장소를 삭제하는 메소드
 	 */
-	public void selectAllAddress() {
-		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllAddress();
+	public void deleteMyList(int plNo) {
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-				System.out.print(list.getRownum() + " | ");
-				System.out.print(list.getPl_name() + " | ");
-				System.out.println(list.getPl_address());
-				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
-			}
-		} else {
-			System.out.println("에러발생");
+		if(plService.deleteMyList(plNo)) {
+			System.out.println("삭제 완료");
+		}else {
+			System.out.println("삭제 실패");
 		}
+		
 		
 	}
 
+
 	/**
-	 * @FileName : PLController.java
-	 * @Project : NewVeloper_mini
-	 * @Date : 2022. 11. 15.
-	 * @작성자 : jihee
-	 * @변경이력 :
-	 * @프로그램 설명 : 
-	 */
-	public void selectAllScore() {
-		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllScore();
+	  * @Method Name : renamePL
+	  * @작성일 : 2022. 11. 15.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 : 내 리스트에 저장된 장소를 수정하는 메소드
+	  * @param inputRename
+	  */
+	public void renamePL(PLListAllDTO placDTO) {
+		plService.renamePL(placDTO);
 		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-				System.out.print(list.getRownum() + " | ");
-				System.out.print(list.getPl_name() + " | ");
-				System.out.println(list.getScore() + "점");
-				// 출력 후에 매장에 대해 선택하는 화면 필요함(print method)
-			}
+			
+	}
+
+	public void addReserve(int num, String day, String time) {
+		// TODO Auto-generated method stub
+		PLReservationDTO re = new PLReservationDTO();
+		re.setMy_no(num);
+		re.setReserve_day(day);
+		re.setReserve_time(time);
+		
+		if(plService.addReserve(re)) {
+			System.out.println("예약 성공");
 		} else {
-			System.out.println("에러발생");
+			System.out.println("예약 실패");
 		}
 	}
 
+
 	/**
-	 * @FileName : PLController.java
-	 * @Project : NewVeloper_mini
-	 * @Date : 2022. 11. 15.
-	 * @작성자 : jihee
-	 * @변경이력 :
-	 * @프로그램 설명 : 
-	 */
-	public void selectAllCategory() {
-		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllCategory();
-	//	ArrayList<PLCategoryDTO> category = plService.selectOnlyCategory();
-		
-		if(placeList != null) {
-			for(PLListAndCategoryDTO list : placeList) {
-					System.out.print(list.getRownum() + " | ");
-					System.out.println(list.getPl_name() + " | ");
+	  * @Method Name : fileOut
+	  * @작성일 : 2022. 11. 16.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 : 내 리스트의 정보를 txt파일로 내보내는 메소드
+	  */
+	public void fileOut() {
+		try {
+			OutputStream out = null;
+			File file = new File("MyPLFile.txt");
+			file.createNewFile();
+			
+			System.out.println("파일 생성 완료! " + file);
+			out = new BufferedOutputStream(new FileOutputStream(file));
+			List<PLListAllDTO> fList = plService.myPlaceList();
+
+			System.out.println("list에 값 넣기 : " + fList);
+			for(int i = 0; i < fList.size(); i++) {
+				System.out.println("list의 값: " + fList);
+				String contents = "가게 이름 : " + fList.get(i).getPl_name() + ", 주소 : " + fList.get(i).getPl_address() 
+						+ ", 전화번호 : " + fList.get(i).getPl_tel() + ", 별점 : " + fList.get(i).getScore() + "\n";
+				
+				byte[] b = contents.getBytes();
+				
+				out.write(b);
 			}
-		} else {
-			System.out.println("에러발생");
+			
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
 	}
 
 }

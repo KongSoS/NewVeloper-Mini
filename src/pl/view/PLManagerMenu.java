@@ -1,13 +1,10 @@
 package pl.view;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 import common.SearchUserStandard;
 import pl.controller.PLController;
 import pl.model.dto.PLUserDTO;
-import pl.serivce.PLService;
 
 /**
  * @FileName : PLManagerMenu.java
@@ -33,7 +30,7 @@ public class PLManagerMenu {
 			System.out.println("=========== Manager Menu ===========");
 			System.out.println("1. 회원 관리 ");
 			System.out.println("2. 추천장소 관리 ");
-			System.out.println("0. 프로그램 종료");
+			System.out.println("0. 로그아웃");
 			System.out.println("====================================");
 			System.out.print("메뉴 번호를 입력하세요 : ");
 			int no = sc.nextInt();

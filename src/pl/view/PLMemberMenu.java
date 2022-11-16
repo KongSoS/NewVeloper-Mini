@@ -3,13 +3,9 @@
   */
 package pl.view;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-
 import pl.controller.PLController;
 import pl.model.dto.PLUserDTO;
-import pl.serivce.PLService;
 
 /**
  * @FileName : PLMemberMenu.java
@@ -18,6 +14,7 @@ import pl.serivce.PLService;
  * @작성자 : 성식
  * @변경이력 :
  * @프로그램 설명 : 사용자는 중복되지 않는 아이디로 회원가입을 통해 로그인을 해야하고, 로그인 시 메인메뉴 화면으로 이동된다.
+ * @프로그램 설명 : 첫번째 화면
  */
 public class PLMemberMenu {
 	
@@ -29,11 +26,11 @@ public class PLMemberMenu {
 	 * @Method 설명 : 로그인 메뉴
 	 */
 	public void roginMenu() {
-		
+
 		Scanner sc = new Scanner(System.in);
 		PLController plController = new PLController();
 
-		do {
+		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
 			System.out.println("1. 로그인 ");
 			System.out.println("2. 회원 가입 ");
@@ -58,7 +55,6 @@ public class PLMemberMenu {
 				break;
 			}
 		} while (true);
-
 	}
 
 	/**

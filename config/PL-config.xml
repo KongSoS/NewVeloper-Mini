@@ -2,7 +2,9 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "mybatis-3-config.dtd" >
 <configuration>
 	<properties resource="connection-info.properties"/>
-	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
 	<environments default="NVPL">
 		<environment id="NVPL">
 			<transactionManager type="JDBC" />

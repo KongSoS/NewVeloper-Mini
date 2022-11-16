@@ -1,22 +1,20 @@
 package pl.view;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import pl.controller.PLController;
-import pl.model.dto.PLMyListAndCategoryDTO;
-import pl.model.dto.PLMyListDTO;
-import pl.model.dto.PLTagDTO;
+import pl.model.dto.PLListAllDTO;
+import pl.model.dto.PLListAndReserveDTO;
+
 
 public class PLMenu {
 
-	private PLMyListDTO myListDTO;
+	private PLReserveMenu remenu = new PLReserveMenu();
+	private PLUserInfoMenu plUserInfoMenu = new PLUserInfoMenu();
 	private PLController controller = new PLController();
-
-
+	private subView sv = new subView();
 	
-
 	/**
 	 * @param userId 
 	 * @Method Name : mainMenu
@@ -25,12 +23,10 @@ public class PLMenu {
 	 * @변경이력 :
 	 * @Method 설명 : 처음 보여지는 메뉴
 	 */
+		
 	public void mainMenu(String userId) {
 		
 		Scanner sc = new Scanner(System.in);
-		PLController plController = new PLController();
-		PLReserveMenu remenu = new PLReserveMenu();
-		PLUserInfoMenu plUserInfoMenu = new PLUserInfoMenu();
 
 		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
@@ -40,7 +36,7 @@ public class PLMenu {
 			System.out.println("4. 내 장소 내보내기");
 			System.out.println("5. 회원 정보 수정");
 			System.out.println("6. 내 예약");
-			System.out.println("0. 프로그램 종료");
+			System.out.println("0. 로그아웃");
 			System.out.println("==================================");
 			System.out.print("메뉴 관리 번호를 입력하세요 : ");
 			int no = sc.nextInt();
@@ -50,20 +46,19 @@ public class PLMenu {
 				selectSort();
 				break;
 			case 2:
-				myPlaceList();
+				sv.myPlaceList();
 				break;
 			case 3:
-				plController.addPlaceList(inputSubMenu());
+				sv.addPlaceList();
 				break;
 			case 4:
-
+				sv.fileOut();
 				break;
 			case 5:
 				plUserInfoMenu.userInfoMenu(userId);
 				break;
 			case 6:
-				remenu.reserveMine();  //클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
-				
+				remenu.reserveMine();
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");
@@ -74,13 +69,19 @@ public class PLMenu {
 			}
 
 		} while (true);
-
 	}
 
-	private static void selectSort() {
+	/**
+	 * @FileName : PLMenu.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 추천 장소에 관련된 메소드
+	 */
+	private void selectSort() {
 		
 		Scanner sc = new Scanner(System.in);
-		PLController plController = new PLController();
 		
 		do {
 			System.out.println("=========== PLACE LIST ===========");
@@ -93,104 +94,14 @@ public class PLMenu {
 			int no = sc.nextInt();
 			
 			switch(no) {
-			case 1 : plController.selectAllName(); break;
-			case 2 : plController.selectAllAddress(); break;
-			case 3 : plController.selectAllScore(); break;
-			case 4 : plController.selectAllCategory(); break;
+			case 1 : sv.selectAllName(); break;
+			case 2 : sv.selectAllAddress(); break;
+			case 3 : sv.selectAllScore(); break;
+			case 4 : sv.selectAllCategory(); break;
 			case 0 : return;
-			default : System.out.println("잘못 입력하셨습니다 다시 입력하세요 "); 	break;
+			default : System.out.println("잘못 입력하셨습니다 다시 입력하세요 "); break;
 			}
 		} while (true);
-		
-		// 리스트 출력한 뒤, 원하는 장소에 대한 정보도 출력해야함
-		// 정렬기준 선택 후 번호입력하면 장소 정보 출력
-		// 번호입력을 어디서 받아야 할까?
 	}
 	
-
-
-
-	/**
-	  * @Method Name : myPlaceList
-	  * @작성일 : 2022. 11. 15.
-	  * @작성자 : heojaehong
-	  * @변경이력 : 
-	  * @Method 설명 :전체리스트를 받는 리스트
-	  */
-	private static void myPlaceList() {
-		
-		Scanner sc = new Scanner(System.in);
-		PLController plController = new PLController();
-		ResultView rv = new ResultView();
-		
-		int num=0;
-		int input;
-		List<PLMyListDTO> list = plController.myPlaceList();
-		System.out.println(list.size());
-		System.out.println("=========== 내 장소 ===========");
-		for(PLMyListDTO pd : list) {
-			num++;
-			System.out.println(num + "." + pd.getPl_name());			
-		}
-		
-		System.out.println("==============================");
-		System.out.print("번호를 입력하세요 : ");
-		input = sc.nextInt();
-		
-		rv.MoreInfo(list.get(input-1));
-		
-		
-		
-	}
-
-	/**
-	 * @param myListDTO
-	 * @Method Name : inputPlace
-	 * @작성일 : 2022. 11. 15.
-	 * @작성자 : heojaehong
-	 * @변경이력 :
-	 * @Method 설명 :
-	 * @return
-	 */
-	private static List<PLMyListAndCategoryDTO> inputSubMenu() {
-		
-		Scanner sc = new Scanner(System.in);
-		
-		PLMyListAndCategoryDTO dto = new PLMyListAndCategoryDTO();
-		PLTagDTO plTagDTO = new PLTagDTO();
-		List<String> list = new ArrayList<>();
-		List<PLMyListAndCategoryDTO> PLList = new ArrayList<>();
-		do {
-			System.out.println("=========== 장소 추가 ===========");
-			System.out.print("장소이름을 입력하세요 : ");
-			dto.setPl_name(sc.next());
-			System.out.print("장소주소을 입력하세요 : ");
-			dto.setPl_address(sc.next()); 
-			System.out.print("전화번호을 입력하세요(- 포함) : ");
-			dto.setPl_tel(sc.next());
-			System.out.print("별점을 입력하세요(1~5) : ");
-			dto.setScore(sc.nextInt());
-			System.out.print("태그를 입력하세요(, 로 공백없이 입력): ");
-			plTagDTO.setTag_name(sc.next());
-			System.out.print("예약여부을 입력하세요(Y/N) : ");
-			dto.setPl_reserve(sc.next().toUpperCase());
-			sc.nextLine();
-			System.out.println("===============================");
-			break;
-		}while(true);
-		// 태그를 ,로 나눠서 list에 저장
-		String[] tag = plTagDTO.getTag_name().split(",");
-		for(int i=0; i<list.size(); i++) {
-			list.add(tag[i]);
-		}
-		dto.setTagList(list);
-		PLList.add(dto);
-		
-		return PLList;
-	}
-	
-	
-	
-		
 }
-	

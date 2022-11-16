@@ -1,13 +1,9 @@
 package pl.view;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
-import common.SearchUserStandard;
 import pl.controller.PLController;
 import pl.model.dto.PLUserDTO;
-import pl.serivce.PLService;
 
 /**
  * @FileName : PLUserInfoMenu.java
