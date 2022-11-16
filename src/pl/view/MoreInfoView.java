@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import pl.controller.PLController;
 import pl.model.dto.PLListAndCategoryDTO;
+import pl.model.dto.PLReservationDTO;
 
 /**
   * @FileName : MoreInfoView.java
@@ -20,9 +21,10 @@ import pl.model.dto.PLListAndCategoryDTO;
   */
 public class MoreInfoView {
 	Scanner sc = new Scanner(System.in);
-	PLMenu pm = new PLMenu();
 	PLController controller = new PLController();
 	PLListAndCategoryDTO placDTO = new PLListAndCategoryDTO();
+	PLReserveMenu rm = new PLReserveMenu();
+	PLReservationDTO rd = new PLReservationDTO();
 	/**
 	  * @Method Name : MoreInfo
 	  * @작성일 : 2022. 11. 15.
@@ -44,7 +46,7 @@ public class MoreInfoView {
 		System.out.println();
 		System.out.println("1. 장소 수정");
 		System.out.println("2. 장소 삭제");
-    switch(plListAndCategoryDTO.getPl_reserve()) {
+    switch(placDTO.getPl_reserve()) {
 		case "Y":
 			System.out.println("3. 예약하기");
 			break;
@@ -61,9 +63,7 @@ public class MoreInfoView {
 		case 2:
 			delPL();
 			break;
-     case "3":
-			PLReserveMenu rm = new PLReserveMenu();
-			PLReservationDTO rd = new PLReservationDTO();
+		case 3:
 			rm.addReserve(rd.getMy_no());
 		case 0:
 //			pm.mainMenu();

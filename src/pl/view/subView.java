@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import pl.controller.PLController;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
+import pl.model.dto.PLReservationDTO;
 import pl.model.dto.PLTagDTO;
 
 /**
@@ -175,8 +176,7 @@ public class subView {
 		System.out.println();
 		
 		if(num==0) {
-			PLMenu menu = new PLMenu();
-			menu.mainMenu();//PlaceList호출
+			return;
 		}
 		else if(num <=reserveList.size()){
 			PLReserveMenu rm = new PLReserveMenu();
@@ -241,13 +241,7 @@ public class subView {
 			rm.cancelReserve();
 			break;
 		case "0":
-			PLController controller = new PLController();
-			controller.reserveMine();
-			break;
-		case "00":
-			PLMenu pl = new PLMenu();
-			pl.mainMenu();//PlaceList호출
-			break;
+			return;
 		default:
 			System.out.println("잘못 입력하셨습니다");
 			return;
