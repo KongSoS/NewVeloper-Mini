@@ -96,13 +96,31 @@ public interface PLDAO {
 	
 	
 	
-	
+	/*아이디 중복 확인*/
 	PLUserDTO userIdOverlapCheck(String userId);
 	
+	/*비밀번호 중복 확인*/
 	PLUserDTO userPwdOverlapCheck(String userPwd);
 
+	/*회원가입*/
 	int registUser(PLUserDTO user);
 
-	List<PLUserDTO> selectUserList(SearchUserStandard searchUserStandard);
+	/*회원 전체 조회*/
+	List<PLUserDTO> selectUserList();
+	
+	/*회원 선택 조회*/
+	PLUserDTO selectUserOne(SearchUserStandard searchUserStandard);
+
+	/*회원 정보 수정*/
+	int updateUserinfo(PLUserDTO user);
+
+	/*회원 탈퇴*/
+	int withdrawalUserOne(String userId);
+	
+	/*회원 삭제*/
+	int deleteUserOne(int userId);
+
+	/*사용자 정보 확인*/
+	PLUserDTO selectMyInfo(String userId);
 	
 }

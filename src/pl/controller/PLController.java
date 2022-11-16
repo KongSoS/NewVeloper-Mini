@@ -16,6 +16,7 @@ import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLRservationDTO;
 import pl.model.dto.PLUserDTO;
 import pl.serivce.PLService;
+import pl.view.PLManagerMenu;
 import pl.view.PLMemberMenu;
 import pl.view.PLMenu;
 import pl.view.ResultView;
@@ -126,34 +127,37 @@ public class PLController {
 	 * @변경이력 :
 	 * @Method 설명 : 입력받은 아이디와 비밀번호의 존재 여부 확인하여 처리한 뒤 상황에 맞는 메세지 출력 후 화면이동
 	 */
-	public void userLogin(Map<String, String> parameter) {
+	public void userLogin(PLUserDTO parameter) {
+		String userId = parameter.getUser_id();
+		String userPwd = parameter.getUser_pwd();
 		
-		String userId = parameter.get("userId");
-		String userPwd = parameter.get("userPwd");
-		
+		/* 아이디 중복 체크 확인하는 메소드 통해 반환 */
 		PLUserDTO checkId = plService.userIdOverlapCheck(userId);
 		
+		/*아이디 중복 아닐 경우 실행*/
 		if(checkId != null) {
 			
+			/*비밀번호 중복 체크 확인하는 메소드 통해 반환*/
 			PLUserDTO checkPwd = plService.userPwdOverlapCheck(userPwd);
 			
-//			PLUserDTO user = new PLUserDTO();
-//			
-//			user.setUser_id(userId);
-//			user.setUser_pwd(userPwd);
-			
-			//System.out.println(checkPwd);
-			
+			/*비밀번호 중복일때 실행하여 안내문 출력*/
 			if(checkPwd == null) {
 				System.out.println("비밀번호가 일치하지 않습니다.");
 				plMemberMenu.roginMenu();
 			} else {
-				System.out.println("로그인 성공!");
-				plMemberMenu.wellcome();
-				PLMenu.mainMenu();
-				//new PLMenu().mainMenu(); 		//PL메뉴 스태틱 지우고 테스트해보기, new 만들어도 괜찮은지 스태틱해도 괜찮은지
+				/*로그인 정보가 관리자일때 관리자 전용 화면으로 이동*/
+				if(userId.equals("manager") && userPwd.equals("manager")) {
+					System.out.println("관리자 로그인 성공!");
+					new PLManagerMenu().managerMenu();
+				} else {
+					/*로그인 정보가 정상적으로 입력됐을때 메인 화면으로 이동*/
+					System.out.println("로그인 성공!");
+					plMemberMenu.wellcome();
+					new PLMenu().mainMenu(userId);
+				}
 			}
 		} else {
+			/*아이디, 비밀번호 모두 일치하는 정보가 없는 경우 안내문 출력*/
 			System.out.println("일치하는 로그인 정보가 없습니다.");
 			plMemberMenu.roginMenu();
 		}
@@ -167,21 +171,8 @@ public class PLController {
 	 * @변경이력 :
 	 * @Method 설명 : 회원가입에 필요한 데이터를 plService.registUser에 전달하여 반환 값에 따라 메세지 출력 및 처리
 	 */
-	public void registUser(Map<String, String> parameter) {
-		
-		String userId = parameter.get("userId");
-		String userPwd = parameter.get("userPwd");
-		String userName = parameter.get("userName");
-		String userPhone = parameter.get("userPhone");
-		
-		PLUserDTO user = new PLUserDTO();
-		
-		user.setUser_id(userId);
-		user.setUser_pwd(userPwd);
-		user.setUser_name(userName);
-		user.setPhone(userPhone);
-		
-		if(plService.registUser(user)) {
+	public void registUser(PLUserDTO parameter) {
+		if(plService.registUser(parameter)) {
 			printUserResult.printSuccessMessage("insert");
 		} else {
 			printUserResult.printErrorMessage("insert");
@@ -196,25 +187,31 @@ public class PLController {
 	 * @변경이력 :
 	 * @Method 설명 : 회원가입 시 입력받은 아이디가 이미 존재하는지 확인 후 상황에 맞는 메세지 출력 및 처리
 	 */
-	public String checkId(Map<String, String> parameter) {
+	public String checkId(String parameter) {
+		/*회원가입 시 입력한 아이디가 이미 존재하는지 확인*/
+		PLUserDTO check = plService.userIdOverlapCheck(parameter);
 		
-		String userId = parameter.get("userId");
-		
-		PLUserDTO check = plService.userIdOverlapCheck(userId);
-		
+		/*입력한 아이디가 이미 존재할 경우 안내문 출력 후 다시 로그인 화면으로 이동*/
 		if(check != null) {
 			System.out.println("동일한 아이디가 존재합니다. 회원가입 실패");
 			plMemberMenu.roginMenu();
 		} else {
+			/*존재하지 않는 아이디일 경우 안내문 출력 후 정상 진행*/
 			System.out.println("아이디 중복 체크 성공");
 		}
 		
-		return userId;
+		return parameter;
 	}
 	
-	public void selectUserList(SearchUserStandard searchUserStandard) {
-		
-		List<PLUserDTO> userList = plService.selectUserList(searchUserStandard);
+	/**
+	 * @Method Name : selectUserList
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 관리자)사용자 목록 조회 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리
+	 */
+	public void selectUserList() {
+		List<PLUserDTO> userList = plService.selectUserList();
 		
 		if(userList != null && userList.size() > 0) {
 			printUserResult.printUserList(userList);
@@ -224,10 +221,91 @@ public class PLController {
 		
 	}
 	
+	/**
+	 * @Method Name : selectUserOne
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 관리자)사용자 단일 조회 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리
+	 */
+	public void selectUserOne(SearchUserStandard searchUserStandard) {
+		PLUserDTO user = plService.selectUserOne(searchUserStandard);
+		
+		if(user != null) {
+			printUserResult.printUser(user);
+		} else {
+			printUserResult.printErrorMessage("selectOne");
+		}
+		
+	}
 	
+	/**
+	 * @Method Name : updateUserInfo
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 사용자 정보 변경 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리
+	 */
+	public void updateUserInfo(PLUserDTO parameter) {
+		if(plService.updateUserInfo(parameter)) {
+			printUserResult.printSuccessMessage("update");
+		} else {
+			printUserResult.printErrorMessage("update");
+		}
+
+		
+	}
 	
+	/**
+	 * @Method Name : withdrawalUserOne
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 사용자 탈퇴 처리 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리, 사용자는 로그인 화면으로 이동
+	 */
+	public void withdrawalUserOne(String parameter) {
+		if(plService.withdrawalUserOne(parameter)) {
+			printUserResult.printSuccessMessage("withdrawal");
+			plMemberMenu.roginMenu();
+		} else {
+			printUserResult.printErrorMessage("withdrawal");
+		}
+		
+	}
 	
+	/**
+	 * @Method Name : deleteUserOne
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 관리자)사용자 삭제 처리 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리
+	 */
+	public void deleteUserOne(int parameter) {
+		if(plService.deleteUserOne(parameter)) {
+			printUserResult.printSuccessMessage("delete");
+		} else {
+			printUserResult.printErrorMessage("delete");
+		}
+		
+	}
 	
+	/**
+	 * @Method Name : selectMyInfo
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 사용자 정보 조회 시 전달받은 값으로 판단 후 상황에 맞는 메세지 출력 및 처리
+	 */
+	public void selectMyInfo(String parameter) {
+		PLUserDTO user = plService.selectMyInfo(parameter);
+		
+		if(user != null) {
+			printUserResult.printMyInfo(user);
+		} else {
+			printUserResult.printErrorMessage("selectOne");
+		}
+		
+	}
 	
 	
 	

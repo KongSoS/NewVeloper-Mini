@@ -39,6 +39,8 @@ public class PLMemberMenu {
 			System.out.println("2. 회원 가입 ");
 			System.out.println("0. 프로그램 종료");
 			System.out.println("==================================");
+			System.out.print("메뉴 번호를 입력하세요 : ");
+			
 			int no = sc.nextInt();
 
 			switch (no) {
@@ -67,7 +69,7 @@ public class PLMemberMenu {
 	 * @Method 설명 : 사용자 로그인 정보 입력 메소드
 	 * @return : 입력받은 아이디를 Map 변수에 담아 반환
 	 */
-	private Map<String, String> inputLogin() {
+	private PLUserDTO inputLogin() {
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -76,9 +78,9 @@ public class PLMemberMenu {
 		System.out.print("비밀번호를 입력하세요 : ");
 		String userPwd = sc.nextLine();
 		
-		Map<String, String> parameter = new HashMap<>();
-		parameter.put("userId", userId);
-		parameter.put("userPwd", userPwd);
+		PLUserDTO parameter = new PLUserDTO();
+		parameter.setUser_id(userId);
+		parameter.setUser_pwd(userPwd);
 		
 		return parameter;
 		
@@ -92,15 +94,15 @@ public class PLMemberMenu {
 	 * @Method 설명 : 회원가입 정보 입력 메소드
 	 * @return : 입력받은 아이디를 Map 변수에 담아 반환
 	 */
-	private Map<String, String> inputUser() {
+	private PLUserDTO inputUser() {
 		
 		Scanner sc = new Scanner(System.in);
 		PLController plController = new PLController();
 		
 		System.out.println("=========== 회원 가입 ============");
 		
+		/*입력한 아이디가 이미 존재하는지 중복 체크*/
 		String userId = plController.checkId(inputId());
-		//System.out.println(userId);
 
 		System.out.print("비밀번호를 입력하세요 : ");
 		String userPwd = sc.nextLine();
@@ -109,11 +111,11 @@ public class PLMemberMenu {
 		System.out.print("전화번호를 입력하세요 : ");
 		String userPhone = sc.nextLine();
 		
-		Map<String, String> parameter = new HashMap<>();
-		parameter.put("userId", userId);
-		parameter.put("userPwd", userPwd);
-		parameter.put("userName", userName);
-		parameter.put("userPhone", userPhone);
+		PLUserDTO parameter = new PLUserDTO();
+		parameter.setUser_id(userId);
+		parameter.setUser_pwd(userPwd);
+		parameter.setUser_name(userName);
+		parameter.setPhone(userPhone);
 		
 		return parameter;
 		
@@ -127,17 +129,14 @@ public class PLMemberMenu {
 	 * @Method 설명 : 아이디 중복 체크 확인용 정보 입력 메소드
 	 * @return : 입력받은 아이디를 Map 변수에 담아 반환
 	 */
-	private Map<String, String> inputId() {
+	private String inputId() {
 		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("아이디를 입력하세요 : ");
 		String userId = sc.nextLine();
 		
-		Map<String, String> parameter = new HashMap<>();
-		parameter.put("userId", userId);
-		
-		return parameter;
+		return userId;
 	}
 
 	/**

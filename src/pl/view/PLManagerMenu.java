@@ -9,22 +9,33 @@ import pl.controller.PLController;
 import pl.model.dto.PLUserDTO;
 import pl.serivce.PLService;
 
-
+/**
+ * @FileName : PLManagerMenu.java
+ * @Project : NewVeloper_mini
+ * @Date : 2022. 11. 16.
+ * @작성자 : 성식
+ * @변경이력 :
+ * @프로그램 설명 : 로그인 화면에서 관리자 로그인 정보를 입력 시 이동되는 화면, 회원 관리 및 추천장소 관리가 가능하다.
+ */
 public class PLManagerMenu {
 	
 	Scanner sc = new Scanner(System.in);
 	
+	/**
+	 * @Method Name : managerMenu
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 관리자 메인 메뉴, 회원 및 추천장소 관리화면으로 이동 가능
+	 */
 	public void managerMenu() {
-		
-		
-		PLController plController = new PLController();
-
 		do {
 			System.out.println("=========== Manager Menu ===========");
 			System.out.println("1. 회원 관리 ");
 			System.out.println("2. 추천장소 관리 ");
 			System.out.println("0. 프로그램 종료");
 			System.out.println("====================================");
+			System.out.print("메뉴 번호를 입력하세요 : ");
 			int no = sc.nextInt();
 
 			switch (no) {
@@ -45,24 +56,40 @@ public class PLManagerMenu {
 
 	}
 	
+	/**
+	 * @Method Name : userManagementMenu
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 회원 관리 메뉴(회원에 대한 조회, 수정, 삭제 등이 가능)
+	 */
 	private void userManagementMenu() {
 		
-		//Scanner sc = new Scanner(System.in);
-		PLService plService = new PLService();
+		PLController plController = new PLController();
 		do {
 			System.out.println("=========== 회원 관리 ============");
-			System.out.println("1. 회원 목록 조회");
-			System.out.println("2. 회원 정보 수정");
+			System.out.println("+ 탈퇴 회원은 2, 3번 사용 불가 \n");
+			System.out.println("1. 회원 전체 조회");
+			System.out.println("2. 회원 선택 조회");
+			System.out.println("3. 회원 정보 수정");
+			System.out.println("4. 회원 영구 삭제");
 			System.out.println("0. 이전 메뉴로");
+			System.out.println("================================");
 			System.out.print("메뉴 번호를 입력하세요 : ");
 			int no = sc.nextInt();
 			
 			switch(no) {
 				case 1 :
-					plService.selectUserList(inputSearchUser());
+					plController.selectUserList();
 					break;
 				case 2 :
-					//plService.updateUserInformation(inputSearchCriteria());
+					plController.selectUserOne(inputSearchUser());
+					break;
+				case 3:
+					plController.updateUserInfo(inputUserInfo());
+					break;
+				case 4:
+					plController.deleteUserOne(inputUserNo());
 					break;
 				case 0 :
 					return;
@@ -70,52 +97,92 @@ public class PLManagerMenu {
 		} while(true);
 	}
 	
+	/**
+	 * @Method Name : inputSearchUser
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 회원 단일 조회 시 기준이 될 검색어를 한글로 입력받고 DTO에 컬럼명으로 변환하여 전달한다.
+	 */
 	private SearchUserStandard inputSearchUser() {
 		
-		//Scanner sc = new Scanner(System.in);
-		System.out.print("검색 기준을 입력해주세요('user_name' or 'user_id') : ");
-		String condition = sc.nextLine();
-		System.out.print("검색어를 입력해주세요 : ");
-		String value = sc.nextLine();
+		String condition = null;
+		String value = null;
+		
+		System.out.print("검색 기준을 입력해주세요(이름 or 아이디) : ");
+		sc.nextLine();
+		String inputCon = sc.nextLine();
+		
+		/*입력받은 문자열을 판단하여 condition 변수에 값 대입*/
+		switch (inputCon) {
+			case "이름" : {
+				condition = "user_name";
+				break;
+			}
+			case "아이디" : {
+				condition = "user_id";
+				break;
+			}
+			default:
+				System.out.println("다시 입력해주세요.");
+				condition = null;
+		}
+		
+		if(condition != null) {
+			/*정상적으로 입력받은 경우 검색할 값 입력*/
+			System.out.print("검색할 " + condition + "을(를) 입력해주세요 : ");
+			value = sc.nextLine();
+		} else {
+			/*해당되는 값 없는 null일 경우 자신을 호출하여 다시 입력*/
+			inputSearchUser();
+		}
 		
 		return new SearchUserStandard(condition, value);
 		
 	}
 	
-//	private Map<String, Object> inputChangeInfo() {
-//		
-//		Scanner sc = new Scanner(System.in);
-//		System.out.print("변경할 메뉴 코드를 입력하세요 : ");
-//		int code = sc.nextInt();
-//		System.out.print("변경할 메뉴 이름을 입력하세요 : ");
-//		sc.nextLine();
-//		String name = sc.nextLine();
-//		System.out.print("변경할 카테고리 코드를 입력하세요 : ");
-//		int categoryCode = sc.nextInt();
-//		System.out.print("판매 여부를 결정해주세요(Y/N) : ");
-//		sc.nextLine();
-//		String orderableStatus = sc.nextLine();
-//		
-//		Map<String, Object> changeInfo = new HashMap<>();
-//		changeInfo.put("code", code);
-//		changeInfo.put("name", name);
-//		changeInfo.put("categoryCode", categoryCode);
-//		changeInfo.put("orderableStatus", orderableStatus);
-//		
-//		return changeInfo;
-//	}
+	/**
+	 * @Method Name : inputUserInfo
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 회원 정보 수정에 필요한 데이터를 입력받고 전달한다.
+	 */
+	private PLUserDTO inputUserInfo() {
+		
+		System.out.print("변경하려는 사용자 아이디를 입력하세요 : ");
+		sc.nextLine();
+		String userId = sc.nextLine();
+		System.out.print("변경될 사용자 비밀번호를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
+		String userPwd = sc.nextLine();
+		System.out.print("변경될 사용자 이름을 입력하세요 (건너뛰기 -> 빈칸입력) : ");
+		String userName = sc.nextLine();
+		System.out.print("변경될 사용자 전화번호를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
+		String userPhone = sc.nextLine();
+		
+		PLUserDTO parameter = new PLUserDTO();
+		parameter.setUser_id(userId);
+		parameter.setUser_pwd(userPwd);
+		parameter.setUser_name(userName);
+		parameter.setPhone(userPhone);
+		
+		return parameter;
+	}
 	
-//	private Map<String, String> inputId() {
-//		
-//		Scanner sc = new Scanner(System.in);
-//		
-//		System.out.print("아이디를 입력하세요 : ");
-//		String userId = sc.nextLine();
-//		
-//		Map<String, String> parameter = new HashMap<>();
-//		parameter.put("userId", userId);
-//		
-//		return parameter;
-//	}
+	/**
+	 * @Method Name : inputId
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : 성식
+	 * @변경이력 :
+	 * @Method 설명 : 사용자 아이디를 입력받고 전달한다.
+	 */
+	private int inputUserNo() {
+		
+		System.out.print("삭제할 회원번호를 입력하세요 : ");
+		sc.nextLine();
+		Integer userNo = sc.nextInt();
+		
+		return userNo;
+	}
 
 }

@@ -182,51 +182,107 @@
 	<result property="manager" column="MANAGER"/>
 	</resultMap>
 	
+	<!-- 사용자 실행 쿼리 -->
 	<select id="userIdOverlapCheck" parameterType="string" resultMap="userMap">
 		SELECT *
 		  FROM PL_USER
 		 WHERE USER_ID = #{user_id}
+		   AND STATUS = 'N'
 	</select>
 	
 	<select id="userPwdOverlapCheck" parameterType="string" resultMap="userMap">
 		SELECT *
 		  FROM PL_USER
 		 WHERE USER_PWD = #{user_pwd}
+		   AND STATUS = 'N'
 	</select>
 	
 	<insert id="registUser" parameterType="pl.model.dto.PLUserDTO">
         INSERT
-          INTO PL_USER A
+          INTO PL_USER
         (
-          A.USER_NO
-        , A.USER_ID
-        , A.USER_PWD
-        , A.USER_NAME
-        , A.PHONE
+          USER_NO
+        , USER_ID
+        , USER_PWD
+        , USER_NAME
+        , PHONE
         )
         VALUES
         (
           SEQ_USER_NO.NEXTVAL
-        , #{ user_id }
-        , #{ user_pwd }
-        , #{ user_name }
-        , #{ phone }
+        , #{user_id}
+        , #{user_pwd}
+        , #{user_name}
+        , #{phone}
         )
 	</insert>
 	
-	
-	<select id = "selectUserList" parameterType="common.SearchUserStandard" resultMap="userMap">
-		SELECT
-		       *
+	<select id="selectMyInfo" parameterType="string" resultMap="userMap">
+		SELECT 
+			   USER_ID,
+			   USER_PWD,
+			   USER_NAME,
+			   PHONE,
+			   ENROLL_DATE
 		  FROM PL_USER
-		
+		 WHERE USER_ID = #{user_id}
+		   AND STATUS = 'N'
+	</select>
+	
+	<update id="withdrawalUserOne" parameterType="string">
+        UPDATE PL_USER
+        <trim prefix="SET" prefixOverrides=",">
+      	   		DEL_DATE = SYSDATE
+      	   	   , STATUS = 'Y'
+         WHERE USER_ID = #{user_id}
+         AND STATUS = 'N'
+         </trim>
+	</update>
+	
+	
+	<!-- 관리자 실행 쿼리 -->
+	<select id = "selectUserList" parameterType="pl.model.dto.PLUserDTO" resultMap="userMap">
+		SELECT *
+		  FROM PL_USER
+		ORDER BY USER_NO
+	</select>
+	
+	<select id = "selectUserOne" parameterType="common.SearchUserStandard" resultMap="userMap">
+		SELECT *
+		  FROM PL_USER
 		<if test ="condition == 'user_name'">
 			WHERE USER_NAME = #{value}
+		    AND STATUS = 'N'		
 		</if>
 		
 		<if test ="condition == 'user_id'">
 			WHERE USER_ID = #{value}
+			AND STATUS = 'N'
 		</if>
 	</select>
+	
+	<update id="updateUserinfo" parameterType="pl.model.dto.PLUserDTO">
+        UPDATE
+               PL_USER
+        <trim prefix="SET" prefixOverrides=",">
+    		<if test="user_pwd != null and user_pwd != ''">
+             , USER_PWD = #{user_pwd}
+    		</if>
+    		<if test="user_name != null and user_name != ''">
+             , USER_NAME = #{user_name}
+    		</if>
+    		<if test="phone != null and phone != ''">
+             , PHONE = #{phone}
+    		</if>
+        </trim>
+         WHERE USER_ID = #{user_id}
+         AND STATUS = 'N'
+	</update>
+	
+	<delete id="deleteUserOne" parameterType="_int">
+        DELETE
+          FROM PL_USER
+         WHERE USER_NO = #{user_no}
+	</delete>
 
 </mapper>
