@@ -20,7 +20,7 @@ import pl.model.dto.PL_ReservationDTO;
 
  */
 public class MoreInfoView {
-	private PL_Controller controller = new PL_Controller();
+	private PL_Controller plController = new PL_Controller();
 	private PL_ReserveMenu rm = new PL_ReserveMenu();
 	private PL_ReservationDTO rd = new PL_ReservationDTO();
 
@@ -33,25 +33,25 @@ public class MoreInfoView {
 	 * @param
 	 */
 
-	public void MoreInfo(PL_ListAllDTO placDTO, int no) {
+	public void MoreInfo(PL_ListAllDTO place, int no) {
 
 		int num;
 		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("==================== 장소 정보 ====================");
-		System.out.println("이름 : " + placDTO.getPl_name());
-		System.out.println("주소 : " + placDTO.getPl_address());
-		System.out.println("예약 : " + placDTO.getPl_reserve());
-		System.out.println("별점 : " + placDTO.getScore());
-		System.out.println("카테고리 : " + placDTO.getCategory().getCategory_name());
-		System.out.println("태그 : " + placDTO.getTag().getTag_name());
-		System.out.println("전화번호 : " + placDTO.getPl_tel());
+		System.out.println("이름 : " + place.getPl_name());
+		System.out.println("주소 : " + place.getPl_address());
+		System.out.println("예약 : " + place.getPl_reserve());
+		System.out.println("별점 : " + place.getScore());
+		System.out.println("카테고리 : " + place.getCategory().getCategory_name());
+		System.out.println("태그 : " + place.getTag().getTag_name());
+		System.out.println("전화번호 : " + place.getPl_tel());
 		System.out.println();
 		System.out.println();
 		System.out.println("1. 장소 수정");
 		System.out.println("2. 장소 삭제");
-		switch (placDTO.getPl_reserve()) {
+		switch (place.getPl_reserve()) {
 		case "Y":System.out.println("3. 예약하기"); break;
 		}
 		System.out.println();
@@ -63,10 +63,10 @@ public class MoreInfoView {
 		num = sc.nextInt();
 		sc.nextLine();
 		switch (num) {
-		case 1:renamePL(placDTO); break;
-		case 2:controller.deleteMyList(placDTO.getPl_no()); break;
+		case 1:updateMyList(place); break;
+		case 2:plController.deleteMyList(place.getPl_no()); break;
 		case 3:rm.addReserve(no);
-		case 9:new subView().myPlaceList();
+		case 9:return;
 		//case 0:new PLMenu().mainMenu(); break;
 
 		default:System.out.println("잘못입력하셨습니다."); break;
@@ -80,52 +80,52 @@ public class MoreInfoView {
 	 * @작성자 : heojaehong
 	 * @변경이력 :
 	 * @Method 설명 : 내 장소리스트에 있는 장소 정보를 수정하는 메소드
-	 * @param placDTO
+	 * @param place
 	 */
-	private void renamePL(PL_ListAllDTO placDTO) {
+	private void updateMyList(PL_ListAllDTO place) {
 
 		int category;
 		int tag;
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("renamePL에 있는 DTO : " + placDTO.getPl_no());
+		System.out.println("renamePL에 있는 DTO : " + place.getPl_no());
 		System.out.println("==================== 장소 수정 ====================");
-		System.out.println("이름을 입력하세요 : ");
-		placDTO.setPl_name(sc.nextLine());
-		System.out.println("주소를 입력하세요 : ");
-		placDTO.setPl_address(sc.nextLine());
-		System.out.println("전화번호를 입력하세요 : ");
-		placDTO.setPl_tel(sc.nextLine());
-		System.out.println("별점를 입력하세요 : ");
-		placDTO.setScore(sc.nextInt());
+		System.out.println("변경될 이름을 입력하세요 (건너뛰기 -> 빈칸입력) :  ");
+		place.setPl_name(sc.nextLine());
+		System.out.println("변경될 주소를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
+		place.setPl_address(sc.nextLine());
+		System.out.println("변경될 전화번호를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
+		place.setPl_tel(sc.nextLine());
+		System.out.println("변경될 별점를 입력하세요 (필수 입력) : ");
+		place.setScore(sc.nextInt());
 		System.out.println("1. 한식, 2. 중식, 3. 일식, 4. 양식, 5. 분식, 6. 카페&디저트");
-		System.out.println("카테고리를 입력하세요 : ");
+		System.out.println("변경될 카테고리를 입력하세요 (필수 입력) : ");
 		category = sc.nextInt();
 		sc.nextLine();
-		System.out.println("예약여부를 입력하세요 (Y/N): ");
-		placDTO.setPl_reserve(sc.nextLine().toUpperCase());
+		System.out.println("변경될 예약여부를 입력하세요 (Y/N) (건너뛰기 -> 빈칸입력): ");
+		place.setPl_reserve(sc.nextLine().toUpperCase());
 		System.out.println("1. 맛있는, 2. 분위기 좋은, 3. 친절한, 4. 깨끗한, 5. 양이 많은");
-		System.out.println("태그를 입력하세요 : ");
+		System.out.println("변경될 태그를 입력하세요 (필수 입력) : ");
 		tag = sc.nextInt();
 		sc.nextLine();
 		switch (category) {
-		case 1:placDTO.setPl_catecode("C1");break;
-		case 2:placDTO.setPl_catecode("C2");break;
-		case 3:placDTO.setPl_catecode("C3");break;
-		case 4:placDTO.setPl_catecode("C4");break;
-		case 5:placDTO.setPl_catecode("C5");break;
-		case 6:placDTO.setPl_catecode("C6");break;
+		case 1:place.setPl_catecode("C1");break;
+		case 2:place.setPl_catecode("C2");break;
+		case 3:place.setPl_catecode("C3");break;
+		case 4:place.setPl_catecode("C4");break;
+		case 5:place.setPl_catecode("C5");break;
+		case 6:place.setPl_catecode("C6");break;
 		}
 		// 태그생성
 		switch (tag) {
-		case 1:placDTO.setPl_tagcode("T1"); break;
-		case 2:placDTO.setPl_tagcode("T2"); break;
-		case 3:placDTO.setPl_tagcode("T3"); break;
-		case 4:placDTO.setPl_tagcode("T4"); break;
-		case 5:placDTO.setPl_tagcode("T5"); break;
+		case 1:place.setPl_tagcode("T1"); break;
+		case 2:place.setPl_tagcode("T2"); break;
+		case 3:place.setPl_tagcode("T3"); break;
+		case 4:place.setPl_tagcode("T4"); break;
+		case 5:place.setPl_tagcode("T5"); break;
 		}
-		controller.renamePL(placDTO);
+		plController.updateMyList(place);
 
 	}
 
@@ -164,10 +164,9 @@ public class MoreInfoView {
 		System.out.println("=================================================");
 		System.out.print("번호를 입력하세요 : ");
 		choice = sc.nextInt();
-		sc.nextLine();
 		
 		switch (choice) {
-		case 1:controller.saveMyList(placeList.get(no - 1)); break;
+		case 1:plController.saveMyList(placeList.get(no - 1)); break;
 		case 0: return;
 		//case 9:new PLMenu().mainMenu(); break;
 		default:System.out.println("잘못입력하셨습니다."); break;
@@ -175,10 +174,5 @@ public class MoreInfoView {
 		}
 
 	}
-
-	
-		// TODO Auto-generated method stub
-		
-	
 
 }

@@ -18,7 +18,7 @@
 	</environments>
 
 	<mappers>
-		<mapper resource ="pl/model/dao/PLMapper.xml"/>
+		<mapper resource ="pl/model/dao/PL_Mapper.xml"/>
 	</mappers>
 
 </configuration>

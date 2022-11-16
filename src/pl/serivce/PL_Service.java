@@ -41,10 +41,10 @@ public class PL_Service {
 	public ArrayList<PL_ListAllDTO> myPlaceList() {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PL_DAO.class);
-		ArrayList<PL_ListAllDTO> Plist = mapper.selectAllPlace();
+		ArrayList<PL_ListAllDTO> placeList = mapper.selectAllPlace();
 		
 		session.close();
-		return Plist;
+		return placeList;
 	}
 	
 	/**
@@ -55,11 +55,11 @@ public class PL_Service {
 	  * @Method 설명 : 새로운 장소를 등록할 sql문에 접근하는 메소드
 	  * @return
 	  */
-	public void addPlaceList(PL_ListAllDTO dto) {
+	public void addPlaceList(PL_ListAllDTO place) {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PL_DAO.class);
-		System.out.println("service의 dto : " + dto);
-		int result = mapper.insertPlace(dto);
+		System.out.println("service의 dto : " + place);
+		int result = mapper.insertPlace(place);
 		
 		if(result > 0) {
 			System.out.println("장소등록 성공!");
@@ -72,17 +72,17 @@ public class PL_Service {
 	}
 	
 	/**
-	  * @Method Name : renamePL
+	  * @Method Name : updateMyList
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 :
 	  * @param placDTO
 	  */
-	public void renamePL(PL_ListAllDTO placDTO) {
+	public void updateMyList(PL_ListAllDTO place) {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PL_DAO.class);
-		int result = mapper.renamePL(placDTO);
+		int result = mapper.updateMyList(place);
 		
 		if(result > 0) {
 			System.out.println("수정 성공!");
@@ -496,6 +496,46 @@ public class PL_Service {
 		sqlSession.close();
 		
 		return user;
+	}
+	
+	public boolean deletePlaceList(int plNo) {
+		SqlSession session = getSession();
+		
+		mapper = session.getMapper(PL_DAO.class);
+		int result = mapper.deletePlaceList(plNo);
+	
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		
+		return result > 0? true: false;
+	}
+
+	/**
+	 * @FileName : PL_Service.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 17.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void updatePlaceList(PL_ListAllDTO place) {
+		SqlSession session = getSession();
+		mapper = session.getMapper(PL_DAO.class);
+		int result = mapper.updatePlaceList(place);
+		
+		if(result > 0) {
+			System.out.println("수정 성공!");
+			session.commit();
+		}else {
+			System.out.println("수정 실패!");
+			session.rollback();
+		}
+		
 	}
 	
 }
