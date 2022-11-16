@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 import pl.model.dto.PLCategoryDTO;
-import pl.model.dto.PLListAndCategoryDTO;
-import pl.model.dto.PLMyListDTO;
+import pl.model.dto.PLListAndReserveDTO;
+import pl.model.dto.PLListAllDTO;
 import pl.model.dto.PLReservationDTO;
 
 /**
@@ -21,7 +22,7 @@ import pl.model.dto.PLReservationDTO;
   * @프로그램 설명 :DB와 직접적으로 접근하며 SQL구문을 실행하는 클래스
   */
 public interface PLDAO {
-
+  
 	/**
 	  * @Method Name : selectAllPlace
 	  * @작성일 : 2022. 11. 14.
@@ -30,7 +31,7 @@ public interface PLDAO {
 	  * @Method 설명 : 내 장소의 전체 리스트 출력
 	  * @return
 	  */
-	ArrayList<PLListAndCategoryDTO> selectAllPlace();
+	ArrayList<PLListAllDTO> selectAllPlace();
 
 	/**
 	 * @Method Name : selectAllName
@@ -40,7 +41,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소 이름순으로 정렬된 리스트 출력
 	 */
-	ArrayList<PLListAndCategoryDTO> selectAllName();
+	ArrayList<PLListAllDTO> selectAllName();
 
 	/**
 	 * @Method Name : selectAllAddress
@@ -50,7 +51,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소 주소순으로 정렬된 리스트 출력
 	 */
-	ArrayList<PLListAndCategoryDTO> selectAllAddress();
+	ArrayList<PLListAllDTO> selectAllAddress();
 
 	/**
 	 * @Method Name : selectAllScore
@@ -60,7 +61,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소 별점순으로 정렬된 리스트 출력
 	 */
-	ArrayList<PLListAndCategoryDTO> selectAllScore();
+	ArrayList<PLListAllDTO> selectAllScore();
 
 	/**
 	 * @Method Name : selectAllCategory
@@ -70,13 +71,13 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 추천 장소 카테고리순으로 정렬된 리스트 출력
 	 */
-	ArrayList<PLListAndCategoryDTO> selectAllCategory();
+	ArrayList<PLListAllDTO> selectAllCategory();
 
 	
 
-	List<PLReservationDTO> reserveMine();
+	List<PLListAndReserveDTO> reserveMine();
 
-	PLReservationDTO reserveInfo(int num);
+	PLListAndReserveDTO reserveInfo(int num);
 
 	int editReserve(PLReservationDTO re);
 
@@ -91,7 +92,7 @@ public interface PLDAO {
 	  * @프로그램 설명 : 내 장소에 새로운 장소 등록
 	  * @return
 	  */
-	int insertPlace(PLListAndCategoryDTO dto);
+	int insertPlace(PLListAllDTO dto);
 
 	/**
 	  * @Method Name : renamePL
@@ -100,9 +101,9 @@ public interface PLDAO {
 	  * @변경이력 : 
 	  * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 수정
 	  */
-	int renamePL(PLListAndCategoryDTO placDTO);
+	int renamePL(PLListAllDTO placDTO);
 	
-	int saveMyList(PLMyListDTO myList);
+	int saveMyList(PLListAllDTO myList);
 
 	/**
 	 * @Method Name : deleteMyList

@@ -33,13 +33,9 @@ public class PLMemberMenu {
 			int no = sc.nextInt();
 
 			switch (no) {
-			case 1:
-				PMenu.mainMenu();
-				break;
+			case 1:PMenu.mainMenu(); break;
 
-			case 2:
-
-				break;
+			case 2: break;
 		
 			}
 		} while (true);
