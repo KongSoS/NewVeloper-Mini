@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLListAndReserveDTO;
 import pl.model.dto.PLMyListDTO;
+import pl.model.dto.PLListAllDTO;
 import pl.model.dto.PLReservationDTO;
 
 /**
@@ -31,7 +33,7 @@ public interface PLDAO {
 	  * @Method 설명 : 내 장소의 전체 리스트 출력
 	  * @return
 	  */
-	ArrayList<PLListAndCategoryDTO> selectAllPlace();
+	ArrayList<PLListAllDTO> selectAllPlace();
 
 	/**
 	 * @FileName : PLDAO.java
@@ -41,7 +43,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	ArrayList<PLListAndCategoryDTO> selectAllName();
+	ArrayList<PLListAllDTO> selectAllName();
 
 	/**
 	 * @FileName : PLDAO.java
@@ -51,7 +53,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	ArrayList<PLListAndCategoryDTO> selectAllAddress();
+	ArrayList<PLListAllDTO> selectAllAddress();
 
 	/**
 	 * @FileName : PLDAO.java
@@ -61,7 +63,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	ArrayList<PLListAndCategoryDTO> selectAllScore();
+	ArrayList<PLListAllDTO> selectAllScore();
 
 	/**
 	 * @FileName : PLDAO.java
@@ -71,7 +73,7 @@ public interface PLDAO {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	ArrayList<PLListAndCategoryDTO> selectAllCategory();
+	ArrayList<PLListAllDTO> selectAllCategory();
 
 	
 
@@ -93,7 +95,7 @@ public interface PLDAO {
 	  * @Method 설명 : 내 장소에 새로운 장소 등록
 	  * @return
 	  */
-	int insertPlace(PLListAndCategoryDTO dto);
+	int insertPlace(PLListAllDTO dto);
 
 	/**
 	  * @Method Name : renamePL
@@ -104,9 +106,9 @@ public interface PLDAO {
 	  * @param placDTO
 	  * @return
 	  */
-	int renamePL(PLListAndCategoryDTO placDTO);
+	int renamePL(PLListAllDTO placDTO);
 	
-	int saveMyList(PLMyListDTO myList);
+	int saveMyList(PLListAllDTO myList);
 
 	/**
 	 * @FileName : PLDAO.java

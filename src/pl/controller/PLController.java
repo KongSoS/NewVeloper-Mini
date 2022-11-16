@@ -11,14 +11,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 import pl.view.subView;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLListAndReserveDTO;
 import pl.model.dto.PLMyListDTO;
+import pl.model.dto.PLListAllDTO;
 import pl.model.dto.PLReservationDTO;
 import pl.serivce.PLService;
+import pl.view.subView;
 
 /**
   * @FileName : PLController.java
@@ -31,11 +33,11 @@ import pl.serivce.PLService;
 public class PLController {
 	
 	private final PLService plService;
-	private final PLListAndCategoryDTO placDTO;
+	private final PLListAllDTO placDTO;
 
 	public PLController() {
 		plService = new PLService();
-		placDTO = new PLListAndCategoryDTO();
+		placDTO = new PLListAllDTO();
 	}
 
 	/**
@@ -46,8 +48,8 @@ public class PLController {
 	  * @변경이력 : 
 	  * @Method 설명 : 내가 저장한 장소를 전체 출력
 	  */
-	public List<PLListAndCategoryDTO> myPlaceList() {
-		ArrayList<PLListAndCategoryDTO> list = plService.myPlaceList();
+	public List<PLListAllDTO> myPlaceList() {
+		ArrayList<PLListAllDTO> list = plService.myPlaceList();
 		
 		return list;
 	}
@@ -60,16 +62,23 @@ public class PLController {
 	  * @변경이력 : 
 	  * @Method 설명 :
 	  */
-	public void addPlaceList(PLListAndCategoryDTO dto) {
+	public void addPlaceList(PLListAllDTO dto) {
 		// System.out.println("컨트롤러의 dto" + dto);
 		plService.addPlaceList(dto);
 	
 	}
 
+
 	public List<PLListAndReserveDTO> reserveMine() {
 //		subView print = new subView();
 		List<PLListAndReserveDTO> reserveList = plService.reserveMine();
 //		PLMyListDTO pd = new PLMyListDTO();
+
+	public void reserveMine() {
+		subView print = new subView();
+		List<PLReservationDTO> reserveList = plService.reserveMine();
+		PLListAllDTO pd = new PLListAllDTO();
+
 		if(reserveList != null) {
 			System.out.println("예약 목록 조회 성공");
 		} else {
@@ -127,25 +136,9 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public ArrayList<PLListAndCategoryDTO> selectAllName() {
+	public ArrayList<PLListAllDTO> selectAllName() {
 		
-		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllName();
-		
-		return placeList;
-		
-	}
-
-	/**
-	 * @return 
-	 * @FileName : PLController.java
-	 * @Project : NewVeloper_mini
-	 * @Date : 2022. 11. 15.
-	 * @작성자 : jihee
-	 * @변경이력 :
-	 * @프로그램 설명 : 
-	 */
-	public ArrayList<PLListAndCategoryDTO> selectAllAddress() {
-		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllAddress();
+		ArrayList<PLListAllDTO> placeList = plService.selectAllName();
 		
 		return placeList;
 		
@@ -160,8 +153,24 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public ArrayList<PLListAndCategoryDTO> selectAllScore() {
-		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllScore();
+	public ArrayList<PLListAllDTO> selectAllAddress() {
+		ArrayList<PLListAllDTO> placeList = plService.selectAllAddress();
+		
+		return placeList;
+		
+	}
+
+	/**
+	 * @return 
+	 * @FileName : PLController.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public ArrayList<PLListAllDTO> selectAllScore() {
+		ArrayList<PLListAllDTO> placeList = plService.selectAllScore();
 		
 		return placeList;
 	}
@@ -175,8 +184,8 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public ArrayList<PLListAndCategoryDTO> selectAllCategory() {
-		ArrayList<PLListAndCategoryDTO> placeList = plService.selectAllCategory();
+	public ArrayList<PLListAllDTO> selectAllCategory() {
+		ArrayList<PLListAllDTO> placeList = plService.selectAllCategory();
 		
 		return placeList;
 		
@@ -191,21 +200,23 @@ public class PLController {
 	 * @변경이력 :
 	 * @프로그램 설명 : 
 	 */
-	public void saveMyList(PLListAndCategoryDTO parameter) {
+	public void saveMyList(PLListAllDTO parameter) {
 		
 		String name = parameter.getPl_name();
 		String address = parameter.getPl_address();
 		String tel = parameter.getPl_tel();
 		int score = parameter.getScore();
 		String catecode = parameter.getCategory().getCategory_code();
+		String tagcode = parameter.getTag().getTag_code();
 		String reserve = parameter.getPl_reserve();
 		
-		PLMyListDTO myList = new PLMyListDTO();
+		PLListAllDTO myList = new PLListAllDTO();
 		myList.setPl_name(name);
 		myList.setPl_address(address);
 		myList.setPl_tel(tel);
 		myList.setScore(score);
 		myList.setPl_catecode(catecode);
+		myList.setPl_tagcode(tagcode);
 		myList.setPl_reserve(reserve);
 		
 		
@@ -247,7 +258,7 @@ public class PLController {
 	  * @Method 설명 :
 	  * @param inputRename
 	  */
-	public void renamePL(PLListAndCategoryDTO placDTO) {
+	public void renamePL(PLListAllDTO placDTO) {
 		plService.renamePL(placDTO);
 		
 			

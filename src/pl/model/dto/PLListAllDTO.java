@@ -1,27 +1,32 @@
 /**
-  * 
-  */
+ * 
+ */
 package pl.model.dto;
 
 /**
-  * @FileName : PLMyListDTO.java
-  * @Project : NewVeloper_mini
-  * @Date : 2022. 11. 14. 
-  * @작성자 : heojaehong
-  * @변경이력 :
-  * @프로그램 설명 : 장소에 관련된 DTO
-  */
-public class PLMyListDTO {
+ * @author jihee
+ *
+ */
+public class PLListAllDTO {
+	
+	private int rownum;
 	private int pl_no;
 	private String pl_name;
 	private String pl_address;
 	private String pl_tel;
 	private int score;
 	private String pl_catecode;
+	private String pl_tagcode;
 	private String pl_reserve;
-	private int rownum;
+	private PLCategoryDTO category;
+	private PLTagDTO tag;
 	
+	public PLListAllDTO() {
+		//기본생성자
+	}
+
 	/**
+	 * @param rownum
 	 * @param pl_no
 	 * @param pl_name
 	 * @param pl_address
@@ -29,19 +34,37 @@ public class PLMyListDTO {
 	 * @param score
 	 * @param pl_catecode
 	 * @param pl_reserve
-	 * @param rownum
+	 * @param category
+	 * @param tag
 	 */
-	public PLMyListDTO(int pl_no, String pl_name, String pl_address, String pl_tel, int score, String pl_catecode,
-			String pl_reserve, int rownum) {
+	public PLListAllDTO(int rownum, int pl_no, String pl_name, String pl_address, String pl_tel, int score,
+			String pl_catecode, String pl_tagcode, String pl_reserve, PLCategoryDTO category, PLTagDTO tag) {
 		super();
+		this.rownum = rownum;
 		this.pl_no = pl_no;
 		this.pl_name = pl_name;
 		this.pl_address = pl_address;
 		this.pl_tel = pl_tel;
 		this.score = score;
 		this.pl_catecode = pl_catecode;
+		this.pl_tagcode = pl_tagcode;
 		this.pl_reserve = pl_reserve;
-		this.rownum = rownum;
+		this.category = category;
+		this.tag = tag;
+	}
+
+	/**
+	 * @return the pl_tagcode
+	 */
+	public String getPl_tagcode() {
+		return pl_tagcode;
+	}
+
+	/**
+	 * @param pl_tagcode the pl_tagcode to set
+	 */
+	public void setPl_tagcode(String pl_tagcode) {
+		this.pl_tagcode = pl_tagcode;
 	}
 
 	/**
@@ -56,34 +79,6 @@ public class PLMyListDTO {
 	 */
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
-	}
-
-	/**
-	 * 
-	 */
-	public PLMyListDTO() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param pl_no 장소번호
-	 * @param pl_name 매장명
-	 * @param pl_address 매장주소
-	 * @param pl_tel 매장연락처
-	 * @param score 별점
-	 * @param pl_catecode 카테고리코드
-	 * @param pl_reserve 예약가능여부
-	 */
-	public PLMyListDTO(int pl_no, String pl_name, String pl_address, String pl_tel, int score, String pl_catecode,
-			String pl_reserve) {
-		super();
-		this.pl_no = pl_no;
-		this.pl_name = pl_name;
-		this.pl_address = pl_address;
-		this.pl_tel = pl_tel;
-		this.score = score;
-		this.pl_catecode = pl_catecode;
-		this.pl_reserve = pl_reserve;
 	}
 
 	/**
@@ -184,12 +179,32 @@ public class PLMyListDTO {
 		this.pl_reserve = pl_reserve;
 	}
 
-	@Override
-	public String toString() {
-		return "PLMyListDTO [pl_no=" + pl_no + ", pl_name=" + pl_name + ", pl_address=" + pl_address + ", pl_tel="
-				+ pl_tel + ", score=" + score + ", pl_catecode=" + pl_catecode + ", pl_reserve=" + pl_reserve + "]";
+	/**
+	 * @return the category
+	 */
+	public PLCategoryDTO getCategory() {
+		return category;
 	}
-	
-	
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(PLCategoryDTO category) {
+		this.category = category;
+	}
+
+	/**
+	 * @return the tag
+	 */
+	public PLTagDTO getTag() {
+		return tag;
+	}
+
+	/**
+	 * @param tag the tag to set
+	 */
+	public void setTag(PLTagDTO tag) {
+		this.tag = tag;
+	}
 	
 }

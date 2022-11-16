@@ -2,12 +2,20 @@
   * 
   */
 package pl.view;
+import java.text.SimpleDateFormat;
+
 
 import java.util.Date;
 
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+
+import pl.model.dto.PLListAllDTO;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,6 +33,8 @@ import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLListAndReserveDTO;
 import pl.model.dto.PLTagDTO;
+import pl.model.dto.PLReservationDTO;
+
 
 /**
  * @FileName : ResultView.java
@@ -49,10 +59,10 @@ public class subView {
 	public void myPlaceList() {
 		int num = 0;
 		int input;
-		List<PLListAndCategoryDTO> list = controller.myPlaceList();
+		List<PLListAllDTO> list = controller.myPlaceList();
 		System.out.println(list.size());
 		System.out.println("=========== 내 장소 ===========");
-		for (PLListAndCategoryDTO pd : list) {
+		for(PLListAllDTO pd : list) {
 			num++;
 			System.out.println(num + ". " + pd.getPl_name());
 		}
@@ -80,8 +90,8 @@ public class subView {
 	 */
 	public void addPlaceList() {
 		int category;
-		PLListAndCategoryDTO dto = new PLListAndCategoryDTO();
-		List<PLListAndCategoryDTO> PLList = new ArrayList<>();
+		PLListAllDTO dto = new PLListAllDTO();
+		List<PLListAllDTO> PLList = new ArrayList<>();
 		do {
 			System.out.println("=========== 장소 추가 ===========");
 			System.out.print("장소이름을 입력하세요 : ");
@@ -142,7 +152,91 @@ public class subView {
 		controller.addPlaceList(dto);
 	}
 
-	
+	public void printReserveList(List<PLReservationDTO> reserveList, PLListAllDTO pd) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("=============내 예약===============");
+		for (int i = 1; i <= reserveList.size(); i++) {
+			// 예약된 길이만큼 i를 반복해야함
+			// if() my_no와 pl_no가 같으면
+			System.out.println(i + ". " + pd.getPl_name());
+			// dto에서 장소 이름을 받아와야함
+		}
+		System.out.println("0. 이전 메뉴로");
+		System.out.println("=================================");
+		System.out.print("번호를 입력하세요 : ");
+		int num = sc.nextInt();
+		System.out.println();
+
+		if (num == 0) {
+			return;
+		} else if (num <= reserveList.size()) {
+			PLReserveMenu rm = new PLReserveMenu();
+			rm.reserveInfo();
+
+		} else {
+			System.out.println("잘못 입력하셨습니다.");
+			return;// 이 리턴 어디로 가는건지
+		}
+
+	}
+
+	public void printMenu(PLReservationDTO menu) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("==============예약정보==============");
+		System.out.println("가게 이름 : "/* +getPLName(num) */);
+		// 가게 이름을 소환해야함
+		String year = menu.getReserve_day().substring(0, 2);
+		String month = menu.getReserve_day().substring(2, 2);
+		String day = menu.getReserve_day().substring(4);
+		int nYear = Integer.parseInt(year);
+		int nMonth = Integer.parseInt(month);
+		int nDay = Integer.parseInt(day);
+		Date reDay = new Date(nYear - 1900, nMonth - 1, nDay);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E요일");
+
+		System.out.println("날짜 : " + sdf.format(reDay));
+
+		String time = menu.getReserve_time().substring(0, 2);
+		String minute = menu.getReserve_time().substring(2);
+
+		int nTime = Integer.parseInt(time);
+		int nMinute = Integer.parseInt(minute);
+		if (nMinute >= 0 && nMinute < 60) {
+			if (nTime > 12 && nTime < 24) {
+				System.out.println("시간 : 오후" + (nTime - 12) + "시 " + nMinute + "분");
+			} else if (nTime >= 0 && nTime <= 12) {
+				System.out.println("시간 : 오전" + nTime + "시 " + nMinute + "분");
+			}
+		} else {
+			System.out.println("다시 입력해주세요");
+			return;
+		}
+
+		System.out.println();
+		System.out.println("1. 예약 변경");
+		System.out.println("2. 예약 취소");
+		System.out.println("0. 이전 메뉴로");
+		System.out.println("00. 메인 메뉴로");
+		System.out.println("=================================");
+		System.out.print("번호를 입력하세요 : ");
+
+		String num2 = sc.next();
+		System.out.println();
+		PLReserveMenu rm = new PLReserveMenu();
+		switch (num2) {
+		case "1":
+			rm.editReserve();
+			break;
+		case "2":
+			rm.cancelReserve();
+			break;
+		case "0":
+			return;
+		default:
+			System.out.println("잘못 입력하셨습니다");
+			return;
+		}
+	}
 
 	/**
 	 * @param placDTO 
@@ -180,11 +274,11 @@ public class subView {
 	 * @프로그램 설명 : 
 	 */
 	public void selectAllName() {
-		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllName();
+		ArrayList<PLListAllDTO> placeList = controller.selectAllName();
 
 		if(placeList != null) {
 			System.out.println("=========== 매장명으로 정렬 ===========");
-			for(PLListAndCategoryDTO list : placeList) {
+			for(PLListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.println(list.getPl_name());
 			}
@@ -211,11 +305,11 @@ public class subView {
 	 * @프로그램 설명 : 
 	 */
 	public void selectAllAddress() {
-		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllAddress();
+		ArrayList<PLListAllDTO> placeList = controller.selectAllAddress();
 
 		if(placeList != null) {
 			System.out.println("=========== 주소로 정렬 ===========");
-			for(PLListAndCategoryDTO list : placeList) {
+			for(PLListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getPl_address());
@@ -242,11 +336,11 @@ public class subView {
 	 * @프로그램 설명 : 
 	 */
 	public void selectAllScore() {
-		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllScore();
+		ArrayList<PLListAllDTO> placeList = controller.selectAllScore();
 
 		if(placeList != null) {
 			System.out.println("=========== 별점으로 정렬 ===========");
-			for(PLListAndCategoryDTO list : placeList) {
+			for(PLListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getScore() + "점");
@@ -273,11 +367,11 @@ public class subView {
 	 * @프로그램 설명 : 
 	 */
 	public void selectAllCategory() {
-		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllCategory();
+		ArrayList<PLListAllDTO> placeList = controller.selectAllCategory();
 
 		if(placeList != null) {
 			System.out.println("=========== 카테고리로 정렬 ===========");
-			for(PLListAndCategoryDTO list : placeList) {
+			for(PLListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getCategory().getCategory_name());
