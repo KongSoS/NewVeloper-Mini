@@ -3,6 +3,12 @@
   */
 package pl.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -226,6 +232,44 @@ public class PLController {
 			System.out.println("예약 성공");
 		} else {
 			System.out.println("예약 실패");
+		}
+	}
+
+	/**
+	  * @Method Name : fileOut
+	  * @작성일 : 2022. 11. 16.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 :
+	  */
+	public void fileOut() {
+		try {
+			OutputStream out = null;
+			File file = new File("MyPLFile.txt");
+			file.createNewFile();
+			
+			System.out.println("파일 생성 완료! " + file);
+			out = new BufferedOutputStream(new FileOutputStream(file));
+			List<PLListAndCategoryDTO> fList = plService.myPlaceList();
+
+			System.out.println("list에 값 넣기 : " + fList);
+			for(int i = 0; i < fList.size(); i++) {
+				System.out.println("list의 값: " + fList);
+				String contents = "가게 이름 : " + fList.get(i).getPl_name() + ", 주소 : " + fList.get(i).getPl_address() 
+						+ ", 전화번호 : " + fList.get(i).getPl_tel() + ", 별점 : " + fList.get(i).getScore() + "\n";
+				
+				byte[] b = contents.getBytes();
+				
+				out.write(b);
+			}
+			
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
