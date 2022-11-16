@@ -67,16 +67,17 @@ public class subView {
 	 */
 	public void addPlaceList() {
 		int category;
+		int tag;
 		PLListAllDTO dto = new PLListAllDTO();
 		List<PLListAllDTO> PLList = new ArrayList<>();
 		do {
 			System.out.println("=========== 장소 추가 ===========");
 			System.out.print("장소이름을 입력하세요 : ");
-			dto.setPl_name(sc.next());
+			dto.setPl_name(sc.nextLine());
 			System.out.print("장소주소을 입력하세요 : ");
-			dto.setPl_address(sc.next());
+			dto.setPl_address(sc.nextLine());
 			System.out.print("전화번호을 입력하세요(- 포함) : ");
-			dto.setPl_tel(sc.next());
+			dto.setPl_tel(sc.nextLine());
 			System.out.print("별점을 입력하세요(1~5) : ");
 			dto.setScore(sc.nextInt());
 //			System.out.print("태그를 입력하세요(, 로 공백없이 입력): ");
@@ -86,7 +87,10 @@ public class subView {
 			category = sc.nextInt();
 			sc.nextLine();
 			System.out.print("예약여부을 입력하세요(Y/N) : ");
-			dto.setPl_reserve(sc.next().toUpperCase());
+			dto.setPl_reserve(sc.nextLine().toUpperCase());
+			System.out.println("1. 맛있는, 2. 분위기 좋은, 3. 친절한, 4. 깨끗한, 5. 양이 많은");
+			System.out.println("태그를 입력하세요 : ");
+			tag = sc.nextInt();
 			System.out.println("===============================");
 			// 카테고리에 맞는 코드 저장
 			switch (category) {
@@ -109,7 +113,25 @@ public class subView {
 				dto.setPl_catecode("C6");
 				break;
 			}
-			if (category >= 1 && category <= 5) {
+			// 태그생성
+			switch (tag) {
+			case 1:
+				dto.setPl_tagcode("T1");
+				break;
+			case 2:
+				dto.setPl_tagcode("T2");
+				break;
+			case 3:
+				dto.setPl_tagcode("T3");
+				break;
+			case 4:
+				dto.setPl_tagcode("T4");
+				break;
+			case 5:
+				dto.setPl_tagcode("T5");
+				break;
+			}
+			if (category >= 1 && category <= 6 && tag >= 1 && tag <= 5) {
 				break;
 			} else {
 				System.out.println("잘못입력하셨습니다, 처음으로 돌아갑니다.");
@@ -224,7 +246,7 @@ public class subView {
 	 * @Method 설명 :
 	 */
 	public void fileOut() {
-
+		sc.nextLine();
 		System.out.println("=========== 내 장소 내보내기 ===========");
 		System.out.println("현재 저장된 내 장소리스트를 파일로 저장하시겠습니까?(Y/N)");
 		System.out.println("====================================");

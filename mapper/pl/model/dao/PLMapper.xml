@@ -157,7 +157,8 @@
 		 M.MY_TEL = #{ pl_tel } ,
 		 M.MY_SCORE = #{ score } ,
 		 M.MY_CATECODE = #{ pl_catecode } ,
-		 M.MY_RESERVE = #{ pl_reserve } 
+		 M.MY_RESERVE = #{ pl_reserve } ,
+		 M.MY_TAGCODE = #{ pl_tagcode } 
 		 WHERE M.MY_NO = #{ pl_no } 
 	
 	</update>
@@ -170,6 +171,7 @@
 			M.MY_TEL ,
 			M.MY_SCORE ,
 			M.MY_CATECODE ,
+			M.MY_TAGCODE ,
 			M.MY_RESERVE
 		)
 		VALUES	
@@ -180,6 +182,7 @@
 			#{ pl_tel } ,
 			#{ score } ,
 			#{ pl_catecode },
+			#{ pl_tagcode },
 			#{ pl_reserve } 
 			
 		)

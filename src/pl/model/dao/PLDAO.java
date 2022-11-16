@@ -9,9 +9,7 @@ import java.util.Map;
 
 
 import pl.model.dto.PLCategoryDTO;
-import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLListAndReserveDTO;
-import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLListAllDTO;
 import pl.model.dto.PLReservationDTO;
 
