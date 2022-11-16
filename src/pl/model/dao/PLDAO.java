@@ -102,7 +102,14 @@ public interface PLDAO {
 	  * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 수정
 	  */
 	int renamePL(PLListAllDTO placDTO);
-	
+	/**
+	 * @Method Name : deleteMyList
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 추천장소리스트에서 내 장소리스트로 장소 정보를 저장
+	 */
 	int saveMyList(PLListAllDTO myList);
 
 	/**

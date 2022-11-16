@@ -81,6 +81,7 @@ public class subView {
 		int tag;
 		
 		PLListAllDTO dto = new PLListAllDTO();
+		
 		List<PLListAllDTO> PLList = new ArrayList<>();
 		
 		do {
@@ -135,7 +136,9 @@ public class subView {
 	}
 
 	public void printReserveList(List<PLReservationDTO> reserveList, PLListAllDTO pd) {
+		
 		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("=============내 예약===============");
 		for (int i = 1; i <= reserveList.size(); i++) {
 			/* 예약된 길이만큼 i를 반복해야함
@@ -232,7 +235,7 @@ public class subView {
 	 * @작성일 : 2022. 11. 16.
 	 * @작성자 : heojaehong
 	 * @변경이력 :
-	 * @Method 설명 :
+	 * @Method 설명 : 내장소에 저장된 장소 리스트를 txt파일로 내보내는 메소드
 	 */
 	public void fileOut() {
 		

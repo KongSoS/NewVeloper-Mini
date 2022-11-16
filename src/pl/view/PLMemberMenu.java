@@ -25,12 +25,15 @@ public class PLMemberMenu {
 	 * @Method 설명 : 로그인 화면
 	 */
 	public void roginMenu() {
+		
+		int no;
+		
 		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원 가입");
 			System.out.println("==================================");
-			int no = sc.nextInt();
+			no = sc.nextInt();
 
 			switch (no) {
 			case 1:PMenu.mainMenu(); break;

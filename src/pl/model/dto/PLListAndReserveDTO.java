@@ -16,12 +16,13 @@ public class PLListAndReserveDTO {
 	}  
 	
 	/**
-	 * @param reserve_no
-	 * @param user_no
-	 * @param my_no
-	 * @param reserve_day
-	 * @param reserve_time
-	 * @param listDTO
+	 * @param reserve_no 예약번호
+	 * @param user_no 유저번호
+	 * @param my_no 장소번호
+	 * @param reserve_day 예약일
+	 * @param reserve_time 예약시간
+	 * @param listDTO PLlistDTO
+	 * 
 	 */
 	public PLListAndReserveDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time,
 			PLListAllDTO listDTO) {
