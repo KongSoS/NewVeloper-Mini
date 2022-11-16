@@ -6,7 +6,11 @@ import pl.controller.PLController;
 import pl.model.dto.PLMyListDTO;
 
 public class PLMenu {
-
+	
+	Scanner sc = new Scanner(System.in);
+	PLReserveMenu remenu = new PLReserveMenu();
+	PLController controller = new PLController();
+	subView sv = new subView();
 	/**
 	 * @Method Name : mainMenu
 	 * @작성일 : 2022. 11. 11.
@@ -15,10 +19,6 @@ public class PLMenu {
 	 * @Method 설명 : 처음 보여지는 메뉴
 	 */
 	public void mainMenu() {
-		Scanner sc = new Scanner(System.in);
-		PLReserveMenu remenu = new PLReserveMenu();
-		PLController controller = new PLController();
-		subView sv = new subView();
 
 		do { // 메인메뉴를 보여주는 반복문
 			System.out.println("=========== PLACE LIST ===========");
@@ -35,7 +35,7 @@ public class PLMenu {
 
 			switch (no) {
 			case 1:
-				sv.selectSort();
+				selectSort();
 				break;
 			case 2:
 				sv.myPlaceList();
@@ -61,8 +61,38 @@ public class PLMenu {
 			}
 
 		} while (true);
-
 	}
 
+	/**
+	 * @FileName : PLMenu.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	private void selectSort() {
+		do {
+			System.out.println("=========== PLACE LIST ===========");
+			System.out.println("1. 매장명으로 정렬");
+			System.out.println("2. 주소로 정렬");
+			System.out.println("3. 별점으로 정렬");
+			System.out.println("4. 카테고리로 정렬");
+			System.out.println("0. 이전 메뉴로");
+			System.out.print("원하는 정렬 번호를 입력하세요 : ");
+			int no = sc.nextInt();
+			
+			switch(no) {
+			case 1 : sv.selectAllName(); break;
+			case 2 : sv.selectAllAddress(); break;
+			case 3 : sv.selectAllScore(); break;
+			case 4 : sv.selectAllCategory(); break;
+			case 0 : return;
+			default : System.out.println("잘못 입력하셨습니다 다시 입력하세요 "); break;
+			}
+		} while (true);
+
+		
+	}
 
 }

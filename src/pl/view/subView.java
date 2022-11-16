@@ -43,6 +43,7 @@ public class subView {
 			num++;
 			System.out.println(num + ". " + pd.getPl_name());			
 		}
+		System.out.println();
 		System.out.println("0. 메인 메뉴로 ");
 		System.out.println("==============================");
 		System.out.print("번호를 입력하세요 : ");
@@ -55,39 +56,7 @@ public class subView {
 		}
 		
 	}
-	/**
-	  * @Method Name : selectSort
-	  * @작성일 : 2022. 11. 15.
-	  * @작성자 : jihee
-	  * @변경이력 : 
-	  * @Method 설명 :
-	  */
-	public void selectSort() {
-
-		do {
-			System.out.println("=========== PLACE LIST ===========");
-			System.out.println("1. 매장명으로 정렬");
-			System.out.println("2. 주소로 정렬");
-			System.out.println("3. 별점으로 정렬");
-			System.out.println("4. 카테고리로 정렬");
-			System.out.println("0. 이전 메뉴로");
-			System.out.print("원하는 정렬 번호를 입력하세요 : ");
-			int no = sc.nextInt();
-			
-			switch(no) {
-			case 1 : controller.selectAllName(); break;
-			case 2 : controller.selectAllAddress(); break;
-			case 3 : controller.selectAllScore(); break;
-			case 4 : controller.selectAllCategory(); break;
-			case 0 : return;
-			default : System.out.println("잘못 입력하셨습니다 다시 입력하세요 "); break;
-			}
-		} while (true);
-		
-		// 리스트 출력한 뒤, 원하는 장소에 대한 정보도 출력해야함
-		// 정렬기준 선택 후 번호입력하면 장소 정보 출력
-		// 번호입력을 어디서 받아야 할까?
-	}
+	
 	/**
 	  * @Method Name : addPlaceList
 	  * @작성일 : 2022. 11. 15.
@@ -249,4 +218,132 @@ public class subView {
 	}
 	
 
+	
+	
+	
+	
+	
+	/**
+	 * @FileName : subView.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void selectAllName() {
+		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllName();
+
+		if(placeList != null) {
+			System.out.println("=========== 매장명으로 정렬 ===========");
+			for(PLListAndCategoryDTO list : placeList) {
+				System.out.print(list.getRownum() + " ");
+				System.out.println(list.getPl_name());
+			}
+			System.out.println("=================================================");
+			System.out.println("원하는 매장번호를 입력하세요 : ");
+			System.out.println("0. 이전 메뉴로");
+			int no = sc.nextInt();
+			if(no == 0) return;
+			else mv.selectOne(placeList,no);
+			
+		} else {
+			System.out.println("에러발생");
+		}
+
+		
+	}
+
+	/**
+	 * @FileName : subView.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void selectAllAddress() {
+		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllAddress();
+
+		if(placeList != null) {
+			System.out.println("=========== 주소로 정렬 ===========");
+			for(PLListAndCategoryDTO list : placeList) {
+				System.out.print(list.getRownum() + " ");
+				System.out.print(list.getPl_name() + " | ");
+				System.out.println(list.getPl_address());
+			}
+			System.out.println("=================================================");
+			System.out.println("원하는 매장번호를 입력하세요 : ");
+			System.out.println("0. 이전 메뉴로");
+			int no = sc.nextInt();
+			if(no == 0) return;
+			else mv.selectOne(placeList,no);
+			
+		} else {
+			System.out.println("에러발생");
+		}
+		
+	}
+
+	/**
+	 * @FileName : subView.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void selectAllScore() {
+		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllScore();
+
+		if(placeList != null) {
+			System.out.println("=========== 별점으로 정렬 ===========");
+			for(PLListAndCategoryDTO list : placeList) {
+				System.out.print(list.getRownum() + " ");
+				System.out.print(list.getPl_name() + " | ");
+				System.out.println(list.getScore() + "점");
+			}
+			System.out.println("=================================================");
+			System.out.println("원하는 매장번호를 입력하세요 : ");
+			System.out.println("0. 이전 메뉴로");
+			int no = sc.nextInt();
+			if(no == 0) return;
+			else mv.selectOne(placeList,no);
+			
+		} else {
+			System.out.println("에러발생");
+		}
+		
+	}
+
+	/**
+	 * @FileName : subView.java
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 
+	 */
+	public void selectAllCategory() {
+		ArrayList<PLListAndCategoryDTO> placeList = controller.selectAllCategory();
+
+		if(placeList != null) {
+			System.out.println("=========== 카테고리로 정렬 ===========");
+			for(PLListAndCategoryDTO list : placeList) {
+				System.out.print(list.getRownum() + " ");
+				System.out.print(list.getPl_name() + " | ");
+				System.out.println(list.getCategory().getCategory_name());
+			}
+			System.out.println("=================================================");
+			System.out.println("원하는 매장번호를 입력하세요 : ");
+			System.out.println("0. 이전 메뉴로");
+			int no = sc.nextInt();
+			if(no == 0) return;
+			else mv.selectOne(placeList,no);
+			
+		} else {
+			System.out.println("에러발생");
+		}
+		
+	}
 }
