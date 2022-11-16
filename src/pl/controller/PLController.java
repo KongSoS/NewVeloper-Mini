@@ -12,12 +12,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import pl.view.subView;
-import pl.model.dto.PLListAndCategoryDTO;
-import pl.model.dto.PLListAndReserveDTO;
-import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLListAllDTO;
+import pl.model.dto.PLListAndReserveDTO;
 import pl.model.dto.PLReservationDTO;
 import pl.serivce.PLService;
 import pl.view.subView;
@@ -68,15 +64,10 @@ public class PLController {
 	
 	}
 
-
+	
 	public List<PLListAndReserveDTO> reserveMine() {
-//		subView print = new subView();
-		List<PLListAndReserveDTO> reserveList = plService.reserveMine();
-//		PLMyListDTO pd = new PLMyListDTO();
-
-	public void reserveMine() {
 		subView print = new subView();
-		List<PLReservationDTO> reserveList = plService.reserveMine();
+		List<PLListAndReserveDTO> reserveList = plService.reserveMine();
 		PLListAllDTO pd = new PLListAllDTO();
 
 		if(reserveList != null) {
@@ -294,7 +285,7 @@ public class PLController {
 			
 			System.out.println("파일 생성 완료! " + file);
 			out = new BufferedOutputStream(new FileOutputStream(file));
-			List<PLListAndCategoryDTO> fList = plService.myPlaceList();
+			List<PLListAllDTO> fList = plService.myPlaceList();
 
 			System.out.println("list에 값 넣기 : " + fList);
 			for(int i = 0; i < fList.size(); i++) {
