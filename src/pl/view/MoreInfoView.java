@@ -16,7 +16,8 @@ import pl.model.dto.PLReservationDTO;
  * @Date : 2022. 11. 15.
  * @작성자 : heojaehong
  * @변경이력 :
- * @프로그램 설명 :
+ * @프로그램 설명 : 상세 정보 페이지 클래스
+
  */
 public class MoreInfoView {
 	private Scanner sc = new Scanner(System.in);
@@ -33,8 +34,11 @@ public class MoreInfoView {
 	 * @Method 설명 : 내 장소 상세 페이지
 	 * @param
 	 */
+
 	public void MoreInfo(PLListAllDTO placDTO) {
+
 		int num;
+		
 		System.out.println("==================== 장소 정보 ====================");
 		System.out.println("이름 : " + placDTO.getPl_name());
 		System.out.println("주소 : " + placDTO.getPl_address());
@@ -48,31 +52,23 @@ public class MoreInfoView {
 		System.out.println("1. 장소 수정");
 		System.out.println("2. 장소 삭제");
 		switch (placDTO.getPl_reserve()) {
-		case "Y":
-			System.out.println("3. 예약하기");
-			break;
+		case "Y":System.out.println("3. 예약하기"); break;
 		}
 		System.out.println();
+		System.out.println("9. 이전 메뉴로");
 		System.out.println("0. 메인 메뉴로");
 		System.out.println("=================================================");
 		System.out.print("번호를 입력하세요 : ");
 		num = sc.nextInt();
 		sc.nextLine();
 		switch (num) {
-		case 1:
-			renamePL(placDTO);
-			break;
-		case 2:
-			controller.deleteMyList(placDTO.getPl_no());
-			break;
-		case 3:
-			rm.addReserve(rd.getMy_no());
-		case 0:
-//			pm.mainMenu();
-			break;
+		case 1:renamePL(placDTO); break;
+		case 2:controller.deleteMyList(placDTO.getPl_no()); break;
+		case 3:rm.addReserve(rd.getMy_no());
+		case 9:new subView().myPlaceList();
+		case 0:new PLMenu().mainMenu(); break;
 
-		default:
-			break;
+		default:System.out.println("잘못입력하셨습니다."); break;
 		}
 
 	}
@@ -82,13 +78,14 @@ public class MoreInfoView {
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : heojaehong
 	 * @변경이력 :
-	 * @Method 설명 :
-	 * @param placDTO2
+	 * @Method 설명 : 내 장소리스트에 있는 장소 정보를 수정하는 메소드
+	 * @param placDTO
 	 */
 	private void renamePL(PLListAllDTO placDTO) {
-		// TODO Auto-generated method stub
+
 		int category;
 		int tag;
+		
 		System.out.println("renamePL에 있는 DTO : " + placDTO.getPl_no());
 		System.out.println("==================== 장소 수정 ====================");
 		System.out.println("이름을 입력하세요 : ");
@@ -136,10 +133,14 @@ public class MoreInfoView {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 :
+	 * @프로그램 설명 : 추천 장소에서 선택한 장소의 상세정보를 보여주는 메소드
+
 	 */
+
 	public void selectOne(ArrayList<PLListAllDTO> placeList, int no) {
 
+		int choice;
+		
 		System.out.println(placeList.get(no - 1));
 		System.out.println("==================== 장소 정보 ====================");
 		System.out.println("매장명 : " + placeList.get(no - 1).getPl_name());
@@ -155,13 +156,16 @@ public class MoreInfoView {
 		System.out.println("0. 이전 메뉴로");
 		System.out.println("9. 메인 메뉴로");
 		System.out.println("=================================================");
-
-		int choice = sc.nextInt();
+		System.out.print("번호를 입력하세요 : ");
+		choice = sc.nextInt();
+		sc.nextLine();
+		
 		switch (choice) {
 		case 1:controller.saveMyList(placeList.get(no - 1)); break;
 		case 0: return;
 		case 9:new PLMenu().mainMenu(); break;
 		default:System.out.println("잘못입력하셨습니다."); break;
+
 		}
 
 	}

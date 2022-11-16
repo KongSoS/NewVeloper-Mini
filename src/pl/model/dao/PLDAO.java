@@ -34,42 +34,42 @@ public interface PLDAO {
 	ArrayList<PLListAllDTO> selectAllPlace();
 
 	/**
-	 * @FileName : PLDAO.java
+	 * @Method Name : selectAllName
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소 이름순으로 정렬된 리스트 출력
 	 */
 	ArrayList<PLListAllDTO> selectAllName();
 
 	/**
-	 * @FileName : PLDAO.java
+	 * @Method Name : selectAllAddress
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소 주소순으로 정렬된 리스트 출력
 	 */
 	ArrayList<PLListAllDTO> selectAllAddress();
 
 	/**
-	 * @FileName : PLDAO.java
+	 * @Method Name : selectAllScore
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소 별점순으로 정렬된 리스트 출력
 	 */
 	ArrayList<PLListAllDTO> selectAllScore();
 
 	/**
-	 * @FileName : PLDAO.java
+	 * @Method Name : selectAllCategory
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천 장소 카테고리순으로 정렬된 리스트 출력
 	 */
 	ArrayList<PLListAllDTO> selectAllCategory();
 
@@ -85,12 +85,11 @@ public interface PLDAO {
 
 	int addReserve(PLReservationDTO re);
 	/**
-	  * @param dto 
-	 * @Method Name : insertPlace
+	  * @Method Name : insertPlace
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 : 내 장소에 새로운 장소 등록
+	  * @프로그램 설명 : 내 장소에 새로운 장소 등록
 	  * @return
 	  */
 	int insertPlace(PLListAllDTO dto);
@@ -100,33 +99,29 @@ public interface PLDAO {
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 :
-	  * @param placDTO
-	  * @return
+	  * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 수정
 	  */
 	int renamePL(PLListAllDTO placDTO);
-	
+	/**
+	 * @Method Name : deleteMyList
+	 * @Project : NewVeloper_mini
+	 * @Date : 2022. 11. 15.
+	 * @작성자 : jihee
+	 * @변경이력 :
+	 * @프로그램 설명 : 추천장소리스트에서 내 장소리스트로 장소 정보를 저장
+	 */
 	int saveMyList(PLListAllDTO myList);
 
 	/**
-	 * @FileName : PLDAO.java
+	 * @Method Name : deleteMyList
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 삭제
 	 */
 	int deleteMyList(int plNo);
 
-	/**
-	 * @FileName : PLDAO.java
-	 * @Project : NewVeloper_mini
-	 * @Date : 2022. 11. 15.
-	 * @작성자 : jihee
-	 * @변경이력 :
-	 * @프로그램 설명 : 
-	 */
-	int updateMyList(Map<String, String> parameter);
-
+	
 	
 }

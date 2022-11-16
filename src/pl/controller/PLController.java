@@ -56,10 +56,9 @@ public class PLController {
 	  * @작성일 : 2022. 11. 11.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 :
+	  * @Method 설명 : 새로운 장소를 직접 등록하는 메소드
 	  */
 	public void addPlaceList(PLListAllDTO dto) {
-		// System.out.println("컨트롤러의 dto" + dto);
 		plService.addPlaceList(dto);
 	
 	}
@@ -125,7 +124,7 @@ public class PLController {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 이름을 기준으로 추천 장소를 정렬하는 메소드
 	 */
 	public ArrayList<PLListAllDTO> selectAllName() {
 		
@@ -142,7 +141,7 @@ public class PLController {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 주소를 기준으로 추천 장소를 정렬하는 메소드
 	 */
 	public ArrayList<PLListAllDTO> selectAllAddress() {
 		ArrayList<PLListAllDTO> placeList = plService.selectAllAddress();
@@ -158,7 +157,7 @@ public class PLController {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 별점를 기준으로 추천 장소를 정렬하는 메소드 
 	 */
 	public ArrayList<PLListAllDTO> selectAllScore() {
 		ArrayList<PLListAllDTO> placeList = plService.selectAllScore();
@@ -173,7 +172,7 @@ public class PLController {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 카테고리를 기준으로 추천 장소를 정렬하는 메소드 
 	 */
 	public ArrayList<PLListAllDTO> selectAllCategory() {
 		ArrayList<PLListAllDTO> placeList = plService.selectAllCategory();
@@ -189,7 +188,7 @@ public class PLController {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 추천장소 리스트에서 내 장소 리스트로 저장하는 메소드
 	 */
 	public void saveMyList(PLListAllDTO parameter) {
 		
@@ -227,7 +226,7 @@ public class PLController {
 	 * @Date : 2022. 11. 15.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 내가 선택한 장소를 삭제하는 메소드
 	 */
 	public void deleteMyList(int plNo) {
 		
@@ -246,7 +245,7 @@ public class PLController {
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 :
+	  * @Method 설명 : 내 리스트에 저장된 장소를 수정하는 메소드
 	  * @param inputRename
 	  */
 	public void renamePL(PLListAllDTO placDTO) {
@@ -275,7 +274,7 @@ public class PLController {
 	  * @작성일 : 2022. 11. 16.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 :
+	  * @Method 설명 : 내 리스트의 정보를 txt파일로 내보내는 메소드
 	  */
 	public void fileOut() {
 		try {

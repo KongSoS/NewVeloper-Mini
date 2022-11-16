@@ -11,7 +11,6 @@ import pl.model.dto.PLReservationDTO;
 
 public class PLReserveMenu {
 	private Scanner sc = new Scanner(System.in);
-	//int num = 0;
 	private PLController controller = new PLController();
 	private PLReservationDTO rd = new PLReservationDTO();
 	
@@ -25,8 +24,9 @@ public class PLReserveMenu {
 		*/
 	
 	public void reserveMine() {
-		// TODO Auto-generated method stub
+		
 		List<PLListAndReserveDTO> reserveList = controller.reserveMine();
+		
 		System.out.println("=============내 예약===============");
 		for (int i = 1; i <= reserveList.size(); i++) {
 			// 예약된 길이만큼 i를 반복해야함
@@ -53,7 +53,6 @@ public class PLReserveMenu {
 	}
 	
 	public void reserveInfo() {
-		// TODO Auto-generated method stub
 
 //		//시간 형태 받는 것도 고민해봐야함
 		

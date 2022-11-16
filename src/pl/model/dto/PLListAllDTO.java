@@ -26,16 +26,16 @@ public class PLListAllDTO {
 	}
 
 	/**
-	 * @param rownum
-	 * @param pl_no
-	 * @param pl_name
-	 * @param pl_address
-	 * @param pl_tel
-	 * @param score
-	 * @param pl_catecode
-	 * @param pl_reserve
-	 * @param category
-	 * @param tag
+	 * @param rownum 정렬 기준을 잡기위한 변수
+	 * @param pl_no 장소 번호 PK
+	 * @param pl_name 장소 이름
+	 * @param pl_address 장소 주소
+	 * @param pl_tel 장소 전화번호
+	 * @param score 장소 별점
+	 * @param pl_catecode 장소 카테고리
+	 * @param pl_reserve 장소 예약 유무
+	 * @param category 카테고리DTO
+	 * @param tag 테그DTO
 	 */
 	public PLListAllDTO(int rownum, int pl_no, String pl_name, String pl_address, String pl_tel, int score,
 			String pl_catecode, String pl_tagcode, String pl_reserve, PLCategoryDTO category, PLTagDTO tag) {
