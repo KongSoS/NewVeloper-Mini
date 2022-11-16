@@ -10,7 +10,7 @@ import java.util.Map;
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
-import pl.model.dto.PLRservationDTO;
+import pl.model.dto.PLReservationDTO;
 
 /**
   * @FileName : PlaceListDAO.java
@@ -84,14 +84,15 @@ public interface PLDAO {
 
 	
 
-	List<PLRservationDTO> reserveMine();
+	List<PLReservationDTO> reserveMine();
 
-	PLRservationDTO reserveInfo(int num);
+	PLReservationDTO reserveInfo(int num);
 
-	int editReserve(PLRservationDTO re);
+	int editReserve(PLReservationDTO re);
 
 	int cancelReserve(int num);
 
+	int addReserve(PLReservationDTO re);
 	/**
 	  * @param dto 
 	 * @Method Name : insertPlace

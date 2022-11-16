@@ -7,6 +7,13 @@ import pl.model.dto.PLMyListDTO;
 
 public class PLMenu {
 
+
+	private Scanner sc = new Scanner(System.in);
+	private PLController plController = new PLController();
+	private PLMyListDTO myListDTO;
+	private PLController controller = new PLController();
+	private subView sv = new subView();
+
 	/**
 	 * @Method Name : mainMenu
 	 * @작성일 : 2022. 11. 11.
@@ -34,6 +41,7 @@ public class PLMenu {
 
 			switch (no) {
 			case 1:
+        //seletSort();
 				sv.selectSort();
 				break;
 			case 2:
@@ -50,6 +58,7 @@ public class PLMenu {
 				break;
 			case 6:
 				remenu.reserveMine(); // 클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
+				plController.reserveMine();  //클래스를 분리 안하자니 int num을 공유해야 하는데 방법을 모르겠다.
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");
@@ -61,6 +70,78 @@ public class PLMenu {
 
 		} while (true);
 
+	}
+
+
+	/**
+	  * @Method Name : myPlaceList
+	  * @작성일 : 2022. 11. 15.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 :전체리스트를 받는 리스트
+	  */
+	private void myPlaceList() {
+		int num=0;
+		int input;
+		List<PLMyListDTO> list = controller.myPlaceList();
+		System.out.println(list.size());
+		System.out.println("=========== 내 장소 ===========");
+		for(PLMyListDTO pd : list) {
+			num++;
+			System.out.println(num + "." + pd.getPl_name());			
+		}
+		
+		System.out.println("==============================");
+		System.out.print("번호를 입력하세요 : ");
+		input = sc.nextInt();
+		
+		rv.MoreInfo(list.get(input-1));
+		
+		
+		
+	}
+
+	/**
+	 * @param myListDTO
+	 * @Method Name : inputPlace
+	 * @작성일 : 2022. 11. 15.
+	 * @작성자 : heojaehong
+	 * @변경이력 :
+	 * @Method 설명 :
+	 * @return
+	 */
+	private List<PLMyListAndCategoryDTO> inputSubMenu() {
+		PLMyListAndCategoryDTO dto = new PLMyListAndCategoryDTO();
+		PLTagDTO plTagDTO = new PLTagDTO();
+		List<String> list = new ArrayList<>();
+		List<PLMyListAndCategoryDTO> PLList = new ArrayList<>();
+		do {
+			System.out.println("=========== 장소 추가 ===========");
+			System.out.print("장소이름을 입력하세요 : ");
+			dto.setPl_name(sc.next());
+			System.out.print("장소주소을 입력하세요 : ");
+			dto.setPl_address(sc.next()); 
+			System.out.print("전화번호을 입력하세요(- 포함) : ");
+			dto.setPl_tel(sc.next());
+			System.out.print("별점을 입력하세요(1~5) : ");
+			dto.setScore(sc.nextInt());
+			System.out.print("태그를 입력하세요(, 로 공백없이 입력): ");
+			plTagDTO.setTag_name(sc.next());
+			System.out.print("예약여부을 입력하세요(Y/N) : ");
+			dto.setPl_reserve(sc.next().toUpperCase());
+			sc.nextLine();
+			System.out.println("===============================");
+			break;
+		}while(true);
+		// 태그를 ,로 나눠서 list에 저장
+		String[] tag = plTagDTO.getTag_name().split(",");
+		for(int i=0; i<list.size(); i++) {
+			list.add(tag[i]);
+		}
+		dto.setTagList(list);
+		PLList.add(dto);
+		
+		return PLList;
 	}
 
 }

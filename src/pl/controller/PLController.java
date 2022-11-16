@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import pl.view.subView;
 import pl.model.dto.PLListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
-import pl.model.dto.PLRservationDTO;
+import pl.model.dto.PLReservationDTO;
 import pl.serivce.PLService;
 
 /**
@@ -59,19 +60,22 @@ public class PLController {
 	}
 
 	public void reserveMine() {
-		// TODO Auto-generated method stub
-		List<PLRservationDTO> reserveList = plService.reserveMine();
+		subView print = new subView();
+		List<PLReservationDTO> reserveList = plService.reserveMine();
+		PLMyListDTO pd = new PLMyListDTO();
 		if(reserveList != null) {
-			//print.printReserveList(reserveList);
+			print.printReserveList(reserveList, pd);
 		} else {
 			System.out.println("예약 목록 조회 실패");
 		}
 	}
 	public void reserveInfo(int num) {
-		// TODO Auto-generated method stub
-		PLRservationDTO menu = plService.reserveInfo(num);
+		subView print = new subView();
+		PLReservationDTO menu = plService.reserveInfo(num);
+		
 		if(menu != null) {
-			//print.printMenu(menu);
+			menu.setReserve_no(num);
+			print.printMenu(menu);
 		} else {
 			System.out.println("예약 내역 조회 실패");
 		
@@ -80,7 +84,7 @@ public class PLController {
 }
 	public void editReserve(int num, String day, String time) {
 		// TODO Auto-generated method stub
-		PLRservationDTO re = new PLRservationDTO();
+		PLReservationDTO re = new PLReservationDTO();
 		re.setReserve_no(num);
 		re.setReserve_day(day);
 		re.setReserve_time(time);
@@ -92,8 +96,11 @@ public class PLController {
 		}
 	}
 	public void cancelReserve(int num) {
-		// TODO Auto-generated method stub
+		// cancel에는 num을 setter로 전달하지 않은 상태이다.... 예시가 달라서 전달해야할 것 같기도..
+		PLReservationDTO re = new PLReservationDTO();
+		re.setReserve_no(num);
 		if(plService.cancelReserve(num)) {
+			
 			System.out.println("예약 취소 성공");
 		} else {
 			System.out.println("예약 취소 실패");
@@ -193,6 +200,7 @@ public class PLController {
 		
 	}
 
+
 	/**
 	  * @Method Name : renamePL
 	  * @작성일 : 2022. 11. 15.
@@ -207,6 +215,18 @@ public class PLController {
 			
 	}
 
-	
+	public void addReserve(int num, String day, String time) {
+		// TODO Auto-generated method stub
+		PLReservationDTO re = new PLReservationDTO();
+		re.setReserve_no(num);
+		re.setReserve_day(day);
+		re.setReserve_time(time);
+		
+		if(plService.addReserve(re)) {
+			System.out.println("예약 성공");
+		} else {
+			System.out.println("예약 실패");
+		}
+	}
 
 }

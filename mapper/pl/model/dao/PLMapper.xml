@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pl.model.dao.PLDAO">
 
-
+ 
 <resultMap type="pl.model.dto.PLListAndCategoryDTO" id="plListAllResultMap">
 	<id property="pl_no" column="PL_NO"/>
 	<result property="rownum" column="ROWNUM"/>
@@ -11,7 +11,7 @@
 	<result property="pl_tel" column="PL_TEL"/>
 	<result property="score" column="SCORE"/>
 	<result property="pl_reserve" column="PL_RESERVE"/>
-	<association property="category" resultMap="categoryResultMap"/>
+	<association property="category" resultMap="categoryResultMap"/> 
 </resultMap>
 <resultMap type="pl.model.dto.PLCategoryDTO" id="categoryResultMap">
 	<id property="category_code" column="CATEGORY_CODE"/>
@@ -130,8 +130,7 @@
 		)
 	</insert>
 	
-	
-<resultMap type = "pl.model.dto.PLRservationDTO" id = "reserveResultMap">
+<resultMap type = "pl.model.dto.PLReservationDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>
 		<result property = "my_no" column ="MY_NO"/>
@@ -155,7 +154,7 @@
 	<select id = "reserveInfo" parameterType="_int" resultMap = "reserveResultMap">
 		SELECT
 				A. MY_NAME
-				, B. RESERVE_DAY <!-- 여기서 TO_DATE을 쓸지-->
+				, TO_CHAR(TO_DATE(B. RESERVE_DAY,'YYMMDD'),'RRRR-MM-DD') AS 예약일
 				, B. RESERVE_TIME
 			FROM MY_LIST A
 			JOIN RESERVATION B
@@ -167,29 +166,32 @@
 			WHERE B.RESERVE_NO = #{ reserve_no }
 	</select>
 	
-	<insert id="addReserve" parameterType="pl.model.dto.PLRservationDTO">
+	<insert id="addReserve" parameterType="pl.model.dto.PLReservationDTO">
         INSERT
-          INTO RESERVATION
+          INTO RESERVATION A
         (
-         RESERVE_DAY
-        , RESERVE_TIME
+        A.RESERVE_NO
+        , A.RESERVE_DAY
+        , A.RESERVE_TIME
         )
         VALUES
         (
-          SEQ_MENU_CODE.NEXTVAL
+          SEQ_RESERVE_NO.NEXTVAL
         , #{ reserve_day }
         , #{ reserve_time }
         )
+        
 	</insert>
 
-	<update id="editReserve" parameterType="pl.model.dto.PLRservationDTO">
-        UPDATE RESERVATION
+	<update id="editReserve" parameterType="pl.model.dto.PLReservationDTO">
+       UPDATE RESERVATION
         SET
       
-       RESERVE_DAY =#{ reserve_day }
+      , RESERVE_DAY =#{ reserve_day }
         , RESERVE_TIME=#{ reserve_time }
+        WHERE RESERVE_NO=#{ reserve_no }
         
-        WHERE RESERVE_NO = #{ reserve_no }
+        
        
         
 	</update>

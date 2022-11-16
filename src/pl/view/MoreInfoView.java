@@ -44,6 +44,11 @@ public class MoreInfoView {
 		System.out.println();
 		System.out.println("1. 장소 수정");
 		System.out.println("2. 장소 삭제");
+    switch(plListAndCategoryDTO.getPl_reserve()) {
+		case "Y":
+			System.out.println("3. 예약하기");
+			break;
+		}
 		System.out.println("0. 메인 메뉴로");
 		System.out.println("=================================================");
 		System.out.print("번호를 입력하세요 : " );
@@ -55,7 +60,11 @@ public class MoreInfoView {
 			break;
 		case 2:
 			delPL();
-			break;			
+			break;
+     case "3":
+			PLReserveMenu rm = new PLReserveMenu();
+			PLReservationDTO rd = new PLReservationDTO();
+			rm.addReserve(rd.getMy_no());
 		case 0:
 //			pm.mainMenu();
 			break;
@@ -117,6 +126,7 @@ public class MoreInfoView {
 		}
 		controller.renamePL(placDTO);
 		
+
 	}
 
 
