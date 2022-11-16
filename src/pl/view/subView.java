@@ -25,7 +25,6 @@ import pl.model.dto.PLReservationDTO;
 public class subView {
 	private PLController controller = new PLController();
 	private MoreInfoView mv = new MoreInfoView();
-	private Scanner sc = new Scanner(System.in);
 
 	/**
 	 * @Method Name : myPlaceList
@@ -41,6 +40,8 @@ public class subView {
 		 * */
 		int num = 0; 
 		int input;
+		
+		Scanner sc = new Scanner(System.in);
 		
 		List<PLListAllDTO> list = controller.myPlaceList();
 		
@@ -80,6 +81,7 @@ public class subView {
 		int category;
 		int tag;
 		
+		Scanner sc = new Scanner(System.in);
 		PLListAllDTO dto = new PLListAllDTO();
 		
 		List<PLListAllDTO> PLList = new ArrayList<>();
@@ -239,7 +241,8 @@ public class subView {
 	 */
 	public void fileOut() {
 		
-		sc.nextLine();
+		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("=========== 내 장소 내보내기 ===========");
 		System.out.println("현재 저장된 내 장소리스트를 파일로 저장하시겠습니까?(Y/N)");
 		System.out.println("====================================");
@@ -268,6 +271,8 @@ public class subView {
 	public void selectAllName() {
 		
 		int no;
+		
+		Scanner sc = new Scanner(System.in);
 		
 		ArrayList<PLListAllDTO> placeList = controller.selectAllName();
 
@@ -303,6 +308,8 @@ public class subView {
 		
 		int no;
 		
+		Scanner sc = new Scanner(System.in);
+		
 		ArrayList<PLListAllDTO> placeList = controller.selectAllAddress();
 
 		if(placeList != null) {
@@ -337,6 +344,8 @@ public class subView {
 		
 		int no;
 		
+		Scanner sc = new Scanner(System.in);
+		
 		ArrayList<PLListAllDTO> placeList = controller.selectAllScore();
 
 		if(placeList != null) {
@@ -370,6 +379,8 @@ public class subView {
 	public void selectAllCategory() {
 		
 		int no; 
+		
+		Scanner sc = new Scanner(System.in);
 		
 		ArrayList<PLListAllDTO> placeList = controller.selectAllCategory();
 

@@ -10,7 +10,7 @@ import java.sql.Date;
   * @Project : NewVeloper_mini
   * @Date : 2022. 11. 11. 
   * @작성자 : heojaehong
-  * @변경이력 :
+  * @변경이력 : 2022. 11. 16 성식 (toString 설정 변경)
   * @프로그램 설명 : 변수들을 선언하고 SQL문의 값들과 매치가 되야 한다.
   */
 public class PLUserDTO {
@@ -182,10 +182,9 @@ public class PLUserDTO {
 	}
 	@Override
 	public String toString() {
-		return "PLUserDTO [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
-				+ user_name + ", phone=" + phone + ", enroll_date=" + enroll_date + ", del_date=" + del_date
-				+ ", status=" + status + ", manager=" + manager + "]";
+		return "PLUserDTO [회원번호 = " + user_no + ", 아이디 = " + user_id + ", 비밀번호 = " + user_pwd + ", 이름 = "
+				+ user_name + ", 전화번호 = " + phone + ", 가입일 = " + enroll_date + ", 탈퇴일 = " + del_date
+				+ ", 탈퇴여부 = " + status + ", 관리자 = " + manager + "]";
 	}
-	
 	
 }

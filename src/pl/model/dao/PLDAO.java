@@ -5,10 +5,8 @@ package pl.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-
-import pl.model.dto.PLCategoryDTO;
+import common.SearchUserStandard;
+import pl.model.dto.PLUserDTO;
 import pl.model.dto.PLListAndReserveDTO;
 import pl.model.dto.PLListAllDTO;
 import pl.model.dto.PLReservationDTO;
@@ -121,7 +119,33 @@ public interface PLDAO {
 	 * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 삭제
 	 */
 	int deleteMyList(int plNo);
-
 	
+	
+	/*아이디 중복 확인*/
+	PLUserDTO userIdOverlapCheck(String userId);
+	
+	/*비밀번호 중복 확인*/
+	PLUserDTO userPwdOverlapCheck(String userPwd);
+
+	/*회원가입*/
+	int registUser(PLUserDTO user);
+
+	/*회원 전체 조회*/
+	List<PLUserDTO> selectUserList();
+	
+	/*회원 선택 조회*/
+	PLUserDTO selectUserOne(SearchUserStandard searchUserStandard);
+
+	/*회원 정보 수정*/
+	int updateUserinfo(PLUserDTO user);
+
+	/*회원 탈퇴*/
+	int withdrawalUserOne(String userId);
+	
+	/*회원 삭제*/
+	int deleteUserOne(int userId);
+
+	/*사용자 정보 확인*/
+	PLUserDTO selectMyInfo(String userId);
 	
 }

@@ -55,8 +55,9 @@ public class MoreInfoView {
 		case "Y":System.out.println("3. 예약하기"); break;
 		}
 		System.out.println();
-		System.out.println("9. 이전 메뉴로");
-		System.out.println("0. 메인 메뉴로");
+		System.out.println("0. 이전 메뉴로");
+//		System.out.println("9. 이전 메뉴로");
+//		System.out.println("0. 메인 메뉴로");
 		System.out.println("=================================================");
 		System.out.print("번호를 입력하세요 : ");
 		num = sc.nextInt();
@@ -66,7 +67,7 @@ public class MoreInfoView {
 		case 2:controller.deleteMyList(placDTO.getPl_no()); break;
 		case 3:rm.addReserve(no);
 		case 9:new subView().myPlaceList();
-		case 0:new PLMenu().mainMenu(); break;
+		//case 0:new PLMenu().mainMenu(); break;
 
 		default:System.out.println("잘못입력하셨습니다."); break;
 		}
@@ -154,7 +155,8 @@ public class MoreInfoView {
 		System.out.println();
 		System.out.println("1. 내 장소에 저장하기");
 		System.out.println("0. 이전 메뉴로");
-		System.out.println("9. 메인 메뉴로");
+//		System.out.println("0. 이전 메뉴로");
+//		System.out.println("9. 메인 메뉴로");
 		System.out.println("=================================================");
 		System.out.print("번호를 입력하세요 : ");
 		choice = sc.nextInt();
@@ -163,7 +165,7 @@ public class MoreInfoView {
 		switch (choice) {
 		case 1:controller.saveMyList(placeList.get(no - 1)); break;
 		case 0: return;
-		case 9:new PLMenu().mainMenu(); break;
+		//case 9:new PLMenu().mainMenu(); break;
 		default:System.out.println("잘못입력하셨습니다."); break;
 
 		}
