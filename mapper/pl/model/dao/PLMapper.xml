@@ -95,9 +95,42 @@
 		FROM MY_LIST a
 		JOIN CATEGORY b ON a.MY_CATECODE = b.CATEGORY_CODE
 	</select>
+	<update id="renamePL" parameterType="pl.model.dto.PLListAndCategoryDTO">
+		UPDATE MY_LIST M SET
+		 M.MY_NAME = #{ pl_name } ,
+		 M.MY_ADDRESS = #{ pl_address } ,
+		 M.MY_TEL = #{ pl_tel } ,
+		 M.MY_SCORE = #{ score } ,
+		 M.MY_CATECODE = #{ pl_catecode } ,
+		 M.MY_RESERVE = #{ pl_reserve } 
+		 WHERE M.MY_NO = #{ pl_no } 
+	
+	</update>
+	<insert id="insertPlace" parameterType="pl.model.dto.PLListAndCategoryDTO">
+		INSERT INTO MY_LIST M
+		(
+		    M.MY_NO ,
+			M.MY_NAME ,
+			M.MY_ADDRESS ,
+			M.MY_TEL ,
+			M.MY_SCORE ,
+			M.MY_CATECODE ,
+			M.MY_RESERVE
+		)
+		VALUES	
+		(
+			SEQ_MY_NO.NEXTVAL ,
+			#{ pl_name } ,
+			#{ pl_address } ,
+			#{ pl_tel } ,
+			#{ score } ,
+			#{ pl_catecode },
+			#{ pl_reserve } 
+			
+		)
+	</insert>
 	
 	
-
 <resultMap type = "pl.model.dto.PLRservationDTO" id = "reserveResultMap">
 		<id property = "reserve_no" column = "RESERVE_NO"/>
 		<result property = "user_no" column ="USER_NO"/>

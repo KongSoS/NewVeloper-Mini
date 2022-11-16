@@ -5,10 +5,10 @@ package pl.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import pl.model.dto.PLCategoryDTO;
 import pl.model.dto.PLListAndCategoryDTO;
-import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLRservationDTO;
 
@@ -93,14 +93,26 @@ public interface PLDAO {
 	int cancelReserve(int num);
 
 	/**
-	  * @Method Name : insertPlace
+	  * @param dto 
+	 * @Method Name : insertPlace
+	  * @작성일 : 2022. 11. 15.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 : 내 장소에 새로운 장소 등록
+	  * @return
+	  */
+	int insertPlace(PLListAndCategoryDTO dto);
+
+	/**
+	  * @Method Name : renamePL
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 :
+	  * @param placDTO
 	  * @return
 	  */
-	ArrayList<PLMyListAndCategoryDTO> insertPlace();
+	int renamePL(PLListAndCategoryDTO placDTO);
 
 	
 }

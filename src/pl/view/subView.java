@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 import pl.controller.PLController;
 import pl.model.dto.PLListAndCategoryDTO;
-import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLTagDTO;
 
@@ -30,7 +29,7 @@ public class subView {
 	  * @작성일 : 2022. 11. 15.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
-	  * @Method 설명 :
+	  * @Method 설명 : 내 장소의 전체 리스트를 보여주는 메소드
 	  */
 	public void myPlaceList() {
 		int num=0;
@@ -40,14 +39,18 @@ public class subView {
 		System.out.println("=========== 내 장소 ===========");
 		for(PLListAndCategoryDTO pd : list) {
 			num++;
-			System.out.println(num + "." + pd.getPl_name());			
+			System.out.println(num + ". " + pd.getPl_name());			
 		}
-		
+		System.out.println("0. 메인 메뉴로 ");
 		System.out.println("==============================");
 		System.out.print("번호를 입력하세요 : ");
 		input = sc.nextInt();
 		
-		mv.MoreInfo(list.get(input-1));
+		if(input == 0) {
+			return;
+		}else {
+			mv.MoreInfo(list.get(input-1));
+		}
 		
 	}
 	/**
@@ -93,8 +96,8 @@ public class subView {
 	  */
 	public void addPlaceList() {
 		int category;
-		PLMyListAndCategoryDTO dto = new PLMyListAndCategoryDTO();
-		List<PLMyListAndCategoryDTO> PLList = new ArrayList<>();
+		PLListAndCategoryDTO dto = new PLListAndCategoryDTO();
+		List<PLListAndCategoryDTO> PLList = new ArrayList<>();
 		do {
 			System.out.println("=========== 장소 추가 ===========");
 			System.out.print("장소이름을 입력하세요 : ");
@@ -131,6 +134,9 @@ public class subView {
 			case 5:
 				dto.setPl_catecode("C5");
 				break;
+			case 6:
+				dto.setPl_catecode("C6");
+				break;
 			}
 			if(category >= 1 && category <= 5) {
 				break;				
@@ -147,9 +153,9 @@ public class subView {
 //		}
 //		dto.setTagList(list);
 		
-		PLList.add(dto);
+		System.out.println();
 		
-		controller.addPlaceList(PLList);
+		controller.addPlaceList(dto);
 	}
 	
 	

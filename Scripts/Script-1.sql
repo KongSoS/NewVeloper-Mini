@@ -6,3 +6,11 @@ WHERE my_name = '카츠오모이';
 
 SELECT *
 FROM MY_LIST ml;
+
+UPDATE MY_LIST SET
+MY_NAME = '입이가짬뽕' ,
+MY_ADDRESS = '서초구' 
+WHERE MY_NAME = '이비가짬뽕';
+
+SELECT *
+FROM MY_LIST ml 

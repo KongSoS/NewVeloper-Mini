@@ -5,9 +5,9 @@ package pl.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import pl.model.dto.PLListAndCategoryDTO;
-import pl.model.dto.PLMyListAndCategoryDTO;
 import pl.model.dto.PLMyListDTO;
 import pl.model.dto.PLRservationDTO;
 import pl.serivce.PLService;
@@ -23,9 +23,11 @@ import pl.serivce.PLService;
 public class PLController {
 	
 	private final PLService plService;
+	private final PLListAndCategoryDTO placDTO;
 
 	public PLController() {
 		plService = new PLService();
+		placDTO = new PLListAndCategoryDTO();
 	}
 
 	/**
@@ -39,31 +41,20 @@ public class PLController {
 	public List<PLListAndCategoryDTO> myPlaceList() {
 		ArrayList<PLListAndCategoryDTO> list = plService.myPlaceList();
 		
-		if(list != null) {
-			System.out.println("내 장소 호출 성공!");
-		}else {
-			System.out.println("저장한 장소가 없습니다.");
-		}
-	
 		return list;
 	}
 
 	/**
-	  * @param list 
+	  * @param dto 
 	 * @Method Name : addPlaceList
 	  * @작성일 : 2022. 11. 11.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 :
 	  */
-	public void addPlaceList(List<PLMyListAndCategoryDTO> list) {
-		list = plService.addPlaceList();
-		
-		if(list != null) {
-			System.out.println("내 장소 호출 성공!");
-		}else {
-			System.out.println("저장한 장소가 없습니다.");
-		}
+	public void addPlaceList(PLListAndCategoryDTO dto) {
+		// System.out.println("컨트롤러의 dto" + dto);
+		plService.addPlaceList(dto);
 	
 	}
 
@@ -109,50 +100,6 @@ public class PLController {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * @FileName : PLController.java
 	 * @Project : NewVeloper_mini
@@ -245,5 +192,21 @@ public class PLController {
 		}
 		
 	}
+
+	/**
+	  * @Method Name : renamePL
+	  * @작성일 : 2022. 11. 15.
+	  * @작성자 : heojaehong
+	  * @변경이력 : 
+	  * @Method 설명 :
+	  * @param inputRename
+	  */
+	public void renamePL(PLListAndCategoryDTO placDTO) {
+		plService.renamePL(placDTO);
+		
+			
+	}
+
+	
 
 }
