@@ -17,15 +17,18 @@ import pl.model.dto.PL_UserDTO;
  * @프로그램 설명 : 로그인 화면에서 관리자 로그인 정보를 입력 시 이동되는 화면, 회원 관리 및 추천장소 관리가 가능하다.
  */
 public class PL_ManagerMenu {
+	
 	PL_Controller plController = new PL_Controller();
+	
 	/**
-	 * @Method Name : managerMenu
+	 * @MethodName : managerMenu
 	 * @작성일 : 2022. 11. 16.
 	 * @작성자 : 성식
 	 * @변경이력 :
 	 * @Method 설명 : 관리자 메인 메뉴, 회원 및 추천장소 관리화면으로 이동 가능
 	 */
 	public void managerMenu() {
+		
 		Scanner sc = new Scanner(System.in);
 		
 		do {
@@ -45,9 +48,9 @@ public class PL_ManagerMenu {
 				placeManagementMenu();
 				break;
 			case 0:
-				System.out.println("프로그램을 종료합니다.");
+				System.out.println("로그인 화면으로 돌아갑니다.");
 				return;
-			default:
+			default :
 				System.out.println("잘못 선택하셨습니다. 다시 입력하세요.");
 				break;
 			}
@@ -56,16 +59,16 @@ public class PL_ManagerMenu {
 	}
 	
 	/**
-	 * @Method Name : userManagementMenu
+	 * @MethodName : userManagementMenu
 	 * @작성일 : 2022. 11. 16.
 	 * @작성자 : 성식
 	 * @변경이력 :
 	 * @Method 설명 : 회원 관리 메뉴(회원에 대한 조회, 수정, 삭제 등이 가능)
 	 */
 	private void userManagementMenu() {
+		
 		Scanner sc = new Scanner(System.in);
 		
-//		PL_Controller plController = new PL_Controller();
 		do {
 			System.out.println("=========== 회원 관리 ============");
 			System.out.println("+ 탈퇴 회원은 2, 3번 사용 불가 \n");
@@ -95,23 +98,24 @@ public class PL_ManagerMenu {
 					return;
 			}
 		} while(true);
+		
 	}
 	
 	/**
-	 * @Method Name : inputSearchUser
+	 * @MethodName : inputSearchUser
 	 * @작성일 : 2022. 11. 16.
 	 * @작성자 : 성식
 	 * @변경이력 :
 	 * @Method 설명 : 회원 단일 조회 시 기준이 될 검색어를 한글로 입력받고 DTO에 컬럼명으로 변환하여 전달한다.
 	 */
 	private SearchUserStandard inputSearchUser() {
+		
 		Scanner sc = new Scanner(System.in);
 		
 		String condition = null;
 		String value = null;
 		
 		System.out.print("검색 기준을 입력해주세요(이름 or 아이디) : ");
-		//sc.nextLine();
 		String inputCon = sc.nextLine();
 		
 		/*입력받은 문자열을 판단하여 condition 변수에 값 대입*/
@@ -124,7 +128,7 @@ public class PL_ManagerMenu {
 				condition = "user_id";
 				break;
 			}
-			default:
+			default :
 				System.out.println("다시 입력해주세요.");
 				condition = null;
 		}
@@ -143,17 +147,17 @@ public class PL_ManagerMenu {
 	}
 	
 	/**
-	 * @Method Name : inputUserInfo
+	 * @MethodName : inputUserInfo
 	 * @작성일 : 2022. 11. 16.
 	 * @작성자 : 성식
 	 * @변경이력 :
 	 * @Method 설명 : 회원 정보 수정에 필요한 데이터를 입력받고 전달한다.
 	 */
 	private PL_UserDTO inputUserInfo() {
+		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("변경하려는 사용자 아이디를 입력하세요 : ");
-		sc.nextLine();
 		String userId = sc.nextLine();
 		System.out.print("변경될 사용자 비밀번호를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
 		String userPwd = sc.nextLine();
@@ -169,62 +173,60 @@ public class PL_ManagerMenu {
 		parameter.setPhone(userPhone);
 		
 		return parameter;
+		
 	}
 	
 	/**
-	 * @Method Name : inputId
+	 * @MethodName : inputUserNo
 	 * @작성일 : 2022. 11. 16.
-	 * @작성자 : 성식
-	 * @변경이력 :
+	 * @작성자 : 성식 
 	 * @Method 설명 : 사용자 아이디를 입력받고 전달한다.
 	 */
 	private int inputUserNo() {
+		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("삭제할 회원번호를 입력하세요 : ");
-		sc.nextLine();
 		Integer userNo = sc.nextInt();
 		
 		return userNo;
+		
 	}
 
 	/**
-	 * @FileName : PL_ManagerMenu.java
+	 * @MethodName : placeManagementMenu.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 17.
-	 * @작성자 : jihee
-	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @작성자 : jihee 
+	 * @프로그램 설명 : 관리자가 추천장소 리스트를 조회한다.
 	 */
 	private void placeManagementMenu() {
 		
 		int no;
 		
 		Scanner sc = new Scanner(System.in);
-		PL_Controller plController = new PL_Controller();
 		
 		ArrayList<PL_ListAllDTO> placeList = plController.selectAllName();
 
-		if(placeList != null) {
+		if  (placeList != null) {
 			System.out.println("=========== 추천장소 리스트 ===========");
 			for(PL_ListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.println(list.getPl_name());
 			}
+			System.out.println();
+			System.out.println("0. 이전 메뉴로");
 			System.out.println("====================================");
 			System.out.println("원하는 매장번호를 입력하세요 : ");
-			System.out.println("0. 이전 메뉴로");
 			no = sc.nextInt();
-			if(no == 0) {
+			
+			if (no == 0) {
 				return;
-			}
-			else if( no > 0 && no <= placeList.size()){
-				selectOne(placeList,no);
-			}
-			else {
+			} else if ( no > 0 && no <= placeList.size()) {
+				selectOne(placeList, no);
+			} else {
 				System.out.println("잘못 입력하셨습니다 다시 입력하세요 ");
 			}
-			
 		} else {
 			System.out.println("에러발생");
 		}
@@ -232,21 +234,18 @@ public class PL_ManagerMenu {
 	}
 
 	/**
-	 * @FileName : PL_ManagerMenu.java
+	 * @MethodName : selectOne.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 17.
-	 * @작성자 : jihee
-	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @작성자 : jihee 
+	 * @프로그램 설명 : 매장 한 곳에 대한 정보를 출력한다.
 	 */
 	private void selectOne(ArrayList<PL_ListAllDTO> placeList, int no) {
 		
 		int choice;
 		
 		Scanner sc = new Scanner(System.in);
-		PL_Controller plController = new PL_Controller();
 		
-		System.out.println(placeList.get(no));
 		System.out.println("==================== 장소 정보 ====================");
 		System.out.println("매장명 : " + placeList.get(no - 1).getPl_name());
 		System.out.println("주소 : " + placeList.get(no - 1).getPl_address());
@@ -259,40 +258,44 @@ public class PL_ManagerMenu {
 		System.out.println();
 		System.out.println("1. 장소 수정하기");
 		System.out.println("2. 장소 삭제하기");
-//		System.out.println("0. 이전 메뉴로");
-//		System.out.println("9. 메인 메뉴로");
+		System.out.println();
+		System.out.println("0. 이전 메뉴로");
 		System.out.println("=================================================");
 		System.out.print("번호를 입력하세요 : ");
 		choice = sc.nextInt();
 		sc.nextLine();
 		
 		switch (choice) {
-		case 1:updatePlaceList(placeList.get(no - 1)); break;
-		case 2:plController.deletePlaceList(placeList.get(choice).getPl_no()); break;
-		case 0: return;
-		//case 9:new PLMenu().mainMenu(); break;
-		default:System.out.println("잘못입력하셨습니다."); break;
-
+			case 1:
+				updatePlaceList(placeList.get(no - 1));
+				break;
+			case 2:
+				plController.deletePlaceList(placeList.get(no-1).getPl_no());
+				break;
+			case 0:
+				return;
+			default :
+				System.out.println("잘못입력하셨습니다.");
+				break;
 		}
 		
 	}
 
 	/**
-	 * @FileName : PL_ManagerMenu.java
+	 * @MethodName : updatePlaceList.java
 	 * @Project : NewVeloper_mini
 	 * @Date : 2022. 11. 17.
 	 * @작성자 : jihee
 	 * @변경이력 :
-	 * @프로그램 설명 : 
+	 * @프로그램 설명 : 관리자가 추천 장소에 대한 정보를 수정한다.
 	 */
 	private void updatePlaceList(PL_ListAllDTO place) {
+		
 		int category;
 		int tag;
 		
 		Scanner sc = new Scanner(System.in);
-		PL_Controller plController = new PL_Controller();
 		
-		//System.out.println("renamePL에 있는 DTO : " + place.getPl_no());
 		System.out.println("==================== 장소 수정 ====================");
 		System.out.println("변경될 이름을 입력하세요 (건너뛰기 -> 빈칸입력) : ");
 		place.setPl_name(sc.nextLine());
@@ -312,23 +315,49 @@ public class PL_ManagerMenu {
 		System.out.println("변경될 태그를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
 		tag = sc.nextInt();
 		sc.nextLine();
+		
 		switch (category) {
-		case 1:place.setPl_catecode("C1");break;
-		case 2:place.setPl_catecode("C2");break;
-		case 3:place.setPl_catecode("C3");break;
-		case 4:place.setPl_catecode("C4");break;
-		case 5:place.setPl_catecode("C5");break;
-		case 6:place.setPl_catecode("C6");break;
+			case 1:
+				place.setPl_catecode("C1");
+				break;
+			case 2:
+				place.setPl_catecode("C2");
+				break;
+			case 3:
+				place.setPl_catecode("C3");
+				break;
+			case 4:
+				place.setPl_catecode("C4");
+				break;
+			case 5:
+				place.setPl_catecode("C5");
+				break;
+			case 6:
+				place.setPl_catecode("C6");
+				break;
+			default :
+				System.out.println("잘못 입력했습니다. 기존 값이 유지됩니다.");
 		}
 		// 태그생성
 		switch (tag) {
-		case 1:place.setPl_tagcode("T1"); break;
-		case 2:place.setPl_tagcode("T2"); break;
-		case 3:place.setPl_tagcode("T3"); break;
-		case 4:place.setPl_tagcode("T4"); break;
-		case 5:place.setPl_tagcode("T5"); break;
+			case 1:
+				place.setPl_tagcode("T1");
+				break;
+			case 2:
+				place.setPl_tagcode("T2");
+				break;
+			case 3:
+				place.setPl_tagcode("T3");
+				break;
+			case 4:
+				place.setPl_tagcode("T4");
+				break;
+			case 5:
+				place.setPl_tagcode("T5");
+				break;
+			default :
+				System.out.println("잘못 입력했습니다. 기존 값이 유지됩니다.");
 		}
-		
 		plController.updatePlaceList(place);
 		
 	}

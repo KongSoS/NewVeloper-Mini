@@ -1,9 +1,7 @@
-/**
-  * 
-  */
 package pl.view;
 
 import java.util.Scanner;
+
 import pl.controller.PL_Controller;
 import pl.model.dto.PL_UserDTO;
 
@@ -12,17 +10,15 @@ import pl.model.dto.PL_UserDTO;
  * @Project : NewVeloper_mini
  * @Date : 2022. 11. 15.
  * @작성자 : 성식
- * @변경이력 :
  * @프로그램 설명 : 사용자는 중복되지 않는 아이디로 회원가입을 통해 로그인을 해야하고, 로그인 시 메인메뉴 화면으로 이동된다.
  * @프로그램 설명 : 첫번째 화면
  */
 public class PL_MemberMenu {
 	
 	/**
-	 * @Method Name : roginMenu
+	 * @MethodName : roginMenu
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : 성식
-	 * @변경이력 :
 	 * @Method 설명 : 로그인 메뉴
 	 */
 	public void roginMenu() {
@@ -41,24 +37,25 @@ public class PL_MemberMenu {
 			int no = sc.nextInt();
 
 			switch (no) {
-			case 1:
-				plController.userLogin(inputLogin());
-				break;
-			case 2:
-				plController.registUser(inputUser());
-				break;
-			case 0:
-				System.out.println("프로그램을 종료합니다.");
-				return;
-			default:
-				System.out.println("잘못 선택하셨습니다. 다시 입력하세요.");
-				break;
-			}
+				case 1:
+					plController.userLogin(inputLogin());
+					break;
+				case 2:
+					plController.registUser(inputUser());
+					break;
+				case 0:
+					System.out.println("프로그램을 종료합니다.");
+					return;
+				default :
+					System.out.println("잘못 선택하셨습니다. 다시 입력하세요.");
+					break;
+				}
 		} while (true);
+		
 	}
 
 	/**
-	 * @Method Name : inputLogin
+	 * @MethodName : inputLogin
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : 성식
 	 * @변경이력 :
@@ -83,7 +80,7 @@ public class PL_MemberMenu {
 	}
 
 	/**
-	 * @Method Name : inputUser
+	 * @MethodName : inputUser
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : 성식
 	 * @변경이력 :
@@ -118,7 +115,7 @@ public class PL_MemberMenu {
 	}
 		
 	/**
-	 * @Method Name : inputId
+	 * @MethodName : inputId
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : 성식
 	 * @변경이력 :
@@ -133,16 +130,18 @@ public class PL_MemberMenu {
 		String userId = sc.nextLine();
 		
 		return userId;
+		
 	}
 
 	/**
-	 * @Method Name : wellcome
+	 * @MethodName : wellcome
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : 성식
 	 * @변경이력 :
 	 * @Method 설명 : 로그인 성공 시 출력될 환영 문구
 	 */
 	public void wellcome() {
+		
 		try {
 			System.out.println(" ____    __     ____  _______  __       __        ______   ______   .___  ___.  _______ ");
 			Thread.sleep(700);
@@ -160,6 +159,6 @@ public class PL_MemberMenu {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 	}
-
 }

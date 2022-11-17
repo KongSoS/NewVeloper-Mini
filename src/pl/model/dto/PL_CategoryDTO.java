@@ -1,6 +1,3 @@
-/**
-  * 
-  */
 package pl.model.dto;
 
 /**
@@ -12,19 +9,16 @@ package pl.model.dto;
   * @프로그램 설명 : 카테고리 DTO
   */
 public class PL_CategoryDTO {
+	
 	private String category_code; 
 	private String category_name;
 	
-	/**
-	 * 
-	 */
 	public PL_CategoryDTO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @param category_code 카테고리 코드
-	 * @param category_name 카테고리 이름
+	 * @param category_code 카테고리코드
+	 * @param category_name 카테고리명
 	 */
 	public PL_CategoryDTO(String category_code, String category_name) {
 		super();
@@ -32,30 +26,18 @@ public class PL_CategoryDTO {
 		this.category_name = category_name;
 	}
 
-	/**
-	 * @return the category_code
-	 */
 	public String getCategory_code() {
 		return category_code;
 	}
 
-	/**
-	 * @param category_code the category_code to set
-	 */
 	public void setCategory_code(String category_code) {
 		this.category_code = category_code;
 	}
 
-	/**
-	 * @return the category_name
-	 */
 	public String getCategory_name() {
 		return category_name;
 	}
 
-	/**
-	 * @param category_name the category_name to set
-	 */
 	public void setCategory_name(String category_name) {
 		this.category_name = category_name;
 	}
@@ -64,6 +46,5 @@ public class PL_CategoryDTO {
 	public String toString() {
 		return "PLCategoryDTO [category_code=" + category_code + ", category_name=" + category_name + "]";
 	}
-	
 	
 }

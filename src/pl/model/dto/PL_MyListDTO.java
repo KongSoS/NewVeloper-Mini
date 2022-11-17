@@ -1,13 +1,13 @@
 package pl.model.dto;
 
 /**
- * @FileName : PLListAllDTO.java
+ * @FileName : PLMyListDTO.java
  * @Project : NewVeloper_mini
  * @Date : 2022. 11. 14. 
- * @작성자 : jihee 
- * @프로그램 설명 : 추천 장소 DTO
+ * @작성자 : heojaehong 
+ * @프로그램 설명 : 내 장소 DTO
  */
-public class PL_ListAllDTO {
+public class PL_MyListDTO {
 	
 	private int rownum;
 	private int pl_no;
@@ -20,8 +20,9 @@ public class PL_ListAllDTO {
 	private String pl_reserve;
 	private PL_CategoryDTO category;
 	private PL_TagDTO tag;
+	private int user_no;
 	
-	public PL_ListAllDTO() {
+	public PL_MyListDTO() {
 	}
 
 	/**
@@ -34,10 +35,11 @@ public class PL_ListAllDTO {
 	 * @param pl_catecode 장소 카테고리
 	 * @param pl_reserve 장소 예약 유무
 	 * @param category 카테고리DTO
-	 * @param tag 테그DTO
+	 * @param tag 태그DTO
+	 * @param tag user_no 유저 번호
 	 */
-	public PL_ListAllDTO(int rownum, int pl_no, String pl_name, String pl_address, String pl_tel, int score,
-			String pl_catecode, String pl_tagcode, String pl_reserve, PL_CategoryDTO category, PL_TagDTO tag) {
+	public PL_MyListDTO(int rownum, int pl_no, String pl_name, String pl_address, String pl_tel, int score,
+			String pl_catecode, String pl_tagcode, String pl_reserve, PL_CategoryDTO category, PL_TagDTO tag, int user_no) {
 		super();
 		this.rownum = rownum;
 		this.pl_no = pl_no;
@@ -50,94 +52,103 @@ public class PL_ListAllDTO {
 		this.pl_reserve = pl_reserve;
 		this.category = category;
 		this.tag = tag;
+		this.user_no = user_no;
 	}
-
+ 
 	public String getPl_tagcode() {
 		return pl_tagcode;
 	}
-
+ 
 	public void setPl_tagcode(String pl_tagcode) {
 		this.pl_tagcode = pl_tagcode;
 	}
-
+ 
 	public int getRownum() {
 		return rownum;
 	}
-
+ 
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
 	}
-
+ 
 	public int getPl_no() {
 		return pl_no;
 	}
-
+ 
 	public void setPl_no(int pl_no) {
 		this.pl_no = pl_no;
 	}
-
+ 
 	public String getPl_name() {
 		return pl_name;
 	}
-
+ 
 	public void setPl_name(String pl_name) {
 		this.pl_name = pl_name;
 	}
-
+ 
 	public String getPl_address() {
 		return pl_address;
 	}
-
+ 
 	public void setPl_address(String pl_address) {
 		this.pl_address = pl_address;
 	}
-
+ 
 	public String getPl_tel() {
 		return pl_tel;
 	}
-
+ 
 	public void setPl_tel(String pl_tel) {
 		this.pl_tel = pl_tel;
 	}
-
+ 
 	public int getScore() {
 		return score;
 	}
-
+ 
 	public void setScore(int score) {
 		this.score = score;
 	}
-
+ 
 	public String getPl_catecode() {
 		return pl_catecode;
 	}
-
+ 
 	public void setPl_catecode(String pl_catecode) {
 		this.pl_catecode = pl_catecode;
 	}
-
+ 
 	public String getPl_reserve() {
 		return pl_reserve;
 	}
-
+ 
 	public void setPl_reserve(String pl_reserve) {
 		this.pl_reserve = pl_reserve;
 	}
-
+ 
 	public PL_CategoryDTO getCategory() {
 		return category;
 	}
-
+ 
 	public void setCategory(PL_CategoryDTO category) {
 		this.category = category;
 	}
-
+ 
 	public PL_TagDTO getTag() {
 		return tag;
 	}
-
+ 
 	public void setTag(PL_TagDTO tag) {
 		this.tag = tag;
+	}
+ 
+	public int getUser_no() {
+		return user_no;
+	}
+ 
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
 	}
 	
 }
