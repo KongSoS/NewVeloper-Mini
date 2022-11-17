@@ -1,6 +1,3 @@
-/**
-  * 
-  */
 package pl.run;
 
 import pl.view.PL_MemberMenu;
@@ -16,7 +13,9 @@ import pl.view.PL_MemberMenu;
 public class Run {
 	
 	public static void main(String[] args) {
+		
 		new PL_MemberMenu().roginMenu();
+		
 	}
 
 }

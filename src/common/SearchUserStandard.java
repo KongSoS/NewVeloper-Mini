@@ -34,5 +34,4 @@ public class SearchUserStandard {
 		return "SearchUserStandard [condition=" + condition + ", value=" + value + "]";
 	}
 	
-	
 }

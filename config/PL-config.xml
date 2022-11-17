@@ -20,5 +20,4 @@
 	<mappers>
 		<mapper resource ="pl/model/dao/PL_Mapper.xml"/>
 	</mappers>
-
 </configuration>

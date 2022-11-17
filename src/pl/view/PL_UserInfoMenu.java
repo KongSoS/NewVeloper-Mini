@@ -23,6 +23,7 @@ public class PL_UserInfoMenu {
 	 * @Method 설명 : 사용자 정보 확인 메뉴, 정보 조작 가능
 	 */
 	public void userInfoMenu(String userId) {
+		
 		Scanner sc = new Scanner(System.in);
 		
 		PL_Controller plController = new PL_Controller();
@@ -48,9 +49,8 @@ public class PL_UserInfoMenu {
 				plController.withdrawalUserOne(userId);
 				break;
 			case 0:
-				System.out.println("프로그램을 종료합니다.");
 				return;
-			default:
+			default :
 				System.out.println("잘못 선택하셨습니다. 다시 입력하세요.");
 				break;
 			}
@@ -66,9 +66,9 @@ public class PL_UserInfoMenu {
 	 * @Method 설명 : 사용자 정보 선택적으로 수정 가능
 	 */
 	private PL_UserDTO inputUserInfo(String userId) {
+		
 		Scanner sc = new Scanner(System.in);
 		
-		sc.nextLine();
 		System.out.print("변경될 사용자 비밀번호를 입력하세요 (건너뛰기 -> 빈칸입력) : ");
 		String userPwd = sc.nextLine();
 		System.out.print("변경될 사용자 이름을 입력하세요 (건너뛰기 -> 빈칸입력) : ");
@@ -83,6 +83,7 @@ public class PL_UserInfoMenu {
 		parameter.setPhone(userPhone);
 		
 		return parameter;
+		
 	}
 
 }

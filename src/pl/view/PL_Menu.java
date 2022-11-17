@@ -8,7 +8,7 @@ public class PL_Menu {
 
 	private PL_ReserveMenu remenu = new PL_ReserveMenu();
 	private PL_UserInfoMenu plUserInfoMenu = new PL_UserInfoMenu();
-	private subView sv = new subView();
+	private PL_ListView plListView = new PL_ListView();
 	
 	/**
 	 * @param userId 
@@ -18,12 +18,11 @@ public class PL_Menu {
 	 * @변경이력 :
 	 * @Method 설명 : 처음 보여지는 메뉴
 	 */
-		
 	public void mainMenu(String userId) {
 		
 		Scanner sc = new Scanner(System.in);
 
-		do { // 메인메뉴를 보여주는 반복문
+		do {
 			System.out.println("=========== PLACE LIST ===========");
 			System.out.println("1. 추천 장소");
 			System.out.println("2. 내 장소");
@@ -41,14 +40,13 @@ public class PL_Menu {
 				selectSort();
 				break;
 			case 2:
-	
-				sv.myPlaceList(userId);
+				plListView.myPlaceList(userId);
 				break;
 			case 3:
-				sv.addPlaceList();
+				plListView.addPlaceList();
 				break;
 			case 4:
-				sv.fileOut();
+				plListView.fileOut();
 				break;
 			case 5:
 				plUserInfoMenu.userInfoMenu(userId);
@@ -60,12 +58,12 @@ public class PL_Menu {
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");
 				return;
-			default:
+			default :
 				System.out.println("잘못 입력하셨습니다 다시 입력하세요 ");
 				break;
 			}
-
 		} while (true);
+		
 	}
 
 	/**
@@ -91,14 +89,26 @@ public class PL_Menu {
 			int no = sc.nextInt();
 			
 			switch(no) {
-			case 1 : sv.selectAllName(); break;
-			case 2 : sv.selectAllAddress(); break;
-			case 3 : sv.selectAllScore(); break;
-			case 4 : sv.selectAllCategory(); break;
-			case 0 : return;
-			default : System.out.println("잘못 입력하셨습니다 다시 입력하세요 "); break;
+				case 1:
+					plListView.selectAllName();
+					break;
+				case 2:
+					plListView.selectAllAddress();
+					break;
+				case 3:
+					plListView.selectAllScore();
+					break;
+				case 4:
+					plListView.selectAllCategory();
+					break;
+				case 0:
+					return;
+				default :
+					System.out.println("잘못 입력하셨습니다 다시 입력하세요 ");
+					break;
 			}
 		} while (true);
+		
 	}
 	
 }
