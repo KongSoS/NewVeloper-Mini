@@ -477,13 +477,14 @@ public class PL_Controller {
 
 
 	/**
-	  * @Method Name : fileOut
+	  * @param userNO 
+	 * @Method Name : fileOut
 	  * @작성일 : 2022. 11. 16.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 : 내 리스트의 정보를 txt파일로 내보내는 메소드
 	  */
-	public void fileOut() {
+	public void fileOut(int userNO) {
 		try {
 			OutputStream out = null;
 			File file = new File("MyPLFile.txt");
@@ -491,7 +492,7 @@ public class PL_Controller {
 			
 			System.out.println("파일 생성 완료! " + file);
 			out = new BufferedOutputStream(new FileOutputStream(file));
-			List<PL_MyListDTO> fList = plService.myPlaceList(0);
+			List<PL_MyListDTO> fList = plService.myPlaceList(userNO);
 
 			System.out.println("list에 값 넣기 : " + fList);
 			for(int i = 0; i < fList.size(); i++) {

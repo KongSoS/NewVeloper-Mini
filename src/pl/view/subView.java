@@ -44,13 +44,7 @@ public class subView {
 		
 		/* 설정 */
 		int input = reserveMenu.selectUserInfo(userId);
-		System.out.println();
-		System.out.println("subView 의 userId : " + userId);
-		System.out.println();
 		listDTO.setUser_no(input);
-		System.out.println();
-		System.out.println("subView 의 userNo : " + listDTO.getUser_no());
-		System.out.println();
 		/**/
 		Scanner sc = new Scanner(System.in);
 		
@@ -169,9 +163,18 @@ public class subView {
 	 * @변경이력 :
 	 * @Method 설명 : 내장소에 저장된 장소 리스트를 txt파일로 내보내는 메소드
 	 */
-	public void fileOut() {
+	public void fileOut(String userId) {
 		
 		Scanner sc = new Scanner(System.in);
+		
+		int input = reserveMenu.selectUserInfo(userId);
+		System.out.println();
+		System.out.println("subView  addlist 의 userId : " + userId);
+		System.out.println();
+		listDTO.setUser_no(input);
+		System.out.println();
+		System.out.println("subView 의 userNo : " + listDTO.getUser_no());
+		System.out.println();
 		
 		System.out.println("=========== 내 장소 내보내기 ===========");
 		System.out.println("현재 저장된 내 장소리스트를 파일로 저장하시겠습니까?(Y/N)");
@@ -179,7 +182,7 @@ public class subView {
 		System.out.println("입력하세요 : ");
 		String answer = sc.nextLine().toUpperCase();
 		if (answer.equals("Y")) {
-			plController.fileOut();
+			plController.fileOut(listDTO.getUser_no());
 		}else {
 			return;
 		}

@@ -43,20 +43,11 @@ public class PL_Menu {
 			case 1:selectSort(); break;
 			case 2:sv.myPlaceList(userId); break;
 			case 3:sv.addPlaceList(userId); break;
-//			case 4:sv.fileOut(); break;
-			case 5:
-				plUserInfoMenu.userInfoMenu(userId);
-				break;
-			case 6:
-				remenu.reserveMine();
-				
-				break;
-			case 0:
-				System.out.println("프로그램을 종료합니다. ");
-				return;
-			default:
-				System.out.println("잘못 입력하셨습니다 다시 입력하세요 ");
-				break;
+			case 4:sv.fileOut(userId); break;
+			case 5:plUserInfoMenu.userInfoMenu(userId); break;
+			case 6:remenu.reserveMine(); break;
+			case 0:System.out.println("프로그램을 종료합니다. "); return;
+			default:System.out.println("잘못 입력하셨습니다 다시 입력하세요 "); break;
 			}
 
 		} while (true);

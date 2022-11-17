@@ -154,7 +154,7 @@
 			WHERE a.USER_NO = #{ user_no }
 		</select>
 		
-		<update id="updateMyList" parameterType="pl.model.dto.PL_ListAllDTO">
+		<update id="updateMyList" parameterType="pl.model.dto.PL_MyListDTO">
 				UPDATE MY_LIST M 
 				<set>
 					<if test="pl_name != null and pl_name != ''">
