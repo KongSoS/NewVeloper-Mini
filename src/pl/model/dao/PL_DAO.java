@@ -54,7 +54,7 @@ public interface PL_DAO {
 	ArrayList<PL_MyListDTO> selectAllPlace(int userNO);
 	
 	/*내 장소에 새로운 장소 등록*/
-	int insertPlace(PL_MyListDTO myPlace);
+	int insertMyPlace(PL_MyListDTO myPlace);
 
 	/*내 장소에 저장된 리스트의 내용을 수정 */
 	int updateMyList(PL_MyListDTO myPlace);

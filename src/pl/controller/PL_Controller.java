@@ -159,9 +159,9 @@ public class PL_Controller {
     * @작성자 : heojaehong
     * @Method 설명 : 새로운 장소를 직접 등록하는 메소드
     */	
-	public void addPlaceList(PL_MyListDTO place) {
+	public void insertMyPlace(PL_MyListDTO place) {
 		
-		plService.addPlaceList(place);
+		plService.insertMyPlace(place);
 	
 	}
 	

@@ -152,12 +152,12 @@ public class PL_Service {
 	  * @작성자 : heojaehong 
 	  * @Method 설명 : 새로운 장소를 등록할 sql문에 접근하는 메소드 
 	  */
-	public void addPlaceList(PL_MyListDTO place) {
+	public void insertMyPlace(PL_MyListDTO place) {
 		
 		SqlSession session = getSession();
 		mapper = session.getMapper(PL_DAO.class);
 		
-		int result = mapper.insertPlace(place);
+		int result = mapper.insertMyPlace(place);
 		
 		if(result > 0) {
 			System.out.println("장소등록 성공!");

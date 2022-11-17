@@ -46,7 +46,7 @@ public class PL_Menu {
 					plListView.myPlaceList(userId);
 					break;
 				case 3:
-					plListView.addPlaceList(userId);
+					plListView.insertMyPlace(userId);
 					break;
 				case 4:
 					plListView.fileOut(userId);
@@ -87,6 +87,7 @@ public class PL_Menu {
 			System.out.println("3. 별점으로 정렬");
 			System.out.println("4. 카테고리로 정렬");
 			System.out.println("0. 이전 메뉴로");
+			System.out.println("==================================");
 			System.out.print("원하는 정렬 번호를 입력하세요 : ");
 			int no = sc.nextInt();
 			

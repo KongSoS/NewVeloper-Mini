@@ -150,27 +150,15 @@
 		<result property="tag_name" column="TAG_NAME"/>
 	</resultMap>
 	
-<!-- 	
-	<resultMap type="pl.model.dto.PL_UserDTO" id="myUserResultMap">
-		<id property="user_no" column="USER_NO"/>
-		<result property="user_id" column="USER_ID"/>
-		<result property="user_pwd" column="USER_PWD"/>
-		<result property="user_name" column="USER_NAME"/>
-		<result property="phone" column="PHONE"/>
-		<result property="enroll_date" column="ENROLL_DATE"/>
-		<result property="del_date" column="DEL_DATE"/>
-		<result property="status" column="STATUS"/>
-		<result property="manager" column="MANAGER"/>
-	</resultMap> -->
-	
 	<!-- 내 장소 리스트 출력 -->
-	<select id="selectAllPlace" resultMap="myListAllResultMap">
+	<select id="selectAllPlace" parameterType="_int" resultMap="myListAllResultMap">
 		SELECT * 
 		FROM MY_LIST A
 		JOIN CATEGORY B ON a.MY_CATECODE = B.CATEGORY_CODE
 		JOIN TAG C ON A.MY_TAGCODE = C.TAG_CODE
 		JOIN PL_USER D ON A.USER_NO = D.USER_NO
 		WHERE D.STATUS = 'N'
+		  AND A.USER_NO = #{ user_no }
 	</select>
 	
 	<!-- 내 장소 정보 수정 -->
@@ -206,7 +194,7 @@
 	</delete>
 	
 	<!-- 내 장소에 장소 직접 추가 -->	
-	<insert id="insertPlace" parameterType="pl.model.dto.PL_ListAllDTO">
+	<insert id="insertMyPlace" parameterType="pl.model.dto.PL_MyListDTO">
 		INSERT INTO MY_LIST M
 		(
 		    M.MY_NO ,
