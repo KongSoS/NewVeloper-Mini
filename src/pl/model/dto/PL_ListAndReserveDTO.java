@@ -9,9 +9,7 @@ public class PL_ListAndReserveDTO {
 	private String reserve_time;
 	private PL_ListAllDTO listDTO;
 	
-	/**
-	 * 예약 가게이름을 조회하기 위한 dto
-	 */
+	/* 예약 가게이름을 조회하기 위한 dto */
 	public PL_ListAndReserveDTO() {
 	}  
 	

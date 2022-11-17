@@ -30,7 +30,7 @@ public class PL_DetailView {
 	 * @Method 설명 : 내 장소 상세 페이지
 	 * @param
 	 */
-	public void MoreInfo(PL_ListAllDTO place, int no) {
+	public void MoreInfo(PL_ListAllDTO place, String userId) {
 
 		int num;
 		
@@ -69,7 +69,7 @@ public class PL_DetailView {
 					plController.deleteMyList(place.getPl_no());
 					break;
 				case 3:
-					rm.addReserve(no);
+					rm.addReserve(place.getPl_no(), userId);
 				case 0:
 					return;
 				default :

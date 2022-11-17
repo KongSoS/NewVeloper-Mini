@@ -236,28 +236,30 @@
 		<result property="pl_reserve" column="MY_RESERVE"/>
 	</resultMap>
 	
+	<!-- 내 예약 리스트 출력 -->
 	<select id = "reserveMine" resultMap = "reserveResultMap">
 		SELECT
-			A. RESERVE_NO AS 예약번호
-			, B. MY_NAME AS 매장명
+				A.*
+				,B.*
 		FROM RESERVATION A
 		JOIN MY_LIST B
 		ON A.MY_NO = B.MY_NO
 	</select>
 
+	<!-- 예약 정보 출력 -->
 	<select id = "reserveInfo" parameterType="_int" resultMap = "reserveResultMap">
 		SELECT
-				A. MY_NAME
-				, TO_CHAR(TO_DATE(B. RESERVE_DAY,'YYMMDD'),'RRRR-MM-DD') AS 예약일
-				, B. RESERVE_TIME
+			A.*
+			,B.*
 			FROM MY_LIST A
 			JOIN RESERVATION B
 			ON A.MY_NO = B.MY_NO
 			WHERE B.RESERVE_NO = #{ reserve_no }
 	</select>
 	
+	<!-- 예약 추가 -->
 	<insert id="addReserve" parameterType="pl.model.dto.PL_ReservationDTO">
- 		INSERT
+		 INSERT
           INTO RESERVATION A
         (
         A.RESERVE_NO
@@ -271,20 +273,21 @@
           SEQ_RESERVE_NO.NEXTVAL
         , #{ reserve_day }
         , #{ reserve_time }
-        , 1
+        , #{ user_no }
         , #{ my_no }
         )
 	</insert>
 
+	<!-- 예약 수정 -->
 	<update id="editReserve" parameterType="pl.model.dto.PL_ReservationDTO">
        UPDATE RESERVATION
         SET
-      
-      , RESERVE_DAY =#{ reserve_day }
+        RESERVE_DAY =#{ reserve_day }
         , RESERVE_TIME=#{ reserve_time }
         WHERE RESERVE_NO=#{ reserve_no }
 	</update>
 	
+	<!-- 예약 삭제 -->
 	<delete id="cancelReserve" parameterType="_int">
         DELETE
           FROM RESERVATION
@@ -313,7 +316,7 @@
 		   AND STATUS = 'N'
 	</select>
 	
-	<!-- 비밀번호 중복 ㅊ케ㅡ -->
+	<!-- 비밀번호 중복 체크 -->
 	<select id="userPwdOverlapCheck" parameterType="string" resultMap="userMap">
 		SELECT *
 		  FROM PL_USER
@@ -381,7 +384,6 @@
 			WHERE USER_NAME = #{value}
 		    AND STATUS = 'N'		
 		</if>
-		
 		<if test ="condition == 'user_id'">
 			WHERE USER_ID = #{value}
 			AND STATUS = 'N'
@@ -439,13 +441,18 @@
 		</set>
 		 WHERE A.PL_NO = #{ pl_no } 
 	</update>
-    
+	
     <!-- 관리자)추천 장소 삭제 -->
     <delete id="deletePlaceList" parameterType="_int">
 		DELETE FROM PLACE_LIST
 		WHERE PL_NO = #{ plNo }
 	</delete>
 	    
-	
-
+	<!-- 회원 정보 가져기 -->
+	<select id="selectUserInfo" parameterType="string" resultMap="userMap">
+		SELECT *
+		  FROM PL_USER
+		 WHERE USER_ID = #{user_id}
+		   AND STATUS = 'N'
+	</select>
 </mapper>

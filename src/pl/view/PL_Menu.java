@@ -40,7 +40,7 @@ public class PL_Menu {
 				selectSort();
 				break;
 			case 2:
-				plListView.myPlaceList();
+				plListView.myPlaceList(userId);
 				break;
 			case 3:
 				plListView.addPlaceList();
@@ -53,6 +53,7 @@ public class PL_Menu {
 				break;
 			case 6:
 				remenu.reserveMine();
+				
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");

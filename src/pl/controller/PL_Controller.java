@@ -253,66 +253,56 @@ public class PL_Controller {
 	}
 
 	public List<PL_ListAndReserveDTO> reserveMine() {
+		
 		PL_ListView print = new PL_ListView();
 		List<PL_ListAndReserveDTO> reserveList = plService.reserveMine();
 		PL_ListAllDTO pd = new PL_ListAllDTO();
-
-		if(reserveList != null) {
+		
+		if (reserveList != null) {
 			System.out.println("예약 목록 조회 성공");
 		} else {
 			System.out.println("예약 목록 조회 실패");
 		}
+		
 		return reserveList;
 		
 	}
-	
-	public PL_ListAndReserveDTO reserveInfo(int num) {
-//		subView print = new subView();
-		PL_ListAndReserveDTO menu = plService.reserveInfo(num);
+
+	public void reserveInfo(PL_ListAndReserveDTO reserve) {
+
+		plService.reserveInfo(reserve);
 		
-		if(menu != null) {
-			menu.setReserve_no(num);
+		if (reserve != null) {
 			System.out.println("예약 내역 조회 성공");
 		} else {
 			System.out.println("예약 내역 조회 실패");
-		
-	}
-		return menu;
+		}
 
-}
-	public void editReserve(int num, String day, String time) {
-		// TODO Auto-generated method stub
-		PL_ReservationDTO re = new PL_ReservationDTO();
-		re.setReserve_no(num);
-		re.setReserve_day(day);
-		re.setReserve_time(time);
+	}
+
+	public void editReserve(PL_ReservationDTO rd2) {
 		
-		if(plService.editReserve(re)) {
+		if (plService.editReserve(rd2)) {
 			System.out.println("예약 변경 성공");
 		} else {
 			System.out.println("예약 변경 실패");
 		}
+		
 	}
+	
 	public void cancelReserve(int num) {
-		// cancel에는 num을 setter로 전달하지 않은 상태이다.... 예시가 달라서 전달해야할 것 같기도..
-		PL_ReservationDTO re = new PL_ReservationDTO();
-		re.setReserve_no(num);
-		if(plService.cancelReserve(num)) {
-			
+		
+		if (plService.cancelReserve(num)) {
 			System.out.println("예약 취소 성공");
 		} else {
 			System.out.println("예약 취소 실패");
 		}
-	}
-
-	public void addReserve(int num, String day, String time) {
-	
-		PL_ReservationDTO re = new PL_ReservationDTO();
-		re.setMy_no(num);
-		re.setReserve_day(day);
-		re.setReserve_time(time);
 		
-		if(plService.addReserve(re)) {
+	}
+	
+	public void addReserve(PL_ReservationDTO rd) {
+		
+		if(plService.addReserve(rd)) {
 			System.out.println("예약 성공");
 		} else {
 			System.out.println("예약 실패");
@@ -320,6 +310,22 @@ public class PL_Controller {
 		
 	}
 
+	/**
+	 * @Method Name : selectUserInfo
+	 * @작성일 : 2022. 11. 16.
+	 * @작성자 : Yuri
+	 * @변경이력 :
+	 * @Method 설명 : 로그인한 아이디를 받아서 전달하고, 사용자 정보를 반환
+	 */
+	public PL_UserDTO selectUserInfo (PL_UserDTO parameter) {
+		
+		String userId = parameter.getUser_id();
+		PL_UserDTO user = plService.selectUserInfo(userId);
+		
+		return user;
+		
+	}
+	
 	/**
 	 * @Method Name : userLogin
 	 * @작성일 : 2022. 11. 15.

@@ -238,7 +238,6 @@ public class PL_Service {
 	  * @Method 설명 : 내 예약 리스트를 보여주는 메소드
 	  * @return
 	  */
-
 	public List<PL_ListAndReserveDTO> reserveMine() {
 		
 		SqlSession session = getSession();
@@ -250,16 +249,14 @@ public class PL_Service {
 		return reserveList;
 		
 	}
-	
-	public PL_ListAndReserveDTO reserveInfo(int num) {
+
+	public void reserveInfo(PL_ListAndReserveDTO reserve) {
 		
 		SqlSession session = getSession();
 		mapper = session.getMapper(PL_DAO.class);
-		PL_ListAndReserveDTO menu = mapper.reserveInfo(num);
+		mapper.reserveInfo(reserve);
 	
 		session.close();
-	
-		return menu;
 		
 	}
 
@@ -269,8 +266,8 @@ public class PL_Service {
 		mapper = session.getMapper(PL_DAO.class);
 		
 		int result = mapper.editReserve(re);
-	
-		if(result > 0) {
+
+		if (result > 0) {
 			session.commit();
 		} else {
 			session.rollback();
@@ -316,6 +313,18 @@ public class PL_Service {
 		return result > 0? true: false;
 		
 	}
+	
+	public PL_UserDTO selectUserInfo(String userId) {
+		
+		SqlSession sqlSession = getSession();
+		mapper = sqlSession.getMapper(PL_DAO.class);
+		PL_UserDTO userInfo = mapper.selectUserInfo(userId);
+		
+		sqlSession.close();
+		
+		return userInfo;
+	}
+	
 
 	/**
 	 * @Method Name : userIdOverlapCheck

@@ -70,18 +70,20 @@ public interface PL_DAO {
 	  */
 	List<PL_ListAndReserveDTO> reserveMine();
 
-	PL_ListAndReserveDTO reserveInfo(int num);
+	PL_ListAndReserveDTO reserveInfo(PL_ListAndReserveDTO reserve);
 
-	int editReserve(PL_ReservationDTO re);
+	int editReserve(PL_ReservationDTO rd2);
 
 	int cancelReserve(int num);
 
 	int addReserve(PL_ReservationDTO re);
 	
+	PL_UserDTO selectUserInfo(String userId);
+	
 	/**
 	  * @Method Name : 관리자 및 사용자의 정보 조회, 수정
 	  * @작성일 : 2022. 11. 16.
-	  * @작성자 : siker
+	  * @작성자 : 성식
 	  */
 	/*아이디 중복 확인*/
 	PL_UserDTO userIdOverlapCheck(String userId);
