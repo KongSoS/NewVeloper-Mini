@@ -213,7 +213,7 @@
 	<resultMap type = "pl.model.dto.PL_ListAndReserveDTO" id = "reserveResultMap">
 			<id property = "reserve_no" column = "RESERVE_NO"/>
 <!-- 			<result property = "user_no" column ="USER_NO"/> -->
-<result property = "user_id" column ="USER_ID"/>
+<result property = "user_no" column ="USER_NO"/>
 			<result property = "my_no" column ="MY_NO"/>
 			<result property = "reserve_day" column ="RESERVE_DAY"/>
 			<result property = "reserve_time" column ="RESERVE_TIME"/>
@@ -268,7 +268,7 @@
 	        A.RESERVE_NO
 	        , A.RESERVE_DAY
 	        , A.RESERVE_TIME
-	        , A.USER_ID
+	        , A.USER_NO
 	        , A.MY_NO
 	        )
 	        VALUES
@@ -276,7 +276,7 @@
 	          SEQ_RESERVE_NO.NEXTVAL
 	        , #{ reserve_day }
 	        , #{ reserve_time }
-	        , #{ user_id }
+	        , #{ user_no }
 	        , #{ my_no }
 	        )
 		</insert>
@@ -314,6 +314,14 @@
 		<result property="status" column="STATUS"/>
 		<result property="manager" column="MANAGER"/>
 		</resultMap>
+		
+		
+		<select id="selectUserInfo" parameterType="string" resultMap="userMap">
+			SELECT *
+			  FROM PL_USER
+			 WHERE USER_ID = #{user_id}
+			   AND STATUS = 'N'
+		</select>
 		
 		<!-- 사용자 실행 쿼리 -->
 		<select id="userIdOverlapCheck" parameterType="string" resultMap="userMap">

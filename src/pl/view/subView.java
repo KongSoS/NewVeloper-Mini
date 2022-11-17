@@ -60,7 +60,7 @@ public class subView {
 			return;
 		} else {
 			mv.MoreInfo(placeList.get(input - 1), userId);
-//			mv.MoreInfo(placeList.get(input - 1));
+
 		}
 
 	}

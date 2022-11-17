@@ -319,6 +319,17 @@ public class PL_Service {
 		return result > 0? true: false;
 	}
 	
+	public PL_UserDTO selectUserInfo(String userId) {
+		
+		SqlSession sqlSession = getSession();
+		mapper = sqlSession.getMapper(PL_DAO.class);
+		PL_UserDTO userInfo = mapper.selectUserInfo(userId);
+		
+		sqlSession.close();
+		
+		return userInfo;
+	}
+	
 	
 	/**
 	 * @Method Name : userIdOverlapCheck

@@ -41,7 +41,7 @@ public class PL_Menu {
 				selectSort();
 				break;
 			case 2:
-	//			sv.myPlaceList();
+	
 				sv.myPlaceList(userId);
 				break;
 			case 3:
@@ -55,6 +55,7 @@ public class PL_Menu {
 				break;
 			case 6:
 				remenu.reserveMine();
+				
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다. ");

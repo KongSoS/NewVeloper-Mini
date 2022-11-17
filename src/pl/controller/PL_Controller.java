@@ -21,6 +21,7 @@ import pl.serivce.PL_Service;
 import pl.view.PL_ManagerMenu;
 import pl.view.PL_MemberMenu;
 import pl.view.PL_Menu;
+import pl.view.PL_ReserveMenu;
 import pl.view.subView;
 
 /**
@@ -154,7 +155,8 @@ public class PL_Controller {
 				} else {
 					/*로그인 정보가 정상적으로 입력됐을때 메인 화면으로 이동*/
 					System.out.println("로그인 성공!");
-					plMemberMenu.wellcome();
+					//plMemberMenu.wellcome();
+					//new PL_ReserveMenu().selectUserInfo(userId);
 					new PL_Menu().mainMenu(userId);
 				}
 			}
@@ -163,6 +165,22 @@ public class PL_Controller {
 			System.out.println("일치하는 로그인 정보가 없습니다.");
 			plMemberMenu.roginMenu();
 		}
+		
+	}
+	
+	public PL_UserDTO selectUserInfo (PL_UserDTO parameter) {
+		
+		String userId = parameter.getUser_id();
+		
+		PL_UserDTO user = plService.selectUserInfo(userId);
+		
+//		if(user == null) {
+//			System.out.println("null입니다");
+//		} else {
+//			System.out.println(user.getUser_no() + "입니다");
+//		}
+//		
+		return user;
 		
 	}
 	
