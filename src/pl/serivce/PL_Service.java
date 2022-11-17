@@ -16,6 +16,7 @@ import pl.model.dao.PL_DAO;
 import pl.model.dto.PL_UserDTO;
 import pl.model.dto.PL_CategoryDTO;
 import pl.model.dto.PL_ListAndReserveDTO;
+import pl.model.dto.PL_MyListDTO;
 import pl.model.dto.PL_ListAllDTO;
 import pl.model.dto.PL_ReservationDTO;
 
@@ -31,17 +32,18 @@ public class PL_Service {
 	  
 	private PL_DAO mapper;
 	/**
-	  * @Method Name : myPlaceList
+	  * @param i 
+	 * @Method Name : myPlaceList
 	  * @작성일 : 2022. 11. 11.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 : 내 장소 전체를 보여주는 메소드
 	  * @return
 	  */
-	public ArrayList<PL_ListAllDTO> myPlaceList() {
+	public ArrayList<PL_MyListDTO> myPlaceList(int i) {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PL_DAO.class);
-		ArrayList<PL_ListAllDTO> placeList = mapper.selectAllPlace();
+		ArrayList<PL_MyListDTO> placeList = mapper.selectAllPlace(i);
 		
 		session.close();
 		return placeList;
@@ -55,7 +57,7 @@ public class PL_Service {
 	  * @Method 설명 : 새로운 장소를 등록할 sql문에 접근하는 메소드
 	  * @return
 	  */
-	public void addPlaceList(PL_ListAllDTO place) {
+	public void addPlaceList(PL_MyListDTO place) {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PL_DAO.class);
 		System.out.println("service의 dto : " + place);
@@ -79,7 +81,7 @@ public class PL_Service {
 	  * @Method 설명 :
 	  * @param placDTO
 	  */
-	public void updateMyList(PL_ListAllDTO place) {
+	public void updateMyList(PL_MyListDTO place) {
 		SqlSession session = getSession();
 		mapper = session.getMapper(PL_DAO.class);
 		int result = mapper.updateMyList(place);

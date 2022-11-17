@@ -21,6 +21,9 @@ public class PL_Menu {
 		
 	public void mainMenu(String userId) {
 		
+		// 수정 
+		System.out.println(userId);
+		//
 		Scanner sc = new Scanner(System.in);
 
 		do { // 메인메뉴를 보여주는 반복문
@@ -37,19 +40,10 @@ public class PL_Menu {
 			int no = sc.nextInt();
 
 			switch (no) {
-			case 1:
-				selectSort();
-				break;
-			case 2:
-	
-				sv.myPlaceList(userId);
-				break;
-			case 3:
-				sv.addPlaceList();
-				break;
-			case 4:
-				sv.fileOut();
-				break;
+			case 1:selectSort(); break;
+			case 2:sv.myPlaceList(userId); break;
+			case 3:sv.addPlaceList(userId); break;
+//			case 4:sv.fileOut(); break;
 			case 5:
 				plUserInfoMenu.userInfoMenu(userId);
 				break;

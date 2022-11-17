@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import pl.controller.PL_Controller;
 import pl.model.dto.PL_ListAllDTO;
+import pl.model.dto.PL_MyListDTO;
 import pl.model.dto.PL_ReservationDTO;
 
 /**
@@ -34,7 +35,7 @@ public class MoreInfoView {
 	 * @param
 	 */
 
-	public void MoreInfo(PL_ListAllDTO place, String userId) {
+	public void MoreInfo(PL_MyListDTO place, String userId) {
 //		public void MoreInfo(PL_ListAllDTO place) {
 		int num;
 		
@@ -84,7 +85,7 @@ public class MoreInfoView {
 	 * @Method 설명 : 내 장소리스트에 있는 장소 정보를 수정하는 메소드
 	 * @param place
 	 */
-	private void updateMyList(PL_ListAllDTO place) {
+	private void updateMyList(PL_MyListDTO place) {
 
 		int category;
 		int tag;

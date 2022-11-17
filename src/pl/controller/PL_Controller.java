@@ -16,6 +16,7 @@ import common.SearchUserStandard;
 import pl.model.dto.PL_UserDTO;
 import pl.model.dto.PL_ListAllDTO;
 import pl.model.dto.PL_ListAndReserveDTO;
+import pl.model.dto.PL_MyListDTO;
 import pl.model.dto.PL_ReservationDTO;
 import pl.serivce.PL_Service;
 import pl.view.PL_ManagerMenu;
@@ -45,15 +46,16 @@ public class PL_Controller {
 	}
 
 	/**
-	  * @return 
+	  * @param i 
+	 * @return 
 	 * @Method Name : myPlaceList
 	  * @작성일 : 2022. 11. 11.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 : 내가 저장한 장소를 전체 출력
 	  */
-	public List<PL_ListAllDTO> myPlaceList() {
-		ArrayList<PL_ListAllDTO> placeList = plService.myPlaceList();
+	public List<PL_MyListDTO> myPlaceList(int i) {
+		ArrayList<PL_MyListDTO> placeList = plService.myPlaceList(i);
 		
 		return placeList;
 	}
@@ -66,7 +68,7 @@ public class PL_Controller {
 	  * @변경이력 : 
 	  * @Method 설명 : 새로운 장소를 직접 등록하는 메소드
 	  */
-	public void addPlaceList(PL_ListAllDTO place) {
+	public void addPlaceList(PL_MyListDTO place) {
 		plService.addPlaceList(place);
 	
 	}
@@ -173,13 +175,7 @@ public class PL_Controller {
 		String userId = parameter.getUser_id();
 		
 		PL_UserDTO user = plService.selectUserInfo(userId);
-		
-//		if(user == null) {
-//			System.out.println("null입니다");
-//		} else {
-//			System.out.println(user.getUser_no() + "입니다");
-//		}
-//		
+
 		return user;
 		
 	}
@@ -460,7 +456,7 @@ public class PL_Controller {
 	  * @Method 설명 : 내 리스트에 저장된 장소를 수정하는 메소드
 	  * @param inputRename
 	  */
-	public void updateMyList(PL_ListAllDTO place) {
+	public void updateMyList(PL_MyListDTO place) {
 		plService.updateMyList(place);
 		
 			
@@ -495,7 +491,7 @@ public class PL_Controller {
 			
 			System.out.println("파일 생성 완료! " + file);
 			out = new BufferedOutputStream(new FileOutputStream(file));
-			List<PL_ListAllDTO> fList = plService.myPlaceList();
+			List<PL_MyListDTO> fList = plService.myPlaceList(0);
 
 			System.out.println("list에 값 넣기 : " + fList);
 			for(int i = 0; i < fList.size(); i++) {

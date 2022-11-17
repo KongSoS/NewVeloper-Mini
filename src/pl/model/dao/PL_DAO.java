@@ -8,6 +8,7 @@ import java.util.List;
 import common.SearchUserStandard;
 import pl.model.dto.PL_UserDTO;
 import pl.model.dto.PL_ListAndReserveDTO;
+import pl.model.dto.PL_MyListDTO;
 import pl.model.dto.PL_ListAllDTO;
 import pl.model.dto.PL_ReservationDTO;
 
@@ -22,14 +23,16 @@ import pl.model.dto.PL_ReservationDTO;
 public interface PL_DAO {
   
 	/**
-	  * @Method Name : selectAllPlace
+	  * @param  
+	 * @param userId 
+	 * @Method Name : selectAllPlace
 	  * @작성일 : 2022. 11. 14.
 	  * @작성자 : heojaehong
 	  * @변경이력 : 
 	  * @Method 설명 : 내 장소의 전체 리스트 출력
 	  * @return
 	  */
-	ArrayList<PL_ListAllDTO> selectAllPlace();
+	ArrayList<PL_MyListDTO> selectAllPlace(int i);
 
 	/**
 	 * @Method Name : selectAllName
@@ -90,7 +93,7 @@ public interface PL_DAO {
 	  * @프로그램 설명 : 내 장소에 새로운 장소 등록
 	  * @return
 	  */
-	int insertPlace(PL_ListAllDTO dto);
+	int insertPlace(PL_MyListDTO dto);
 
 	/**
 	  * @Method Name : updateMyList
@@ -99,7 +102,7 @@ public interface PL_DAO {
 	  * @변경이력 : 
 	  * @프로그램 설명 : 내 장소에 저장된 리스트의 내용을 수정
 	  */
-	int updateMyList(PL_ListAllDTO placDTO);
+	int updateMyList(PL_MyListDTO placDTO);
 	/**
 	 * @Method Name : deleteMyList
 	 * @Project : NewVeloper_mini

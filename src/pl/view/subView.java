@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import pl.controller.PL_Controller;
 import pl.model.dto.PL_ListAllDTO;
+import pl.model.dto.PL_MyListDTO;
 
 
 /**
@@ -22,6 +23,8 @@ import pl.model.dto.PL_ListAllDTO;
 public class subView {
 	private PL_Controller plController = new PL_Controller();
 	private MoreInfoView mv = new MoreInfoView();
+	private PL_MyListDTO listDTO = new PL_MyListDTO();
+	private PL_ReserveMenu reserveMenu = new PL_ReserveMenu();
 
 	/**
 	 * @param userId 
@@ -38,15 +41,24 @@ public class subView {
 		 * 정수형 변수 선언
 		 * */
 		int num = 0; 
-		int input;
 		
+		/* 설정 */
+		int input = reserveMenu.selectUserInfo(userId);
+		System.out.println();
+		System.out.println("subView 의 userId : " + userId);
+		System.out.println();
+		listDTO.setUser_no(input);
+		System.out.println();
+		System.out.println("subView 의 userNo : " + listDTO.getUser_no());
+		System.out.println();
+		/**/
 		Scanner sc = new Scanner(System.in);
 		
-		List<PL_ListAllDTO> placeList = plController.myPlaceList();
+		List<PL_MyListDTO> placeList = plController.myPlaceList(listDTO.getUser_no());
 		
 		System.out.println(placeList.size());
 		System.out.println("=========== 내 장소 ===========");
-		for(PL_ListAllDTO pd : placeList) {
+		for(PL_MyListDTO pd : placeList) {
 			num++;
 			System.out.println(num + ". " + pd.getPl_name());
 		}
@@ -66,6 +78,7 @@ public class subView {
 	}
 
 	/**
+	 * @param userId 
 	 * @Method Name : addPlaceList
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : heojaehong
@@ -73,7 +86,7 @@ public class subView {
 	 * @Method 설명 : 장소 추가하는 메소드
 	 * @return
 	 */
-	public void addPlaceList() {
+	public void addPlaceList(String userId) {
 		/*
 		 * 카테고리, 테그의 정보를 입력받는
 		 * 정수형 변수 선언
@@ -81,8 +94,19 @@ public class subView {
 		int category;
 		int tag;
 		
+		
 		Scanner sc = new Scanner(System.in);
-		PL_ListAllDTO place = new PL_ListAllDTO();
+		PL_MyListDTO place = new PL_MyListDTO();
+		//
+		int input = reserveMenu.selectUserInfo(userId);
+		System.out.println();
+		System.out.println("subView  addlist 의 userId : " + userId);
+		System.out.println();
+		place.setUser_no(input);
+		System.out.println();
+		System.out.println("subView 의 userNo : " + listDTO.getUser_no());
+		System.out.println();
+		//
 		
 		do {
 			System.out.println("=========== 장소 추가 ===========");

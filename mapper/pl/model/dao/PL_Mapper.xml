@@ -122,7 +122,7 @@
 	
 	
 <!-- 내 장소 리스트 -->	
-	<resultMap type="pl.model.dto.PL_ListAllDTO" id="myListAllResultMap">
+	<resultMap type="pl.model.dto.PL_MyListDTO" id="myListAllResultMap">
 		<id property="pl_no" column="MY_NO"/>
 		<result property="rownum" column="ROWNUM"/>
 		<result property="pl_name" column="MY_NAME"/>
@@ -130,6 +130,7 @@
 		<result property="pl_tel" column="MY_TEL"/>
 		<result property="score" column="MY_SCORE"/>
 		<result property="pl_reserve" column="MY_RESERVE"/>
+		<result property="user_no" column="USER_NO"/>
 		<collection property="category" resultMap="myCategoryResultMap"/>
 		<collection property="tag" resultMap="myTagResultMap"/>
 	
@@ -145,11 +146,12 @@
 		<result property="tag_name" column="TAG_NAME"/>
 	</resultMap>
 	
-		<select id="selectAllPlace" resultMap="myListAllResultMap">
+		<select id="selectAllPlace" parameterType="_int" resultMap="myListAllResultMap">
 			SELECT * 
 			FROM MY_LIST a
 			JOIN CATEGORY b ON a.MY_CATECODE = b.CATEGORY_CODE
 			JOIN TAG c ON a.MY_TAGCODE = c.TAG_CODE
+			WHERE a.USER_NO = #{ user_no }
 		</select>
 		
 		<update id="updateMyList" parameterType="pl.model.dto.PL_ListAllDTO">
@@ -183,7 +185,7 @@
 			WHERE MY_NO = #{ plNo }
 		</delete>
 			
-		<insert id="insertPlace" parameterType="pl.model.dto.PL_ListAllDTO">
+		<insert id="insertPlace" parameterType="pl.model.dto.PL_MyListDTO">
 			INSERT INTO MY_LIST M
 			(
 			    M.MY_NO ,
@@ -193,7 +195,8 @@
 				M.MY_SCORE ,
 				M.MY_CATECODE ,
 				M.MY_TAGCODE ,
-				M.MY_RESERVE
+				M.MY_RESERVE ,
+				M.USER_NO
 			)
 			VALUES	
 			(
@@ -204,8 +207,8 @@
 				#{ score } ,
 				#{ pl_catecode },
 				#{ pl_tagcode },
-				#{ pl_reserve } 
-				
+				#{ pl_reserve } ,
+				#{ user_no }
 			)
 		</insert>
 
