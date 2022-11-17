@@ -1,6 +1,7 @@
 package pl.model.dto;
 
 public class PL_ReservationDTO {
+	
 	private int reserve_no;
 	private int user_no=1;
 	private int my_no;
@@ -8,7 +9,6 @@ public class PL_ReservationDTO {
 	private String reserve_time;
 	
 	public PL_ReservationDTO() {
-		// reservation테이블의 기본 생성자
 	}  
 
 	public PL_ReservationDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time) {

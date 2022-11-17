@@ -18,6 +18,7 @@ public class PrintUserResult {
 		for(PL_UserDTO user : userList) {
 			System.out.println(user);
 		}
+		
 	}
 	
 	/**
@@ -28,7 +29,9 @@ public class PrintUserResult {
 	 * @Method 설명 : 전달받은 사용자 값을 출력하는 메소드
 	 */
 	public void printUser(PL_UserDTO user) {
+		
 		System.out.println(user);
+		
 	}
 	
 	/**
@@ -39,11 +42,11 @@ public class PrintUserResult {
 	 * @Method 설명 : 사용자가 정보 조회 시 출력되는 사용자 전용 출력 메소드
 	 */
 	public void printMyInfo(PL_UserDTO user) {
+		
 		System.out.println("내 정보 [아이디 = " + user.getUser_id() + ", 비밀번호 = " + user.getUser_pwd() + ", 이름 = "
 				+ user.getUser_name() + ", 전화번호 = " + user.getPhone() + ", 가입일 = " + user.getEnroll_date() + "]");
+		
 	}
-	
-	
 
 	/**
 	 * @Method Name : printSuccessMessage
@@ -69,8 +72,8 @@ public class PrintUserResult {
 				successMessage = "회원 탈퇴 처리에 성공하셨습니다.";
 				break;
 		}
-		
 		System.out.println(successMessage);
+		
 	}
 	
 	/**
@@ -103,10 +106,8 @@ public class PrintUserResult {
 				errorMessage = "회원 탈퇴 처리에 실패하셨습니다.";
 				break;
 		}
-		
 		System.out.println(errorMessage);
+		
 	}
-	
-	
 	
 }

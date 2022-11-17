@@ -1,7 +1,5 @@
-/**
-  * 
-  */
 package pl.view;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +10,6 @@ import pl.controller.PL_Controller;
 import pl.model.dto.PL_ListAllDTO;
 import pl.model.dto.PL_ReservationDTO;
 
-
 /**
  * @FileName : subView.java
  * @Project : NewVeloper_mini
@@ -20,11 +17,11 @@ import pl.model.dto.PL_ReservationDTO;
  * @작성자 : heojaehong
  * @변경이력 :
  * @프로그램 설명 : 서브 메뉴 뷰
-
  */
-public class subView {
+public class PL_ListView {
+	
 	private PL_Controller plController = new PL_Controller();
-	private MoreInfoView mv = new MoreInfoView();
+	private PL_DetailView plDetailView = new PL_DetailView();
 
 	/**
 	 * @Method Name : myPlaceList
@@ -34,6 +31,7 @@ public class subView {
 	 * @Method 설명 : 내 장소의 전체 리스트를 보여주는 메소드
 	 */
 	public void myPlaceList() {
+		
 		/*
 		 * 리스트번호, 입력값을 받는
 		 * 정수형 변수 선언
@@ -56,11 +54,11 @@ public class subView {
 		System.out.println("==============================");
 		System.out.print("번호를 입력하세요 : ");
 		input = sc.nextInt();
-
+		
 		if (input == 0) {
 			return;
 		} else {
-			mv.MoreInfo(placeList.get(input - 1), num);
+			plDetailView.MoreInfo(placeList.get(input - 1), num);
 		}
 
 	}
@@ -74,6 +72,7 @@ public class subView {
 	 * @return
 	 */
 	public void addPlaceList() {
+		
 		/*
 		 * 카테고리, 테그의 정보를 입력받는
 		 * 정수형 변수 선언
@@ -82,6 +81,7 @@ public class subView {
 		int tag;
 		
 		Scanner sc = new Scanner(System.in);
+		
 		PL_ListAllDTO place = new PL_ListAllDTO();
 		
 		do {
@@ -94,8 +94,6 @@ public class subView {
 			place.setPl_tel(sc.nextLine());
 			System.out.print("별점을 입력하세요(1~5) : ");
 			place.setScore(sc.nextInt());
-//			System.out.print("태그를 입력하세요(, 로 공백없이 입력): ");
-//			plTagDTO.setTag_name(sc.next());
 			System.out.println("1. 한식, 2. 중식, 3. 일식, 4. 양식, 5. 분식, 6. 카페&디저트");
 			System.out.println("카테고리를 입력하세요 : ");
 			category = sc.nextInt();
@@ -106,22 +104,50 @@ public class subView {
 			System.out.println("태그를 입력하세요 : ");
 			tag = sc.nextInt();
 			System.out.println("===============================");
+			
 			/* 입력받은 변수마다 카테고리 코드 setter로 저장 */
 			switch (category) {
-			case 1:place.setPl_catecode("C1"); break;
-			case 2:place.setPl_catecode("C2"); break;
-			case 3:place.setPl_catecode("C3"); break;
-			case 4:place.setPl_catecode("C4"); break;
-			case 5:place.setPl_catecode("C5"); break;
-			case 6:place.setPl_catecode("C6"); break;
+				case 1:
+					place.setPl_catecode("C1");
+					break;
+				case 2:
+					place.setPl_catecode("C2");
+					break;
+				case 3:
+					place.setPl_catecode("C3");
+					break;
+				case 4:
+					place.setPl_catecode("C4");
+					break;
+				case 5:
+					place.setPl_catecode("C5");
+					break;
+				case 6:
+					place.setPl_catecode("C6");
+					break;
+				default :
+					System.out.println("잘못 입력했습니다. 기존 값이 유지됩니다.");
 			}
+			
 			/* 입력받은 변수마다 테그코드 setter로 저장 */
 			switch (tag) {
-			case 1:place.setPl_tagcode("T1"); break;
-			case 2:place.setPl_tagcode("T2"); break;
-			case 3:place.setPl_tagcode("T3"); break;
-			case 4:place.setPl_tagcode("T4"); break;
-			case 5:place.setPl_tagcode("T5"); break;
+				case 1:
+					place.setPl_tagcode("T1");
+					break;
+				case 2:
+					place.setPl_tagcode("T2");
+					break;
+				case 3:
+					place.setPl_tagcode("T3");
+					break;
+				case 4:
+					place.setPl_tagcode("T4");
+					break;
+				case 5:
+					place.setPl_tagcode("T5");
+					break;
+				default :
+					System.out.println("잘못 입력했습니다. 기존 값이 유지됩니다.");
 			}
 			if (category >= 1 && category <= 6 && tag >= 1 && tag <= 5) {
 				break;
@@ -133,6 +159,7 @@ public class subView {
 		} while (true);
 
 		plController.addPlaceList(place);
+		
 	}
 
 	public void printReserveList(List<PL_ReservationDTO> reserveList, PL_ListAllDTO pd) {
@@ -142,7 +169,7 @@ public class subView {
 		System.out.println("=============내 예약===============");
 		for (int i = 1; i <= reserveList.size(); i++) {
 			/* 예약된 길이만큼 i를 반복해야함
-			/* if() my_no와 pl_no가 같으면 */
+			* if() my_no와 pl_no가 같으면 */
 			System.out.println(i + ". " + pd.getPl_name());
 			/* dto에서 장소 이름을 받아와야함*/
 		}
@@ -155,20 +182,18 @@ public class subView {
 		if (num == 0) {
 			return;
 		} else if (num <= reserveList.size()) {
-			PL_ReserveMenu rm = new PL_ReserveMenu();
-			rm.reserveInfo();
-
+			PL_ReserveMenu plReserveMenu = new PL_ReserveMenu();
+			plReserveMenu.reserveInfo();
 		} else {
 			System.out.println("잘못 입력하셨습니다.");
-			return;// 이 리턴 어디로 가는건지
+			return;
 		}
 
 	}
 
 	public void printMenu(PL_ReservationDTO menu) {
-		/*
-		 * 변수 선언
-		 */
+		
+		/* 변수 선언 */
 		String year;	// 연도
 		String month;	// 월
 		String day;		// 일
@@ -199,6 +224,7 @@ public class subView {
 
 		int nTime = Integer.parseInt(time);
 		int nMinute = Integer.parseInt(minute);
+		
 		if (nMinute >= 0 && nMinute < 60) {
 			if (nTime > 12 && nTime < 24) {
 				System.out.println("시간 : 오후" + (nTime - 12) + "시 " + nMinute + "분");
@@ -246,18 +272,15 @@ public class subView {
 		System.out.println("====================================");
 		System.out.println("입력하세요 : ");
 		String answer = sc.nextLine().toUpperCase();
+		
 		if (answer.equals("Y")) {
 			plController.fileOut();
-		}else {
+		} else {
 			return;
 		}
+		
 	}
 
-	
-	
-	
-	
-	
 	/**
 	 * @FileName : subView.java
 	 * @Project : NewVeloper_mini
@@ -274,31 +297,29 @@ public class subView {
 		
 		ArrayList<PL_ListAllDTO> placeList = plController.selectAllName();
 
-		if(placeList != null) {
+		if (placeList != null) {
 			System.out.println("=========== 매장명으로 정렬 ===========");
 			for(PL_ListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.println(list.getPl_name());
 			}
+			System.out.println();
+			System.out.println("0. 이전 메뉴로");
 			System.out.println("====================================");
 			System.out.println("원하는 매장번호를 입력하세요 : ");
-			System.out.println("0. 이전 메뉴로");
 			no = sc.nextInt();
-			if(no == 0) {
+			
+			if (no == 0) {
 				return;
-			}
-			else if( no > 0 && no <= placeList.size()){
-				mv.selectOne(placeList,no);
-			}
-			else {
+			} else if ( no > 0 && no <= placeList.size()) {
+				plDetailView.selectOne(placeList,no);
+			} else {
 				System.out.println("잘못 입력하셨습니다 다시 입력하세요 ");
 			}
-			
 		} else {
 			System.out.println("에러발생");
 		}
 
-		
 	}
 
 	/**
@@ -317,27 +338,26 @@ public class subView {
 		
 		ArrayList<PL_ListAllDTO> placeList = plController.selectAllAddress();
 
-		if(placeList != null) {
+		if (placeList != null) {
 			System.out.println("=========== 주소로 정렬 ===========");
 			for(PL_ListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getPl_address());
 			}
-			System.out.println("=================================");
-			System.out.println("원하는 매장번호를 입력하세요 : ");
+			System.out.println();
 			System.out.println("0. 이전 메뉴로");
+			System.out.println("====================================");
+			System.out.println("원하는 매장번호를 입력하세요 : ");
 			no = sc.nextInt();
-			if(no == 0) {
+			
+			if (no == 0) {
 				return;
-			}
-			else if( no > 0 && no <= placeList.size()){
-				mv.selectOne(placeList,no);
-			}
-			else {
+			} else if ( no > 0 && no <= placeList.size()) {
+				plDetailView.selectOne(placeList,no);
+			} else {
 				System.out.println("잘못 입력하셨습니다 다시 입력하세요 ");
 			}
-			
 		} else {
 			System.out.println("에러발생");
 		}
@@ -367,20 +387,19 @@ public class subView {
 				System.out.print(list.getPl_name() + " | ");
 				System.out.println(list.getScore() + "점");
 			}
-			System.out.println("=================================");
-			System.out.println("원하는 매장번호를 입력하세요 : ");
+			System.out.println();
 			System.out.println("0. 이전 메뉴로");
+			System.out.println("====================================");
+			System.out.println("원하는 매장번호를 입력하세요 : ");
 			no = sc.nextInt();
-			if(no == 0) {
+			
+			if (no == 0) {
 				return;
-			}
-			else if( no > 0 && no <= placeList.size()){
-				mv.selectOne(placeList,no);
-			}
-			else {
+			} else if ( no > 0 && no <= placeList.size()) {
+				plDetailView.selectOne(placeList,no);
+			} else {
 				System.out.println("잘못 입력하셨습니다 다시 입력하세요 ");
 			}
-			
 		} else {
 			System.out.println("에러발생");
 		}
@@ -403,7 +422,7 @@ public class subView {
 		
 		ArrayList<PL_ListAllDTO> placeList = plController.selectAllCategory();
 
-		if(placeList != null) {
+		if (placeList != null) {
 			System.out.println("=========== 카테고리로 정렬 ===========");
 			for(PL_ListAllDTO list : placeList) {
 				System.out.print(list.getRownum() + " ");
@@ -414,16 +433,13 @@ public class subView {
 			System.out.println("원하는 매장번호를 입력하세요 : ");
 			System.out.println("0. 이전 메뉴로");
 			no = sc.nextInt();
-			if(no == 0) {
+			if (no == 0) {
 				return;
-			}
-			else if( no > 0 && no <= placeList.size()){
-				mv.selectOne(placeList,no);
-			}
-			else {
+			} else if ( no > 0 && no <= placeList.size()) {
+				plDetailView.selectOne(placeList,no);
+			} else {
 				System.out.println("잘못 입력하셨습니다 다시 입력하세요 ");
 			}
-			
 		} else {
 			System.out.println("에러발생");
 		}

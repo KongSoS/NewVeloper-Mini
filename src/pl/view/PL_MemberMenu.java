@@ -1,6 +1,3 @@
-/**
-  * 
-  */
 package pl.view;
 
 import java.util.Scanner;
@@ -50,11 +47,12 @@ public class PL_MemberMenu {
 			case 0:
 				System.out.println("프로그램을 종료합니다.");
 				return;
-			default:
+			default :
 				System.out.println("잘못 선택하셨습니다. 다시 입력하세요.");
 				break;
 			}
 		} while (true);
+		
 	}
 
 	/**
@@ -133,6 +131,7 @@ public class PL_MemberMenu {
 		String userId = sc.nextLine();
 		
 		return userId;
+		
 	}
 
 	/**
@@ -143,6 +142,7 @@ public class PL_MemberMenu {
 	 * @Method 설명 : 로그인 성공 시 출력될 환영 문구
 	 */
 	public void wellcome() {
+		
 		try {
 			System.out.println(" ____    __     ____  _______  __       __        ______   ______   .___  ___.  _______ ");
 			Thread.sleep(700);
@@ -160,6 +160,6 @@ public class PL_MemberMenu {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 	}
-
 }

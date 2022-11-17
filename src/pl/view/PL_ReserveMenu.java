@@ -10,9 +10,9 @@ import pl.model.dto.PL_ListAndReserveDTO;
 import pl.model.dto.PL_ReservationDTO;
 
 public class PL_ReserveMenu {
+	
 	private PL_Controller controller = new PL_Controller();
 	private PL_ReservationDTO rd = new PL_ReservationDTO();
-	
   
 	/**  
 		* @Title: reserveMine  
@@ -21,8 +21,8 @@ public class PL_ReserveMenu {
 		* @Return: void      
 		* @Throws    
 		*/
-	
 	public void reserveMine() {
+		
 		Scanner sc = new Scanner(System.in);
 		
 		List<PL_ListAndReserveDTO> reserveList = controller.reserveMine();
