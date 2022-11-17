@@ -6,6 +6,7 @@ import java.util.Scanner;
 import pl.controller.PL_Controller;
 import pl.model.dto.PL_ListAndReserveDTO;
 import pl.model.dto.PL_ReservationDTO;
+import pl.model.dto.PL_UserDTO;
 
 public class PL_ReserveMenu {
 	private PL_Controller controller = new PL_Controller();
@@ -103,7 +104,7 @@ public class PL_ReserveMenu {
 			switch (num2) {
 			case "1":
 				rd.setReserve_no(reserve.getReserve_no());
-				rd.setUser_id(reserve.getUser_id());
+				rd.setUser_no(reserve.getUser_no());
 				rd.setMy_no(reserve.getMy_no());
 				rd.setReserve_day(reserve.getReserve_day());
 				rd.setReserve_time(reserve.getReserve_time());
@@ -111,7 +112,7 @@ public class PL_ReserveMenu {
 				break;
 			case "2":
 				rd.setReserve_no(reserve.getReserve_no());
-				rd.setUser_id(reserve.getUser_id());
+				rd.setUser_no(reserve.getUser_no());
 				rd.setMy_no(reserve.getMy_no());
 				rd.setReserve_day(reserve.getReserve_day());
 				rd.setReserve_time(reserve.getReserve_time());
@@ -129,10 +130,14 @@ public class PL_ReserveMenu {
 	
 	public void addReserve(int my_no, String userId) {
 		Scanner sc = new Scanner(System.in);
-		//dto를 넘겨 줄건데 무슨 dto를 쓸지 조금 고민해보고
-		//받아온 dto??? 이걸 받아올 수가 있나?
+//		PL_UserDTO userInfo = new PL_UserDTO();
+//		userInfo.setUser_id(userId);
+//		PL_UserDTO user = controller.selectUserInfo(userInfo);
+		
+//		rd.setUser_id(userId);
+		rd.setUser_no(selectUserInfo(userId));
 		rd.setMy_no(my_no);
-		rd.setUser_id(userId);
+//		rd.setUser_id(userId);
 		//이 클래스는 저장소로부터 불러올 수 있음
 		System.out.println("==========예약하기===========");
 		System.out.println("Ex) 날짜 : 2022/01/01 -> 220101");
@@ -147,8 +152,21 @@ public class PL_ReserveMenu {
 		System.out.println("==============================");
 		//매개변수로 전달해야하나?????????????/
 		controller.addReserve(rd);
+		
 		}
 	
+	public int selectUserInfo (String userId) {
+		//System.out.println(userId);
+		
+		PL_UserDTO userInfo = new PL_UserDTO();
+		userInfo.setUser_id(userId);
+		PL_UserDTO user = controller.selectUserInfo(userInfo);
+		
+//		userInfo.setUser_id(userId);
+		return user.getUser_no();
+		
+		
+	}
 
 	public void editReserve(PL_ReservationDTO rd2) {
 		Scanner sc = new Scanner(System.in);

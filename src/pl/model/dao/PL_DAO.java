@@ -167,6 +167,8 @@ public interface PL_DAO {
 	 * @프로그램 설명 : 
 	 */
 	int updatePlaceList(PL_ListAllDTO place);
+
+	PL_UserDTO selectUserInfo(String userId);
 	
 	
 }

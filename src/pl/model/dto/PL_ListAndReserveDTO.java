@@ -2,8 +2,8 @@ package pl.model.dto;
 
 public class PL_ListAndReserveDTO {
 	private int reserve_no;
-//	private int user_no;
-	private String user_id;
+	private int user_no;
+//	private String user_id;
 	private int my_no;
 	private String reserve_day;
 	private String reserve_time;
@@ -25,16 +25,16 @@ public class PL_ListAndReserveDTO {
 	 * @param listDTO PLlistDTO
 	 * 
 	 */
-//	public PL_ListAndReserveDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time,
-//			PL_ListAllDTO listDTO) {
-//		super();
-//		this.reserve_no = reserve_no;
-//		this.user_no = user_no;
-//		this.my_no = my_no;
-//		this.reserve_day = reserve_day;
-//		this.reserve_time = reserve_time;
-//		this.listDTO = listDTO;
-//	}
+	public PL_ListAndReserveDTO(int reserve_no, int user_no, int my_no, String reserve_day, String reserve_time,
+			PL_ListAllDTO listDTO) {
+		super();
+		this.reserve_no = reserve_no;
+		this.user_no = user_no;
+		this.my_no = my_no;
+		this.reserve_day = reserve_day;
+		this.reserve_time = reserve_time;
+		this.listDTO = listDTO;
+	}
 
 	/**
 	 * @param reserve_no
@@ -55,16 +55,16 @@ public class PL_ListAndReserveDTO {
 
 
 
-	public PL_ListAndReserveDTO(int reserve_no, String user_id, int my_no, String reserve_day, String reserve_time,
-			PL_ListAllDTO listDTO) {
-		super();
-		this.reserve_no = reserve_no;
-		this.user_id = user_id;
-		this.my_no = my_no;
-		this.reserve_day = reserve_day;
-		this.reserve_time = reserve_time;
-		this.listDTO = listDTO;
-	}
+//	public PL_ListAndReserveDTO(int reserve_no, String user_id, int my_no, String reserve_day, String reserve_time,
+//			PL_ListAllDTO listDTO) {
+//		super();
+//		this.reserve_no = reserve_no;
+//		this.user_id = user_id;
+//		this.my_no = my_no;
+//		this.reserve_day = reserve_day;
+//		this.reserve_time = reserve_time;
+//		this.listDTO = listDTO;
+//	}
 
 	/**
 	 * @return the listDTO
@@ -90,16 +90,16 @@ public class PL_ListAndReserveDTO {
 	/**
 	 * @return the user_no
 	 */
-//	public int getUser_no() {
-//		return user_no;
-//	}
-//
-//	/**
-//	 * @param user_no the user_no to set
-//	 */
-//	public void setUser_no(int user_no) {
-//		this.user_no = user_no;
-//	}
+	public int getUser_no() {
+		return user_no;
+	}
+
+	/**
+	 * @param user_no the user_no to set
+	 */
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
+	}
 
 	/**
 	 * @return the my_no
@@ -108,13 +108,13 @@ public class PL_ListAndReserveDTO {
 		return my_no;
 	}
 
-	public String getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
+//	public String getUser_id() {
+//		return user_id;
+//	}
+//
+//	public void setUser_id(String user_id) {
+//		this.user_id = user_id;
+//	}
 
 	/**
 	 * @param my_no the my_no to set
