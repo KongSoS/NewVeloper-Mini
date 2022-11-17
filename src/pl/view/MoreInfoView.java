@@ -25,6 +25,7 @@ public class MoreInfoView {
 	private PL_ReservationDTO rd = new PL_ReservationDTO();
 
 	/**
+	 * @param userId 
 	 * @Method Name : MoreInfo
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : heojaehong
@@ -33,8 +34,8 @@ public class MoreInfoView {
 	 * @param
 	 */
 
-	public void MoreInfo(PL_ListAllDTO place) {
-
+	public void MoreInfo(PL_ListAllDTO place, String userId) {
+//		public void MoreInfo(PL_ListAllDTO place) {
 		int num;
 		
 		Scanner sc = new Scanner(System.in);
@@ -65,7 +66,8 @@ public class MoreInfoView {
 		switch (num) {
 		case 1:updateMyList(place); break;
 		case 2:plController.deleteMyList(place.getPl_no()); break;
-		case 3:rm.addReserve(place.getPl_no());
+//		case 3:rm.addReserve(place.getPl_no());
+		case 3:rm.addReserve(place.getPl_no(), userId);
 		case 9:return;
 		//case 0:new PLMenu().mainMenu(); break;
 

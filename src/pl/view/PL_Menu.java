@@ -41,7 +41,8 @@ public class PL_Menu {
 				selectSort();
 				break;
 			case 2:
-				sv.myPlaceList();
+	//			sv.myPlaceList();
+				sv.myPlaceList(userId);
 				break;
 			case 3:
 				sv.addPlaceList();

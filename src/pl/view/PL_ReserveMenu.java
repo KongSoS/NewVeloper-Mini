@@ -71,7 +71,7 @@ public class PL_ReserveMenu {
 //			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E요일");
 //
 //			System.out.println("날짜 : " + sdf.format(reDay));
-			System.out.println("날짜 : " + reserve.getReserve_day().substring(0, 9));
+			System.out.println("날짜 : " + reserve.getReserve_day().substring(0, 10));
 			String time = reserve.getReserve_time().substring(0, 2);
 			String minute = reserve.getReserve_time().substring(2);
 
@@ -79,10 +79,11 @@ public class PL_ReserveMenu {
 			int nMinute = Integer.parseInt(minute);
 			if (nMinute >= 0 && nMinute < 60) {
 				if (nTime > 12 && nTime < 24) {
-					System.out.println("시간 : 오후" + (nTime - 12) + "시 " + nMinute + "분");
-				} else if (nTime >= 0 && nTime <= 12) {
-					System.out.println("시간 : 오전" + nTime + "시 " + nMinute + "분");
-				}
+					System.out.println("시간 : 오후 " + (nTime - 12) + "시 " + nMinute + "분");
+				} else if (nTime >= 0 && nTime < 12) {
+					System.out.println("시간 : 오전 " + nTime + "시 " + nMinute + "분");
+				}else if(nTime==12)
+					System.out.println("시간 : 오후 " + nTime + "시 " + nMinute + "분");
 			} else {
 				System.out.println("다시 입력해주세요");
 				return;
@@ -102,7 +103,7 @@ public class PL_ReserveMenu {
 			switch (num2) {
 			case "1":
 				rd.setReserve_no(reserve.getReserve_no());
-				rd.setUser_no(reserve.getUser_no());
+				rd.setUser_id(reserve.getUser_id());
 				rd.setMy_no(reserve.getMy_no());
 				rd.setReserve_day(reserve.getReserve_day());
 				rd.setReserve_time(reserve.getReserve_time());
@@ -110,7 +111,7 @@ public class PL_ReserveMenu {
 				break;
 			case "2":
 				rd.setReserve_no(reserve.getReserve_no());
-				rd.setUser_no(reserve.getUser_no());
+				rd.setUser_id(reserve.getUser_id());
 				rd.setMy_no(reserve.getMy_no());
 				rd.setReserve_day(reserve.getReserve_day());
 				rd.setReserve_time(reserve.getReserve_time());
@@ -126,25 +127,26 @@ public class PL_ReserveMenu {
 		}
 		
 	
-	public void addReserve(int my_no) {
+	public void addReserve(int my_no, String userId) {
 		Scanner sc = new Scanner(System.in);
 		//dto를 넘겨 줄건데 무슨 dto를 쓸지 조금 고민해보고
 		//받아온 dto??? 이걸 받아올 수가 있나?
-		//에서 입력받은 값으로set 해주고 
+		rd.setMy_no(my_no);
+		rd.setUser_id(userId);
 		//이 클래스는 저장소로부터 불러올 수 있음
 		System.out.println("==========예약하기===========");
 		System.out.println("Ex) 날짜 : 2022/01/01 -> 220101");
 		System.out.println("Ex) 시간 : 오후 2시 반 -> 1430");
 		System.out.print("날짜 : ");
-		String day = sc.nextLine();
+		rd.setReserve_day(sc.nextLine());
 		//이거 스트링으로 받아도 되는건가
 		System.out.println();
 		System.out.print("시간 : ");
-		String time = sc.nextLine();
+		rd.setReserve_time(sc.nextLine());
 		System.out.println();
 		System.out.println("==============================");
 		//매개변수로 전달해야하나?????????????/
-		controller.addReserve(my_no, day, time);
+		controller.addReserve(rd);
 		}
 	
 

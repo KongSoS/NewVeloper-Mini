@@ -448,14 +448,13 @@ public class PL_Controller {
 			
 	}
 
-	public void addReserve(int num, String day, String time) {
+//	public void addReserve(int num, String day, String time) {
+	public void addReserve(PL_ReservationDTO rd) {
 		// TODO Auto-generated method stub
-		PL_ReservationDTO re = new PL_ReservationDTO();
-		re.setMy_no(num);
-		re.setReserve_day(day);
-		re.setReserve_time(time);
 		
-		if(plService.addReserve(re)) {
+
+		
+		if(plService.addReserve(rd)) {
 			System.out.println("예약 성공");
 		} else {
 			System.out.println("예약 실패");
@@ -532,4 +531,6 @@ public class PL_Controller {
 		plService.updatePlaceList(place);
 		
 	}
+
+	
 }

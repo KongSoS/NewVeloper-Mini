@@ -24,13 +24,15 @@ public class subView {
 	private MoreInfoView mv = new MoreInfoView();
 
 	/**
+	 * @param userId 
 	 * @Method Name : myPlaceList
 	 * @작성일 : 2022. 11. 15.
 	 * @작성자 : heojaehong
 	 * @변경이력 :
 	 * @Method 설명 : 내 장소의 전체 리스트를 보여주는 메소드
 	 */
-	public void myPlaceList() {
+//	public void myPlaceList() {
+	public void myPlaceList(String userId) {
 		/*
 		 * 리스트번호, 입력값을 받는
 		 * 정수형 변수 선언
@@ -57,7 +59,8 @@ public class subView {
 		if (input == 0) {
 			return;
 		} else {
-			mv.MoreInfo(placeList.get(input - 1));
+			mv.MoreInfo(placeList.get(input - 1), userId);
+//			mv.MoreInfo(placeList.get(input - 1));
 		}
 
 	}

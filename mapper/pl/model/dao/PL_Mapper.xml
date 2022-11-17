@@ -212,7 +212,8 @@
 <!-- 내 예약 리스트 -->		
 	<resultMap type = "pl.model.dto.PL_ListAndReserveDTO" id = "reserveResultMap">
 			<id property = "reserve_no" column = "RESERVE_NO"/>
-			<result property = "user_no" column ="USER_NO"/>
+<!-- 			<result property = "user_no" column ="USER_NO"/> -->
+<result property = "user_id" column ="USER_ID"/>
 			<result property = "my_no" column ="MY_NO"/>
 			<result property = "reserve_day" column ="RESERVE_DAY"/>
 			<result property = "reserve_time" column ="RESERVE_TIME"/>
@@ -267,7 +268,7 @@
 	        A.RESERVE_NO
 	        , A.RESERVE_DAY
 	        , A.RESERVE_TIME
-	        , A.USER_NO
+	        , A.USER_ID
 	        , A.MY_NO
 	        )
 	        VALUES
@@ -275,7 +276,7 @@
 	          SEQ_RESERVE_NO.NEXTVAL
 	        , #{ reserve_day }
 	        , #{ reserve_time }
-	        , #{ user_no }
+	        , #{ user_id }
 	        , #{ my_no }
 	        )
 		</insert>
