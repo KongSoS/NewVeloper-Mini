@@ -33,7 +33,7 @@ public class MoreInfoView {
 	 * @param
 	 */
 
-	public void MoreInfo(PL_ListAllDTO place, int no) {
+	public void MoreInfo(PL_ListAllDTO place) {
 
 		int num;
 		
@@ -65,7 +65,7 @@ public class MoreInfoView {
 		switch (num) {
 		case 1:updateMyList(place); break;
 		case 2:plController.deleteMyList(place.getPl_no()); break;
-		case 3:rm.addReserve(no);
+		case 3:rm.addReserve(place.getPl_no());
 		case 9:return;
 		//case 0:new PLMenu().mainMenu(); break;
 

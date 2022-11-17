@@ -230,8 +230,10 @@
 	</resultMap>
 		<select id = "reserveMine" resultMap = "reserveResultMap">
 			SELECT
-					A. RESERVE_NO AS 예약번호
-					, B. MY_NAME AS 매장명
+	--				A. RESERVE_NO AS 예약번호
+	--				, B. MY_NAME AS 매장명
+	A.*
+	,B.*
 				FROM RESERVATION A
 				JOIN MY_LIST B
 				ON A.MY_NO = B.MY_NO
@@ -243,9 +245,11 @@
 	
 		<select id = "reserveInfo" parameterType="_int" resultMap = "reserveResultMap">
 			SELECT
-					A. MY_NAME
-					, TO_CHAR(TO_DATE(B. RESERVE_DAY,'YYMMDD'),'RRRR-MM-DD') AS 예약일
-					, B. RESERVE_TIME
+				--	A. MY_NAME
+				--	, TO_CHAR(TO_DATE(B. RESERVE_DAY,'YYMMDD'),'RRRR-MM-DD') AS 예약일
+				--	, B. RESERVE_TIME
+				A.*
+				,B.*
 				FROM MY_LIST A
 				JOIN RESERVATION B
 				ON A.MY_NO = B.MY_NO
@@ -271,7 +275,7 @@
 	          SEQ_RESERVE_NO.NEXTVAL
 	        , #{ reserve_day }
 	        , #{ reserve_time }
-	        , 1
+	        , #{ user_no }
 	        , #{ my_no }
 	        )
 		</insert>
@@ -280,7 +284,7 @@
 	       UPDATE RESERVATION
 	        SET
 	      
-	      , RESERVE_DAY =#{ reserve_day }
+	      RESERVE_DAY =#{ reserve_day }
 	        , RESERVE_TIME=#{ reserve_time }
 	        WHERE RESERVE_NO=#{ reserve_no }
 	        
