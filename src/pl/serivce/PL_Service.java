@@ -117,22 +117,33 @@ public class PL_Service {
 }
 
 
-	public PL_ListAndReserveDTO reserveInfo(int num) {
+	public void reserveInfo(PL_ListAndReserveDTO reserve) {
 		SqlSession session = getSession();
 	
 		mapper = session.getMapper(PL_DAO.class);
-		PL_ListAndReserveDTO menu = mapper.reserveInfo(num);
+		mapper.reserveInfo(reserve);
 	
 		session.close();
 	
-		return menu;
+		
 	}
+//public MenuDTO selectMenuByCode(int code) {
+//		
+//		SqlSession sqlSession = getSqlSession();
+//		
+//		MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+//		MenuDTO menu = menuMapper.selectMenuByCode(code);
+//		
+//		sqlSession.close();
+//		
+//		return menu;
+//	}
 
-	public boolean editReserve(PL_ReservationDTO re) {
+	public boolean editReserve(PL_ReservationDTO rd2) {
 		SqlSession session = getSession();
 	
 		mapper = session.getMapper(PL_DAO.class);
-		int result = mapper.editReserve(re);
+		int result = mapper.editReserve(rd2);
 	
 		if(result > 0) {
 			session.commit();

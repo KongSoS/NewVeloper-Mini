@@ -75,9 +75,9 @@ public interface PL_DAO {
 
 	List<PL_ListAndReserveDTO> reserveMine();
 
-	PL_ListAndReserveDTO reserveInfo(int num);
+	PL_ListAndReserveDTO reserveInfo(PL_ListAndReserveDTO reserve);
 
-	int editReserve(PL_ReservationDTO re);
+	int editReserve(PL_ReservationDTO rd2);
 
 	int cancelReserve(int num);
 

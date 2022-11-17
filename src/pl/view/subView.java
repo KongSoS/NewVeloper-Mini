@@ -2,15 +2,12 @@
   * 
   */
 package pl.view;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import pl.controller.PL_Controller;
 import pl.model.dto.PL_ListAllDTO;
-import pl.model.dto.PL_ReservationDTO;
 
 
 /**
@@ -60,7 +57,7 @@ public class subView {
 		if (input == 0) {
 			return;
 		} else {
-			mv.MoreInfo(placeList.get(input - 1), num);
+			mv.MoreInfo(placeList.get(input - 1));
 		}
 
 	}
@@ -135,99 +132,7 @@ public class subView {
 		plController.addPlaceList(place);
 	}
 
-	public void printReserveList(List<PL_ReservationDTO> reserveList, PL_ListAllDTO pd) {
-		
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println("=============내 예약===============");
-		for (int i = 1; i <= reserveList.size(); i++) {
-			/* 예약된 길이만큼 i를 반복해야함
-			/* if() my_no와 pl_no가 같으면 */
-			System.out.println(i + ". " + pd.getPl_name());
-			/* dto에서 장소 이름을 받아와야함*/
-		}
-		System.out.println("0. 이전 메뉴로");
-		System.out.println("=================================");
-		System.out.print("번호를 입력하세요 : ");
-		int num = sc.nextInt();
-		System.out.println();
-
-		if (num == 0) {
-			return;
-		} else if (num <= reserveList.size()) {
-			PL_ReserveMenu rm = new PL_ReserveMenu();
-			rm.reserveInfo();
-
-		} else {
-			System.out.println("잘못 입력하셨습니다.");
-			return;// 이 리턴 어디로 가는건지
-		}
-
-	}
-
-	public void printMenu(PL_ReservationDTO menu) {
-		/*
-		 * 변수 선언
-		 */
-		String year;	// 연도
-		String month;	// 월
-		String day;		// 일
-		String time; 	//
-		String minute;
-		int nYear;		// 연도를 정수로 변환한 값을 저장하는 변수
-		int nMonth;		// 월를 정수로 변환한 값을 저장하는 변수
-		int nDay;		// 일를 정수로 변환한 값을 저장하는 변수
-		
-		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("==============예약정보==============");
-		System.out.println("가게 이름 : "/* +getPLName(num) */);
-		/* 가게 이름을 소환해야함 */
-		year = menu.getReserve_day().substring(0, 2);
-		month = menu.getReserve_day().substring(2, 2);
-		day = menu.getReserve_day().substring(4);
-		nYear = Integer.parseInt(year);
-		nMonth = Integer.parseInt(month);
-		nDay = Integer.parseInt(day);
-		Date reDay = new Date(nYear - 1900, nMonth - 1, nDay);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E요일");
-
-		System.out.println("날짜 : " + sdf.format(reDay));
-
-		time = menu.getReserve_time().substring(0, 2);
-		minute = menu.getReserve_time().substring(2);
-
-		int nTime = Integer.parseInt(time);
-		int nMinute = Integer.parseInt(minute);
-		if (nMinute >= 0 && nMinute < 60) {
-			if (nTime > 12 && nTime < 24) {
-				System.out.println("시간 : 오후" + (nTime - 12) + "시 " + nMinute + "분");
-			} else if (nTime >= 0 && nTime <= 12) {
-				System.out.println("시간 : 오전" + nTime + "시 " + nMinute + "분");
-			}
-		} else {
-			System.out.println("다시 입력해주세요");
-			return;
-		}
-
-		System.out.println();
-		System.out.println("1. 예약 변경");
-		System.out.println("2. 예약 취소");
-		System.out.println("0. 이전 메뉴로");
-		System.out.println("00. 메인 메뉴로");
-		System.out.println("=================================");
-		System.out.print("번호를 입력하세요 : ");
-
-		String num2 = sc.next();
-		System.out.println();
-		PL_ReserveMenu rm = new PL_ReserveMenu();
-		switch (num2) {
-		case "1":rm.editReserve(); break;
-		case "2":rm.cancelReserve(); break;
-		case "0": return;
-		default:System.out.println("잘못 입력하셨습니다"); return;
-		}
-	}
+	
 
 	/**
 	 * @param placDTO 

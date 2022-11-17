@@ -1,7 +1,5 @@
 package pl.view;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,7 +10,7 @@ import pl.model.dto.PL_ReservationDTO;
 public class PL_ReserveMenu {
 	private PL_Controller controller = new PL_Controller();
 	private PL_ReservationDTO rd = new PL_ReservationDTO();
-	
+	private PL_ListAndReserveDTO rl = new PL_ListAndReserveDTO();
   
 	/**  
 		* @Title: reserveMine  
@@ -31,7 +29,7 @@ public class PL_ReserveMenu {
 		for (int i = 1; i <= reserveList.size(); i++) {
 			// 예약된 길이만큼 i를 반복해야함
 			// if() my_no와 pl_no가 같으면
-			System.out.println(i + ". " + reserveList.get(i-1));
+			System.out.println(i + ". " + reserveList.get(i-1).getListDTO().getPl_name());
 			// dto에서 장소 이름을 받아와야함
 		}//List<PLReservationDTO> reserveList, PLMyListDTO pd
 		System.out.println("0. 이전 메뉴로");
@@ -44,7 +42,8 @@ public class PL_ReserveMenu {
 			return;
 		} else if (num <= reserveList.size()) {
 			PL_ReserveMenu rm = new PL_ReserveMenu();
-			rm.reserveInfo();
+			
+			rm.reserveInfo(reserveList.get(num-1));
 
 		} else {
 			System.out.println("잘못 입력하셨습니다.");
@@ -52,29 +51,29 @@ public class PL_ReserveMenu {
 		}
 	}
 	
-	public void reserveInfo() {
+	public void reserveInfo(PL_ListAndReserveDTO reserve) {
 		Scanner sc = new Scanner(System.in);
 
 //		//시간 형태 받는 것도 고민해봐야함
 		
 		
-			PL_ListAndReserveDTO menu= controller.reserveInfo(rd.getReserve_no());
+			controller.reserveInfo(reserve);
 			System.out.println("==============예약정보==============");
-			System.out.println("가게 이름 : "+menu.getListDTO().getPl_name());
+			System.out.println("가게 이름 : "+reserve.getListDTO().getPl_name());
 			// 가게 이름을 소환해야함
-			String year = menu.getReserve_day().substring(0, 2);
-			String month = menu.getReserve_day().substring(2, 2);
-			String day = menu.getReserve_day().substring(4);
-			int nYear = Integer.parseInt(year);
-			int nMonth = Integer.parseInt(month);
-			int nDay = Integer.parseInt(day);
-			Date reDay = new Date(nYear - 1900, nMonth - 1, nDay);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E요일");
-
-			System.out.println("날짜 : " + sdf.format(reDay));
-
-			String time = menu.getReserve_time().substring(0, 2);
-			String minute = menu.getReserve_time().substring(2);
+//			String year = reserve.getReserve_day().substring(0, 1);
+//			String month = reserve.getReserve_day().substring(2, 3);
+//			String day = reserve.getReserve_day().substring(4);
+//			int nYear = Integer.parseInt(year);
+//			int nMonth = Integer.parseInt(month);
+//			int nDay = Integer.parseInt(day);
+//			Date reDay = new Date(nYear - 1900, nMonth - 1, nDay);
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E요일");
+//
+//			System.out.println("날짜 : " + sdf.format(reDay));
+			System.out.println("날짜 : " + reserve.getReserve_day().substring(0, 9));
+			String time = reserve.getReserve_time().substring(0, 2);
+			String minute = reserve.getReserve_time().substring(2);
 
 			int nTime = Integer.parseInt(time);
 			int nMinute = Integer.parseInt(minute);
@@ -99,13 +98,23 @@ public class PL_ReserveMenu {
 
 			String num2 = sc.next();
 			System.out.println();
-			PL_ReserveMenu rm = new PL_ReserveMenu();
+			
 			switch (num2) {
 			case "1":
-				rm.editReserve();
+				rd.setReserve_no(reserve.getReserve_no());
+				rd.setUser_no(reserve.getUser_no());
+				rd.setMy_no(reserve.getMy_no());
+				rd.setReserve_day(reserve.getReserve_day());
+				rd.setReserve_time(reserve.getReserve_time());
+				editReserve(rd);
 				break;
 			case "2":
-				rm.cancelReserve();
+				rd.setReserve_no(reserve.getReserve_no());
+				rd.setUser_no(reserve.getUser_no());
+				rd.setMy_no(reserve.getMy_no());
+				rd.setReserve_day(reserve.getReserve_day());
+				rd.setReserve_time(reserve.getReserve_time());
+				cancelReserve(rd);
 				break;
 			case "0":
 				return;
@@ -119,7 +128,9 @@ public class PL_ReserveMenu {
 	
 	public void addReserve(int my_no) {
 		Scanner sc = new Scanner(System.in);
-		
+		//dto를 넘겨 줄건데 무슨 dto를 쓸지 조금 고민해보고
+		//받아온 dto??? 이걸 받아올 수가 있나?
+		//에서 입력받은 값으로set 해주고 
 		//이 클래스는 저장소로부터 불러올 수 있음
 		System.out.println("==========예약하기===========");
 		System.out.println("Ex) 날짜 : 2022/01/01 -> 220101");
@@ -137,25 +148,24 @@ public class PL_ReserveMenu {
 		}
 	
 
-	public void editReserve() {
+	public void editReserve(PL_ReservationDTO rd2) {
 		Scanner sc = new Scanner(System.in);
 		
 		 System.out.println("=============예약 변경==========");
 		 System.out.println("Ex) 날짜 : 2022/01/01 -> 220101");
 		 System.out.println("Ex) 시간 : 오후 2시 반 -> 1430");
 		 System.out.print("날짜 : ");
-		 String day = sc.nextLine();
-
+		 rd2.setReserve_day(sc.nextLine());
 		 System.out.println();
 		 System.out.print("시간 : ");
-		 String time = sc.nextLine();
+		 rd2.setReserve_time(sc.nextLine());
 		 System.out.println();
 		 System.out.println("==============================");
 		 
-		 controller.editReserve(rd.getReserve_no(), day, time);
+		 controller.editReserve(rd2);
 	}
 	
-	public void cancelReserve() {
+	public void cancelReserve(PL_ReservationDTO rd2) {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("===========예약 =============");
@@ -164,10 +174,10 @@ public class PL_ReserveMenu {
 		System.out.println("============================");
 		switch(cancel) {
 		case 'y', 'Y':
-			controller.cancelReserve(rd.getReserve_no());
+			controller.cancelReserve(rd2.getReserve_no());
 			break;
 		case 'n', 'N':
-			reserveInfo();
+			reserveInfo(rl);
 			break;
 		default:
 			System.out.println("잘못 입력하셨습니다.");
