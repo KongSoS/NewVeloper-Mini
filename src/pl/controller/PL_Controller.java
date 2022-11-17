@@ -254,9 +254,7 @@ public class PL_Controller {
 
 	public List<PL_ListAndReserveDTO> reserveMine() {
 		
-		PL_ListView print = new PL_ListView();
 		List<PL_ListAndReserveDTO> reserveList = plService.reserveMine();
-		PL_ListAllDTO pd = new PL_ListAllDTO();
 		
 		if (reserveList != null) {
 			System.out.println("예약 목록 조회 성공");
